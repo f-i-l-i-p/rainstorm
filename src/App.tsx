@@ -1,10 +1,14 @@
 import React from 'react';
 import './App.css';
-import SearchView from './geocode/Components/SearchView';
+import SearchView from './geocode/components/SearchView';
+import WeatherView from './weather/components/WeatherView';
 
 function App() {
   return (
-    <SearchView />
+    <div>
+      <SearchView />
+      <WeatherView />
+    </div>
   );
 }
 

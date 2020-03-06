@@ -4,7 +4,7 @@ export default async function fetchILocations(location: string): Promise<ILocati
     const result = await fetch('https://geocode.xyz/' + location + '?json=1');
 
     if (result.ok !== true) {
-        console.error('Response error! status: ' + result.status);
+        console.error('Geocode response error! status: ' + result.status);
         return [];
     }
 

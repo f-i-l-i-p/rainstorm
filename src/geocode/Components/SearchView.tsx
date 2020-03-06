@@ -1,5 +1,5 @@
 import React from "react";
-import { TextField, Card, Paper } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 import { ILocation } from "../types";
 import fetchILocation from "../search"
 
