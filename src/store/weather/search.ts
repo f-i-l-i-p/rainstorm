@@ -36,6 +36,8 @@ function SMHIToITimePoints(json: any): ITimePoint[] {
 
             timePoints.push({
                 time: new Date(element['validTime']),
+                // Weather parameter descriptions can be found at:
+                // https://opendata.smhi.se/apidocs/metfcst/parameters.html#parameter-table
                 weather: {
                     temperature: par[1]['values'][0],
                     wind: par[4]['values'][0],
