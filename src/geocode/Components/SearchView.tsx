@@ -75,6 +75,9 @@ class SearchView extends React.Component<ISearchPageProps, ISearchPageState> {
                 {this.state.LocationResults.map((location, index) => (
                     <div>
                         {location.name}
+                        {location.country}
+                        {location.lat}
+                        {location.long}
                     </div>
                 ))}
             </div>

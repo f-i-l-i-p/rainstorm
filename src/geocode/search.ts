@@ -13,19 +13,19 @@ export default async function fetchILocations(location: string): Promise<ILocati
 
 // Converts JSON data from geocode.xyz to an ILocation array
 function toILocations(json: any): ILocation[] {
-    if (json['error']) {
-        console.log("error");
+    if (json['error'])
         return [];
-    }
 
     try {
+        var loc = json['alt']['loc'];
+
         let location: ILocation = {
-            name: json['alt']['loc']['city'],
-            lat: 0,
-            long: 0,
+            country: loc['countryname'],
+            name: loc['city'],
+            lat: Number(loc['latt']),
+            long: Number(loc['longt']),
             alt: 0,
         }
-        console.log('success');
         return [location];
     }
     catch (error) {
