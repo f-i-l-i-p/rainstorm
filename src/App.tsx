@@ -5,7 +5,7 @@ import WeatherView from './weather/components/WeatherView';
 
 function App() {
   return (
-    <div>
+    <div id="app">
       <SearchView />
       <WeatherView />
     </div>

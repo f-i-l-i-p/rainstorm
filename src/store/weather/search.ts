@@ -3,7 +3,7 @@ import { IForecast, ITimePoint, IWeatherProvider } from "./types";
 
 
 export default async function collectWeatherData(lat: string, long: string): Promise<IForecast[]> {
-    return [await fetchSMHIWeather(lat, long)];
+    return [await fetchSMHIWeather(lat, long), await fetchMETWeather(lat, long)];
 }
 
 // Fetches weather data from SMHI
@@ -31,7 +31,6 @@ function SMHIToITimePoints(json: any): ITimePoint[] {
         var ts = json['timeSeries'];
 
         ts.forEach((element: any) => {
-            console.log(element);
             const par = element['parameters']
 
             timePoints.push({
@@ -53,4 +52,14 @@ function SMHIToITimePoints(json: any): ITimePoint[] {
     console.log(timePoints);
 
     return timePoints;
+}
+
+// Fetches weather data from SMHI
+async function fetchMETWeather(lat: string, long: string): Promise<IForecast> {
+    return fetchSMHIWeather(lat, long);
+}
+
+// Converts JSON data from SMHI to an ITimePoint array
+function METToITimePoints(json: any): ITimePoint[] {
+    return SMHIToITimePoints(json);
 }
