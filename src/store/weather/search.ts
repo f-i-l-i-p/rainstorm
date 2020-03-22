@@ -13,7 +13,7 @@ async function fetchSMHIWeather(lat: string, long: string): Promise<IForecast> {
     if (result.ok !== true) {
         console.error('Weather response error! status: ' + result.status);
     }
-
+    
     return {
         weatherProvider: {
             name: 'SMHI',
@@ -38,8 +38,8 @@ function SMHIToITimePoints(json: any): ITimePoint[] {
                 // Weather parameter descriptions can be found at:
                 // https://opendata.smhi.se/apidocs/metfcst/parameters.html#parameter-table
                 weather: {
-                    temperature: par[1]['values'][0],
-                    wind: par[4]['values'][0],
+                    temperature: par[11]['values'][0],
+                    wind: par[14]['values'][0],
                     symbol: par[18]['values'][0],
                 }
             });
@@ -61,5 +61,5 @@ async function fetchMETWeather(lat: string, long: string): Promise<IForecast> {
 
 // Converts JSON data from SMHI to an ITimePoint array
 function METToITimePoints(json: any): ITimePoint[] {
-    return SMHIToITimePoints(json);
+    return [];
 }
