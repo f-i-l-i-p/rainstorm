@@ -1,14 +1,16 @@
-import React, { StrictMode } from "react";
+import React, { StrictMode, Fragment } from "react";
 import collectWeatherData from "../../store/weather/search";
-import { IForecast, ITimePoint } from "../../store/weather/types";
+import { IForecast, ITimePoint, IWeather } from "../../store/weather/types";
 import { findByLabelText } from "@testing-library/react";
+import { Paper, Grid } from "@material-ui/core";
+import createTable from "./WeatherTable";
 
 interface IWeatherViewProps {
 }
 
 interface IWeatherViewState {
     times: Date[],
-    Forecasts: IForecast[],
+    forecasts: IForecast[],
 }
 
 class WeatherView extends React.Component<IWeatherViewProps, IWeatherViewState> {
@@ -17,7 +19,7 @@ class WeatherView extends React.Component<IWeatherViewProps, IWeatherViewState> 
 
         this.state = {
             times: this.getTimes(5, 1000 * 60 * 60),
-            Forecasts: [],
+            forecasts: [],
         }
     }
 
@@ -46,7 +48,7 @@ class WeatherView extends React.Component<IWeatherViewProps, IWeatherViewState> 
 
         this.setState({
             ...this.state,
-            Forecasts: weather,
+            forecasts: weather,
         });
     }
 
@@ -57,7 +59,9 @@ class WeatherView extends React.Component<IWeatherViewProps, IWeatherViewState> 
                 display: "flex",
                 flexDirection: "row",
             }}>
-                {this.state.times.map(time => renderTimePoints(time, this.state.Forecasts))}
+                {/* {this.state.times.map(time => renderTimePoints(time, this.state.Forecasts))}
+                {RenderedWeather(this.state.times, this.state.Forecasts)} */}
+                {createTable(this.state.times, this.state.forecasts)}
             </ div>
         );
     }
@@ -108,5 +112,61 @@ function renderTimePointWeather(timePoint: ITimePoint): JSX.Element {
     );
 }
 
+
+function RenderedWeather(times: Date[], forecasts: IForecast[]): JSX.Element {
+
+    function FormWeatherCell(targetTime: Date, forecast: IForecast): JSX.Element {
+
+        let weather: IWeather | null = null;
+
+        for (let i = 0; i < forecast.times.length; i++) {
+            if (forecast.times[i].time.getTime() === targetTime.getTime()) {
+                weather = forecast.times[i].weather;
+                break;
+            }
+        }
+
+        return (
+            <Grid item xs={4} style={{ backgroundColor: "orange" }}>
+                {weather == null ? <p>No data</p> : <p>found data</p>
+                    // <div>
+                    //     style={{
+                    //         display: "flex",
+                    //         alignItems: "center",
+                    //         flexDirection: "column",
+                    //         border: "1px solid gray",
+                    //         padding: "1ch 5ch",
+                    //         whiteSpace: "nowrap"
+                    //     }}>
+                    //     <p>{weather.temperature}°C</p>
+                    //     <p>{weather.wind} m/s</p>
+                    //     <p>{weather.symbol}</p>
+                    // </div>}
+                }
+            </Grid>
+        );
+    }
+
+    function FormRow(times: Date[], forecast: IForecast): JSX.Element {
+        return (
+            <div>
+                {times.map(time => FormWeatherCell(time, forecast))}
+            </div>
+        );
+    }
+
+
+    const test = 8;
+
+    return (
+        <div
+            style={{
+                display: "grid",
+                gridTemplateColumns: test,
+            }}>
+            {forecasts.map(forecast => FormRow(times, forecast))}
+        </div >
+    );
+}
 
 export default WeatherView;
