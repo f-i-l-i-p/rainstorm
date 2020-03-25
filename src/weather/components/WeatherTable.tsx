@@ -1,17 +1,21 @@
 import React, { Fragment } from "react";
 import CSS from 'csstype';
 import { IForecast, ITimePoint, IWeather, IWeatherProvider } from "../../store/weather/types";
-
+import { ReactComponent as TestSvg } from "../../icons/1.svg";
 
 const _gridStyle: CSS.Properties = {
     display: 'grid',
-    gridRowGap: '5px',
-    gridColumnGap: '5px',
     padding: '10px',
+    gridRowGap: "20px",
+}
+
+const _rowStyle: CSS.Properties = {
+    boxShadow: "0 4px 15px 0 rgba(0, 0, 0, 0.12)",
+    borderRadius: "10px",
+    backgroundColor: "#FFF",
 }
 
 const _cellStyle: CSS.Properties = {
-    border: "1px solid gray",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -19,6 +23,8 @@ const _cellStyle: CSS.Properties = {
 
 const _weatherProviderCellStyle: CSS.Properties = {
     ..._cellStyle,
+    paddingLeft: "20px",
+    paddingRight: "20px",
 }
 
 const _timeCellStyle: CSS.Properties = {
@@ -29,8 +35,13 @@ const _weatherCellStyle: CSS.Properties = {
     ..._cellStyle,
     flexDirection: "column",
     padding: "1ch 5ch",
-    whiteSpace: "nowrap"
+    whiteSpace: "nowrap",
 }
+
+const _weatherIconStyle: CSS.Properties = {
+    filter: "drop-shadow(0 3px 5px rgba(0, 0, 0, 0.19))",
+}
+
 
 export default function createTable(targetTimes: Date[], forecasts: IForecast[]): JSX.Element {
     return (
@@ -40,12 +51,25 @@ export default function createTable(targetTimes: Date[], forecasts: IForecast[])
     );
 }
 
-
 function createCells(targetTimes: Date[], forecasts: IForecast[]): JSX.Element[] {
     let cells: JSX.Element[] = []
 
+    // Crete row backgrounds
+    for (let i = 0; i < forecasts.length + 1; i++) {
+        cells.push(
+            <div
+                style={{
+                    ..._rowStyle,
+                    gridRow: i + 1,
+                    gridColumnStart: i === 0 ? 2 : 1,
+                    gridColumnEnd: targetTimes.length + 2
+                }}
+            >
+            </div>)
+    }
+
     // Create weather provider cells
-    for (let i = 0; i < forecasts.length; i++){
+    for (let i = 0; i < forecasts.length; i++) {
         cells.push(createWeatherProviderCell(forecasts[i].weatherProvider, i + 2, 1))
     }
 
@@ -110,6 +134,7 @@ function createWeatherCell(weather: IWeather, gridRow: number, gridColumn: numbe
             <p>{weather.temperature}°C</p>
             <p>{weather.wind} m/s</p>
             <p>{weather.symbol}</p>
+            <img style={_weatherIconStyle} src={require("../../icons/4.svg")}/>
         </div >
     );
 }

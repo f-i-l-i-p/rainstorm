@@ -58,8 +58,6 @@ class WeatherView extends React.Component<IWeatherViewProps, IWeatherViewState> 
                 display: "flex",
                 flexDirection: "row",
             }}>
-                {/* {this.state.times.map(time => renderTimePoints(time, this.state.Forecasts))}
-                {RenderedWeather(this.state.times, this.state.Forecasts)} */}
                 {createTable(this.state.times, this.state.forecasts)}
             </ div>
         );
