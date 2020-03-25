@@ -55,7 +55,6 @@ class WeatherView extends React.Component<IWeatherViewProps, IWeatherViewState> 
     public render() {
         return (
             <div style={{
-                backgroundColor: "green",
                 display: "flex",
                 flexDirection: "row",
             }}>
@@ -67,106 +66,5 @@ class WeatherView extends React.Component<IWeatherViewProps, IWeatherViewState> 
     }
 }
 
-
-function renderTimePoints(time: Date, forecasts: IForecast[]): JSX.Element {
-    let timePoints: ITimePoint[] = [];
-
-    forecasts.forEach(function (forecast) {
-        for (let i = 0; i < forecast.times.length; i++) {
-            if (forecast.times[i].time.getTime() === time.getTime()) {
-                timePoints.push(forecast.times[i]);
-                break;
-            }
-        }
-    });
-
-    return (
-        <div style={{
-            border: "1px solid red",
-            display: "flex",
-            flexDirection: "column",
-        }}>
-            {time.getHours()}
-            {timePoints.map(timePoint => renderTimePointWeather(timePoint))}
-        </div>
-    );
-}
-
-
-function renderTimePointWeather(timePoint: ITimePoint): JSX.Element {
-    return (
-        <div
-            style={{
-                display: "flex",
-                alignItems: "center",
-                flexDirection: "column",
-                border: "1px solid gray",
-                padding: "1ch 5ch",
-                whiteSpace: "nowrap"
-            }}>
-
-            <p>{timePoint.weather.temperature}°C</p>
-            <p>{timePoint.weather.wind} m/s</p>
-            <p>{timePoint.weather.symbol}</p>
-        </div>
-    );
-}
-
-
-function RenderedWeather(times: Date[], forecasts: IForecast[]): JSX.Element {
-
-    function FormWeatherCell(targetTime: Date, forecast: IForecast): JSX.Element {
-
-        let weather: IWeather | null = null;
-
-        for (let i = 0; i < forecast.times.length; i++) {
-            if (forecast.times[i].time.getTime() === targetTime.getTime()) {
-                weather = forecast.times[i].weather;
-                break;
-            }
-        }
-
-        return (
-            <Grid item xs={4} style={{ backgroundColor: "orange" }}>
-                {weather == null ? <p>No data</p> : <p>found data</p>
-                    // <div>
-                    //     style={{
-                    //         display: "flex",
-                    //         alignItems: "center",
-                    //         flexDirection: "column",
-                    //         border: "1px solid gray",
-                    //         padding: "1ch 5ch",
-                    //         whiteSpace: "nowrap"
-                    //     }}>
-                    //     <p>{weather.temperature}°C</p>
-                    //     <p>{weather.wind} m/s</p>
-                    //     <p>{weather.symbol}</p>
-                    // </div>}
-                }
-            </Grid>
-        );
-    }
-
-    function FormRow(times: Date[], forecast: IForecast): JSX.Element {
-        return (
-            <div>
-                {times.map(time => FormWeatherCell(time, forecast))}
-            </div>
-        );
-    }
-
-
-    const test = 8;
-
-    return (
-        <div
-            style={{
-                display: "grid",
-                gridTemplateColumns: test,
-            }}>
-            {forecasts.map(forecast => FormRow(times, forecast))}
-        </div >
-    );
-}
 
 export default WeatherView;
