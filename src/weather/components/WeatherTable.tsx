@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 import CSS from 'csstype';
-import { IForecast, ITimePoint, IWeather, IWeatherProvider } from "../../store/weather/types";
-import { ReactComponent as TestSvg } from "../../icons/1.svg";
+import { IForecast, ITimePoint, IWeather, IWeatherProvider } from "../types";
 
 const _gridStyle: CSS.Properties = {
     display: 'grid',
@@ -43,12 +42,22 @@ const _weatherIconStyle: CSS.Properties = {
 }
 
 
-export default function createTable(targetTimes: Date[], forecasts: IForecast[]): JSX.Element {
-    return (
-        <div style={_gridStyle}>
-            {createCells(targetTimes, forecasts)}
-        </div>
-    );
+interface IWeatherTableProps {
+    targetTimes: Date[],
+    forecasts: IForecast[],
+}
+
+interface IWeatherTableState {
+}
+
+export default class WeatherTable extends React.Component<IWeatherTableProps, IWeatherTableState> {
+    public render() {
+        return (
+            <div style={_gridStyle}>
+                {createCells(this.props.targetTimes, this.props.forecasts)}
+            </div>
+        );
+    }
 }
 
 function createCells(targetTimes: Date[], forecasts: IForecast[]): JSX.Element[] {
@@ -134,7 +143,7 @@ function createWeatherCell(weather: IWeather, gridRow: number, gridColumn: numbe
             <p>{weather.temperature}°C</p>
             <p>{weather.wind} m/s</p>
             <p>{weather.symbol}</p>
-            <img style={_weatherIconStyle} src={require("../../icons/4.svg")}/>
+            <img style={_weatherIconStyle} src={require("../../icons/4.svg")} />
         </div >
     );
 }

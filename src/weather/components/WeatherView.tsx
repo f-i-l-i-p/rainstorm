@@ -1,11 +1,13 @@
 import React, { StrictMode, Fragment } from "react";
-import collectWeatherData from "../../store/weather/search";
-import { IForecast, ITimePoint, IWeather } from "../../store/weather/types";
+import collectWeatherData from "../search";
+import { IForecast, ITimePoint, IWeather } from "../types";
 import { findByLabelText } from "@testing-library/react";
 import { Paper, Grid } from "@material-ui/core";
-import createTable from "./WeatherTable";
+import WeatherTable from "./WeatherTable";
+import { ILocation } from "../../geocode/types";
 
 interface IWeatherViewProps {
+    location: ILocation,
 }
 
 interface IWeatherViewState {
@@ -14,7 +16,7 @@ interface IWeatherViewState {
 }
 
 class WeatherView extends React.Component<IWeatherViewProps, IWeatherViewState> {
-    constructor(props: Readonly<IWeatherViewState>) {
+    constructor(props: Readonly<IWeatherViewProps>) {
         super(props);
 
         this.state = {
@@ -24,7 +26,7 @@ class WeatherView extends React.Component<IWeatherViewProps, IWeatherViewState> 
     }
 
     componentDidMount() {
-        this.updateWeather('59.611366', '16.545025')
+        this.updateWeather(this.props.location.lat.toString(), this.props.location.long.toString())
     }
 
     private getTimes(count: number, interval: number): Date[] {
@@ -58,7 +60,7 @@ class WeatherView extends React.Component<IWeatherViewProps, IWeatherViewState> 
                 display: "flex",
                 flexDirection: "row",
             }}>
-                {createTable(this.state.times, this.state.forecasts)}
+                <WeatherTable targetTimes={this.state.times} forecasts={this.state.forecasts}/>
             </ div>
         );
     }

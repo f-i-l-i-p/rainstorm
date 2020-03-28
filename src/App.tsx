@@ -2,12 +2,13 @@ import React from 'react';
 import './App.css';
 import SearchView from './geocode/components/SearchView';
 import WeatherView from './weather/components/WeatherView';
+import WeatherPage from './weather/components/WeatherPage';
 
 function App() {
   return (
     <div id="app">
       <SearchView />
-      <WeatherView />
+      <WeatherPage />
     </div>
   );
 }
