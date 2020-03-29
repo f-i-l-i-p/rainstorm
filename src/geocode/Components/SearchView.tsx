@@ -1,7 +1,9 @@
 import React from "react";
-import { TextField } from "@material-ui/core";
+import { Input } from 'antd';
 import { ILocation } from "../types";
 import fetchILocation from "../search"
+
+const { Search } = Input;
 
 interface ISearchPageProps {
 }
@@ -49,22 +51,22 @@ class SearchView extends React.Component<ISearchPageProps, ISearchPageState> {
         }
     }
 
-    private textChanged(e: React.ChangeEvent<HTMLInputElement>): void {
-        e.persist();
-
-        this.beginSearch(e.target.value.trim());
+    private textChanged(value: string): void {
+        this.beginSearch(value.trim());
     }
 
     public render() {
         return (
             <div>
                 {/* Input field */}
-                <TextField
+                {/* <TextField
                     id="outlined-basic"
                     label="Outlined"
                     variant="outlined"
                     fullWidth autoFocus={true}
-                    onChange={this.textChanged} />
+                    onChange={this.textChanged} /> */}
+
+                <Search placeholder="input search text" onSearch={value => this.textChanged(value)} enterButton />
 
                 {/* Loading text */}
                 {this.state.IsSearching &&

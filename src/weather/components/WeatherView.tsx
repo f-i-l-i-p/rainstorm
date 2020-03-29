@@ -2,7 +2,6 @@ import React, { StrictMode, Fragment } from "react";
 import collectWeatherData from "../search";
 import { IForecast, ITimePoint, IWeather } from "../types";
 import { findByLabelText } from "@testing-library/react";
-import { Paper, Grid } from "@material-ui/core";
 import WeatherTable from "./WeatherTable";
 import { ILocation } from "../../geocode/types";
 
