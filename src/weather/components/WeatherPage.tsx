@@ -21,8 +21,8 @@ class WeatherPage extends React.Component<IWeatherPageProps, IWeatherPageState>{
 
         this.state = {
             location: {
-                country: "",
-                name: "",
+                country: "Country",
+                name: "City Name",
                 lat: 59.611366,
                 long: 16.545025,
                 alt: 0,
