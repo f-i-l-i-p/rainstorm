@@ -8,7 +8,7 @@ interface IWeatherPageProps {
 }
 
 interface IWeatherPageState {
-    locations: ILocation[],
+    location: ILocation,
 }
 
 class WeatherPage extends React.Component<IWeatherPageProps, IWeatherPageState>{
@@ -16,21 +16,19 @@ class WeatherPage extends React.Component<IWeatherPageProps, IWeatherPageState>{
         super(props);
 
         this.state = {
-            locations: [{
+            location: {
                 country: "",
                 name: "",
                 lat: 59.611366,
                 long: 16.545025,
                 alt: 0,
-            }]
+            },
         }
     }
 
     render() {
         return (
-            <div>
-                {this.state.locations.map(location => <WeatherView location={location}/>)}
-            </div>
+            <WeatherView location={this.state.location} />
         );
     }
 }

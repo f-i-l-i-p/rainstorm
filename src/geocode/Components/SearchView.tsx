@@ -58,14 +58,6 @@ class SearchView extends React.Component<ISearchPageProps, ISearchPageState> {
     public render() {
         return (
             <div>
-                {/* Input field */}
-                {/* <TextField
-                    id="outlined-basic"
-                    label="Outlined"
-                    variant="outlined"
-                    fullWidth autoFocus={true}
-                    onChange={this.textChanged} /> */}
-
                 <Search placeholder="input search text" onSearch={value => this.textChanged(value)} enterButton />
 
                 {/* Loading text */}
