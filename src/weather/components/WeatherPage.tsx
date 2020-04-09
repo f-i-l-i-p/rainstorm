@@ -1,4 +1,4 @@
-import React, { StrictMode, Fragment } from "react";
+import React  from "react";
 import { ILocation } from "../../geocode/types";
 import WeatherView from "./WeatherView";
 import { IForecast } from "../types";
