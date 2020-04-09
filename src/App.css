@@ -3,6 +3,10 @@ body {
     background-color: rgb(255, 250, 247);
 }
 
+.header {
+    background-color: #5AA9C2;
+}
+
 #app {
     text-align: center;
 }
