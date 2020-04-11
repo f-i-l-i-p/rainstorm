@@ -1,6 +1,5 @@
 import React from "react";
 import { Select, Typography, Spin } from 'antd';
-import { ILocation } from "../types";
 import { fetchILocationsResponse, fetchILocations } from "../search"
 
 const { Option } = Select;

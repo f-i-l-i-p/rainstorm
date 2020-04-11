@@ -29,7 +29,7 @@ function toILocations(json: any): ILocation[] {
         return [];
 
     try {
-        var loc = json['alt']['loc'];
+        let loc = json['alt']['loc'];
 
         let location: ILocation = {
             country: loc['countryname'],

@@ -1,4 +1,4 @@
-import { IForecast, ITimePoint, IWeatherProvider } from "./types";
+import { IForecast, ITimePoint } from "./types";
 
 
 
@@ -28,7 +28,7 @@ function SMHIToITimePoints(json: any): ITimePoint[] {
     let timePoints : ITimePoint[] = []
     
     try {
-        var ts = json['timeSeries'];
+        let ts = json['timeSeries'];
 
         ts.forEach((element: any) => {
             const par = element['parameters']
