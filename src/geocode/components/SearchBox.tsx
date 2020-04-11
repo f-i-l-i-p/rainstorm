@@ -1,8 +1,7 @@
 import React from "react";
-import { Select, Typography } from 'antd';
+import { Select, Typography, Spin } from 'antd';
 import { ILocation } from "../types";
-import fetchILocation from "../search"
-import { findByLabelText } from "@testing-library/react";
+import { fetchILocationsResponse, fetchILocations } from "../search"
 
 const { Option } = Select;
 const { Text } = Typography;
@@ -13,7 +12,7 @@ interface ISearchPageProps {
 
 interface ISearchPageState {
     isLoading: boolean,
-    locationResults: ILocation[],
+    locationResults: fetchILocationsResponse,
     searchText: string,
 }
 
@@ -26,29 +25,10 @@ class SearchBox extends React.Component<ISearchPageProps, ISearchPageState> {
 
         this.state = {
             isLoading: false,
-            locationResults: [
-                // Temporary data:
-                {
-                    country: "Country",
-                    name: "City A",
-                    lat: 0,
-                    long: 0,
-                    alt: 0,
-                },
-                {
-                    country: "Country",
-                    name: "City B",
-                    lat: 0,
-                    long: 0,
-                    alt: 0,
-                },
-                {
-                    country: "Country",
-                    name: "City C",
-                    lat: 0,
-                    long: 0,
-                    alt: 0,
-                }],
+            locationResults: {
+                status: 200,
+                locations: []
+            },
             searchText: "",
         }
         this.beginSearch = this.beginSearch.bind(this);
@@ -69,7 +49,7 @@ class SearchBox extends React.Component<ISearchPageProps, ISearchPageState> {
         });
 
         // search
-        let results = await fetchILocation(str);
+        let results = await fetchILocations(str);
 
         // If this still is the latest search, update the state
         if (searchId === this.currentSearchId) {
@@ -93,14 +73,36 @@ class SearchBox extends React.Component<ISearchPageProps, ISearchPageState> {
     }
 
     public render() {
-        const options = this.state.locationResults.map(location =>
-            <Option key={location.name} value={location.name}>
-                <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
-                    <Text strong>{location.name}  </Text>
-                    <Text type="secondary">{location.country}</Text>
-                </div>
-            </Option>
-        );
+        let options: JSX.Element[] = [];
+
+        if (this.state.isLoading)
+            // Loading
+            options.push(CreateOption(<Spin />, "spin"));
+        else {
+            if (this.state.locationResults.status === 200) {
+                if (this.state.locationResults.locations.length === 0)
+                    // No locations found
+                    options.push(CreateOption(<Text>No locations found.</Text>, "no locations"));
+                else
+                    // Locations found
+                    this.state.locationResults.locations.forEach(location =>
+                        options.push(CreateOption(
+                            <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+                                <Text strong>{location.name}  </Text>
+                                <Text type="secondary">{location.country}</Text>
+                            </div>,
+                            location.name,
+                        ))
+                    );
+            }
+            else
+                // Response error
+                options.push(CreateOption(
+                    <Text type="danger">Error! Response status: {this.state.locationResults.status}</Text>,
+                    "error",
+                ));
+        }
+
         return (
             <Select
                 showSearch
@@ -119,6 +121,14 @@ class SearchBox extends React.Component<ISearchPageProps, ISearchPageState> {
             </Select>
         );
     }
+}
+
+function CreateOption(content: JSX.Element, value: string): JSX.Element {
+    return (
+        <Option value={value} key={value}>
+            {content}
+        </Option>
+    );
 }
 
 export default SearchBox;

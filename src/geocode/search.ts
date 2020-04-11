@@ -1,14 +1,26 @@
 import { ILocation } from "./types";
 
-export default async function fetchILocations(location: string): Promise<ILocation[]> {
+export interface fetchILocationsResponse {
+    status: number,
+    locations: ILocation[]
+}
+
+export async function fetchILocations(location: string): Promise<fetchILocationsResponse> {
     const result = await fetch('https://geocode.xyz/' + location + '?json=1');
 
-    if (result.ok !== true) {
+    let locations: ILocation[];
+
+    if (result.ok)
+        locations = toILocations(await result.json());
+    else{
         console.error('Geocode response error! status: ' + result.status);
-        return [];
+        locations = [];
     }
 
-    return toILocations(await result.json());
+    return {
+        status: result.status,
+        locations: locations,
+    };
 }
 
 // Converts JSON data from geocode.xyz to an ILocation array
