@@ -29,7 +29,7 @@ class SearchBox extends React.Component<ISearchPageProps, ISearchPageState> {
         this.state = {
             searchText: "",
         }
-        // this.beginSearch = this.beginSearch.bind(this);
+
         this.handleTextChange = this.handleTextChange.bind(this);
     }
 
@@ -42,6 +42,16 @@ class SearchBox extends React.Component<ISearchPageProps, ISearchPageState> {
 
     private handleSearch(value: string): void {
         this.props.searchLocations(value);
+    }
+
+    private handleSelect(value: string): void {
+        const results = this.props.locationResults;
+        for (let i = 0; i < results.length; i++) {
+            if (results[i].name === value) {
+                this.props.selectLocation(results[i])
+                break;
+            }
+        }
     }
 
     public render() {
@@ -89,6 +99,7 @@ class SearchBox extends React.Component<ISearchPageProps, ISearchPageState> {
                 filterOption={false}
                 onSearch={value => this.handleSearch(value)}
                 onChange={value => this.handleTextChange(value)}
+                onSelect={value => this.handleSelect(value)}
                 notFoundContent={null}
             >
                 {options}
