@@ -1,7 +1,6 @@
 import { LocationSearchActionTypes, SEARCH_START, SEARCH_SUCCESS, SEARCH_FAILURE, SELECT_LOCATION } from './types';
 import { ILocation } from '../../geocode/types';
 import { Dispatch } from 'redux';
-import { locationSearchReducer } from './reducers';
 
 export function selectLocation(location: ILocation): LocationSearchActionTypes {
     return {

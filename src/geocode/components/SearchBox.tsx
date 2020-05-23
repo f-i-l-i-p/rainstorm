@@ -1,4 +1,4 @@
-import React, { Dispatch } from "react";
+import React from "react";
 import { Select, Typography, Spin } from 'antd';
 import { connect } from 'react-redux';
 import { AppState } from "../../store";
@@ -23,9 +23,6 @@ interface ISearchPageState {
 }
 
 class SearchBox extends React.Component<ISearchPageProps, ISearchPageState> {
-    // id for handling the order of asynchronous geocode searches
-    currentSearchId = 0;
-
     constructor(props: Readonly<ISearchPageProps>) {
         super(props);
 
