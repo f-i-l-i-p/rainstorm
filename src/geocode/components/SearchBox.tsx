@@ -1,17 +1,22 @@
-import React from "react";
+import React, { Dispatch } from "react";
 import { Select, Typography, Spin } from 'antd';
-import { fetchILocationsResponse, fetchILocations } from "../search"
+import { connect } from 'react-redux';
+import { AppState } from "../../store";
+import { search } from "../../store/locationSearch/actions";
+import { ILocation } from "../types";
 
 const { Option } = Select;
 const { Text } = Typography;
 
 interface ISearchPageProps {
-    style?: React.CSSProperties
+    style?: React.CSSProperties,
+    isLoading: boolean,
+    errorMessage: string
+    locationResults: ILocation[],
+    searchLocations: (searchTerm: string) => void
 }
 
 interface ISearchPageState {
-    isLoading: boolean,
-    locationResults: fetchILocationsResponse,
     searchText: string,
 }
 
@@ -23,41 +28,10 @@ class SearchBox extends React.Component<ISearchPageProps, ISearchPageState> {
         super(props);
 
         this.state = {
-            isLoading: false,
-            locationResults: {
-                status: 200,
-                locations: []
-            },
             searchText: "",
         }
-        this.beginSearch = this.beginSearch.bind(this);
+        // this.beginSearch = this.beginSearch.bind(this);
         this.handleTextChange = this.handleTextChange.bind(this);
-    }
-
-    private async beginSearch(str: string) {
-        if (!str)
-            return;
-
-        // Give this search the latest search id
-        this.currentSearchId++;
-        let searchId = this.currentSearchId;
-
-        this.setState({
-            ...this.state,
-            isLoading: true,
-        });
-
-        // search
-        let results = await fetchILocations(str);
-
-        // If this still is the latest search, update the state
-        if (searchId === this.currentSearchId) {
-            this.setState({
-                ...this.state,
-                isLoading: false,
-                locationResults: results,
-            });
-        }
     }
 
     private handleTextChange(value: string): void {
@@ -68,23 +42,31 @@ class SearchBox extends React.Component<ISearchPageProps, ISearchPageState> {
     }
 
     private handleSearch(value: string): void {
-        this.beginSearch(value.trim());
+        this.props.searchLocations(value);
     }
 
     public render() {
         let options: JSX.Element[] = [];
 
-        if (this.state.isLoading)
-            // Loading
+        // Loading
+        if (this.props.isLoading)
             options.push(CreateOption(<Spin />, "spin"));
         else {
-            if (this.state.locationResults.status === 200) {
-                if (this.state.locationResults.locations.length === 0)
-                    // No locations found
+            // Response error
+            if (this.props.errorMessage) {
+                options.push(CreateOption(
+                    <Text type="danger">Error! Response status: {this.props.errorMessage}</Text>,
+                    "error",
+                ));
+            }
+            else {
+
+                // No locations found
+                if (this.props.locationResults.length === 0)
                     options.push(CreateOption(<Text>No locations found.</Text>, "no locations"));
+                // Locations found
                 else
-                    // Locations found
-                    this.state.locationResults.locations.forEach(location =>
+                    this.props.locationResults.forEach(location =>
                         options.push(CreateOption(
                             <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
                                 <Text strong>{location.name}  </Text>
@@ -94,12 +76,6 @@ class SearchBox extends React.Component<ISearchPageProps, ISearchPageState> {
                         ))
                     );
             }
-            else
-                // Response error
-                options.push(CreateOption(
-                    <Text type="danger">Error! Response status: {this.state.locationResults.status}</Text>,
-                    "error",
-                ));
         }
 
         return (
@@ -130,4 +106,18 @@ function CreateOption(content: JSX.Element, value: string): JSX.Element {
     );
 }
 
-export default SearchBox;
+function mapStateToProps(state: AppState) {
+    return {
+        locationResults: state.locationSearch.searchResults,
+        isLoading: state.locationSearch.isLoading,
+        errorMessage: state.locationSearch.errorMessage
+    }
+}
+
+function mapDispatchToProps(dispatch: any) { // TODO: Fix any type
+    return {
+        searchLocations: (searchTerm: string) => dispatch(search(searchTerm))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBox);
