@@ -1,9 +1,9 @@
 import React from "react";
 import { Select, Typography, Spin } from 'antd';
 import { connect } from 'react-redux';
-import { AppState } from "../../store";
-import { search, selectLocation } from "../../store/locationSearch/actions";
-import { ILocation } from "../../store/types";
+import { AppState } from "../store";
+import { search, selectLocation } from "../store/locationSearch/actions";
+import { ILocation } from "../store/types";
 
 const { Option } = Select;
 const { Text } = Typography;
