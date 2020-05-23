@@ -1,4 +1,4 @@
-import { ILocation } from "./types";
+import { ILocation } from "../store/types";
 
 export interface fetchILocationsResponse {
     status: number,

@@ -1,8 +1,8 @@
 import React  from "react";
-import { ILocation } from "../../geocode/types";
 import WeatherView from "./WeatherView";
 import { IForecast } from "../types";
 import collectWeatherData from "../search";
+import { ILocation } from "../../store/types";
 
 
 interface IWeatherPageProps {
