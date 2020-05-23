@@ -1,9 +1,17 @@
 import { ILocation } from '../../geocode/types';
 
 export interface ILocationSearchState {
+    selectedLocation?: ILocation,
     searchResults: ILocation[],
     isLoading: boolean,
     errorMessage: string
+}
+
+export const SELECT_LOCATION = 'SELECT_LOCATION';
+
+interface ISelectLocationAction {
+    type: typeof SELECT_LOCATION,
+    selectedLocation: ILocation
 }
 
 export const SEARCH_START = 'SEARCH_START';
@@ -26,4 +34,4 @@ interface ISearchFailureAction {
     errorMessage: string
 }
 
-export type LocationSearchActionTypes = ISearchStartAction | ISearchSuccessAction | ISearchFailureAction;
+export type LocationSearchActionTypes = ISelectLocationAction | ISearchStartAction | ISearchSuccessAction | ISearchFailureAction;

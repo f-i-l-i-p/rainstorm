@@ -2,7 +2,7 @@ import React, { Dispatch } from "react";
 import { Select, Typography, Spin } from 'antd';
 import { connect } from 'react-redux';
 import { AppState } from "../../store";
-import { search } from "../../store/locationSearch/actions";
+import { search, selectLocation } from "../../store/locationSearch/actions";
 import { ILocation } from "../types";
 
 const { Option } = Select;
@@ -10,9 +10,11 @@ const { Text } = Typography;
 
 interface ISearchPageProps {
     style?: React.CSSProperties,
+    selectedLocation?: ILocation,
     isLoading: boolean,
     errorMessage: string
     locationResults: ILocation[],
+    selectLocation: (location: ILocation) => void,
     searchLocations: (searchTerm: string) => void
 }
 
@@ -108,6 +110,7 @@ function CreateOption(content: JSX.Element, value: string): JSX.Element {
 
 function mapStateToProps(state: AppState) {
     return {
+        selectedLocation: state.locationSearch.selectedLocation,
         locationResults: state.locationSearch.searchResults,
         isLoading: state.locationSearch.isLoading,
         errorMessage: state.locationSearch.errorMessage
@@ -116,6 +119,7 @@ function mapStateToProps(state: AppState) {
 
 function mapDispatchToProps(dispatch: any) { // TODO: Fix any type
     return {
+        selectLocation: (location: ILocation) => dispatch(selectLocation(location)),
         searchLocations: (searchTerm: string) => dispatch(search(searchTerm))
     }
 }

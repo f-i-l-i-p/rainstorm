@@ -1,6 +1,7 @@
-import { ILocationSearchState, LocationSearchActionTypes, SEARCH_START, SEARCH_SUCCESS, SEARCH_FAILURE } from './types';
+import { ILocationSearchState, LocationSearchActionTypes, SEARCH_START, SEARCH_SUCCESS, SEARCH_FAILURE, SELECT_LOCATION } from './types';
 
 const initialState: ILocationSearchState = {
+    selectedLocation: undefined,
     searchResults: [],
     isLoading: false,
     errorMessage: ''
@@ -8,6 +9,11 @@ const initialState: ILocationSearchState = {
 
 export function locationSearchReducer(state = initialState, action: LocationSearchActionTypes): ILocationSearchState {
     switch (action.type) {
+        case SELECT_LOCATION:
+            return {
+                ...state,
+                selectedLocation: action.selectedLocation
+            }
         case SEARCH_START:
             return {
                 ...state,
