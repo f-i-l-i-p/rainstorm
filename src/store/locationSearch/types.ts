@@ -1,4 +1,4 @@
-import { ILocation } from '../../geocode/types';
+import { ILocation } from "../types";
 
 export interface ILocationSearchState {
     selectedLocation?: ILocation,

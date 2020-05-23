@@ -3,7 +3,7 @@ import { Select, Typography, Spin } from 'antd';
 import { connect } from 'react-redux';
 import { AppState } from "../../store";
 import { search, selectLocation } from "../../store/locationSearch/actions";
-import { ILocation } from "../types";
+import { ILocation } from "../../store/types";
 
 const { Option } = Select;
 const { Text } = Typography;

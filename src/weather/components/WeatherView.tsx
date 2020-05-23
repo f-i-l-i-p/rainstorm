@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { IForecast } from "../types";
 import WeatherTable from "./WeatherTable";
-import { ILocation } from "../../geocode/types";
+import { ILocation } from "../../store/types";
 
 interface IWeatherViewProps {
     location: ILocation,
