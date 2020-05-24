@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
 import CSS from 'csstype';
-import { IForecast, ITimePoint, IWeather, IWeatherProvider } from "../../store/types";
+import { IForecast, ITimePoint, IWeather, IWeatherProvider } from "../store/types";
 import { connect } from "react-redux";
-import { AppState } from "../../store";
+import { AppState } from "../store";
 
 const _gridStyle: CSS.Properties = {
     display: 'grid',
@@ -145,7 +145,7 @@ function createWeatherCell(weather: IWeather, gridRow: number, gridColumn: numbe
             <p>{weather.temperature}°C</p>
             <p>{weather.wind} m/s</p>
             <p>{weather.symbol}</p>
-            <img style={_weatherIconStyle} src={require("../../icons/4.svg")} />
+            <img style={_weatherIconStyle} src={require("../icons/4.svg")} />
         </div >
     );
 }
