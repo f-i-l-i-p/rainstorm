@@ -1,13 +1,7 @@
-import { IForecast, ITimePoint } from "./types";
-
-
-
-export default async function collectWeatherData(lat: string, long: string): Promise<IForecast[]> {
-    return [await fetchSMHIWeather(lat, long), await fetchMETWeather(lat, long)];
-}
+import { IForecast, ITimePoint } from "../types";
 
 // Fetches weather data from SMHI
-async function fetchSMHIWeather(lat: string, long: string): Promise<IForecast> {
+export async function fetchSMHIWeather(lat: string, long: string): Promise<IForecast> {
     const result = await fetch('https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/' + long + '/lat/' + lat + '/data.json');
 
     if (result.ok !== true) {
@@ -52,14 +46,4 @@ function SMHIToITimePoints(json: any): ITimePoint[] {
     console.log(timePoints);
 
     return timePoints;
-}
-
-// Fetches weather data from SMHI
-async function fetchMETWeather(lat: string, long: string): Promise<IForecast> {
-    return fetchSMHIWeather(lat, long);
-}
-
-// Converts JSON data from SMHI to an ITimePoint array
-function METToITimePoints(json: any): ITimePoint[] {
-    return [];
 }
