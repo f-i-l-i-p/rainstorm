@@ -9,7 +9,7 @@ const _gridStyle: CSS.Properties = {
 }
 
 const _rowStyle: CSS.Properties = {
-    boxShadow: "0 4px 15px 0 rgba(0, 0, 0, 0.12)",
+    boxShadow: "0 1px 8px 0 rgba(0, 0, 0, 0.3)",
     borderRadius: "10px",
     backgroundColor: "#FFF",
 }
