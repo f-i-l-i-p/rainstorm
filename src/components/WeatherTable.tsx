@@ -143,7 +143,7 @@ function createWeatherCell(weather: IWeather, gridRow: number, gridColumn: numbe
             }}
         >
             <p>{weather.temperature}°C</p>
-            <p>{weather.wind} m/s</p>
+            <p>{weather.wind} ({weather.gust}) m/s</p>
             <p>{weather.symbol}</p>
             <img style={_weatherIconStyle} src={require("../icons/4.svg")} />
         </div >

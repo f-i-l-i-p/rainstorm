@@ -25,5 +25,6 @@ export interface ITimePoint {
 export interface IWeather {
     temperature: number,
     wind: number,
+    gust: number,
     symbol: string,
 }
