@@ -1,6 +1,10 @@
 @import '~antd/dist/antd.css';
 body {
-    background-color: rgb(255, 250, 247);
+    background-color: #000000;
+    background-image: url("images/background.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .header {
