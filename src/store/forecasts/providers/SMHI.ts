@@ -31,9 +31,7 @@ function SMHIToITimePoints(json: any): ITimePoint[] {
         let tempIndex: number, windIndex: number, gustIndex: number, symbolIndex: number;
 
         const testParams: [any] = ts[0]['parameters'];
-        console.log(testParams);
         for (let i = 0; i < testParams.length; i++) {
-            console.log(testParams[i].name);
             switch (testParams[i].name) {
                 case 't':
                     tempIndex = i;
@@ -69,8 +67,6 @@ function SMHIToITimePoints(json: any): ITimePoint[] {
     catch (error) {
         console.error(error.message)
     }
-
-    console.log(timePoints);
 
     return timePoints;
 }

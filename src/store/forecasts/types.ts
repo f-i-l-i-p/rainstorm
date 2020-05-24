@@ -1,5 +1,4 @@
 import { IForecast } from "../types";
-import { Interface } from "readline";
 
 export interface IWeatherState {
     forecasts: IForecast[],

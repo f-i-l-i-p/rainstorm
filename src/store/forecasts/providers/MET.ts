@@ -44,7 +44,6 @@ function METToITimePoints(json: any): ITimePoint[] {
 
     try {
         const times = json['weatherdata']['product'][0]['time'];
-        console.log(times)
 
         times.forEach((timeObject: any) => {
             const from = timeObject['$']['from']
@@ -68,8 +67,6 @@ function METToITimePoints(json: any): ITimePoint[] {
     catch (error) {
         console.error(error.message)
     }
-
-    console.log(timePoints);
 
     return timePoints;
 }

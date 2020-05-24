@@ -11,41 +11,37 @@ const initialState: IForecastState = {
 export function forecastReducer(state = initialState, action: ForecastActionTypes): IForecastState {
     switch (action.type) {
         case FETCH_START:
-            console.log('start, id:' + action.id)
-
-            var loading = [...state.isLoading];
-            loading[action.id] = true;
+            var loadings = [...state.isLoading];
+            loadings[action.id] = true;
             
             return {
                 ...state,
-                isLoading: loading
+                isLoading: loadings
             };
 
         case FETCH_SUCCESS:
-            console.log('success, id:' + action.id)
-
-            var loadings1 = [...state.isLoading];
-            loadings1[action.id] = false;
+            var loadings = [...state.isLoading];
+            loadings[action.id] = false;
 
             var forecasts = [...state.forecasts];
             forecasts[action.id] = action.forecast;
             
             return {
                 ...state,
-                isLoading: loadings1,
+                isLoading: loadings,
                 forecasts: forecasts
             };
 
         case FETCH_FAILURE:
-            var loading = [...state.isLoading];
-            loading[action.id] = false;
+            var loadings = [...state.isLoading];
+            loadings[action.id] = false;
 
             var errors = [...state.errorMessages];
             errors[action.id] = action.errorMessage;
 
             return {
                 ...state,
-                isLoading: loading,
+                isLoading: loadings,
                 errorMessages: errors
             }
         default:
