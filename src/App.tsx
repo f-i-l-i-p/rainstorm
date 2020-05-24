@@ -7,8 +7,10 @@ import Header from './header/header';
 function App() {
   return (
     <div id="app">
-      <Header title={"RainStorm"} items={[<SearchBox style={{width: "25em"}}/>]} />
-      <WeatherPage />
+      <Header title={"RainStorm"} items={[<SearchBox style={{ width: "25em" }} />]} />
+      <div className="page">
+        <WeatherPage />
+      </div>
     </div>
   );
 }
