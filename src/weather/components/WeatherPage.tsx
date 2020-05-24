@@ -10,7 +10,6 @@ interface IWeatherPageProps {
 }
 
 interface IWeatherPageState {
-    location: ILocation,
     times: Date[],
     forecasts: IForecast[],
 }
@@ -20,20 +19,13 @@ class WeatherPage extends React.Component<IWeatherPageProps, IWeatherPageState>{
         super(props);
 
         this.state = {
-            location: {
-                country: "Country",
-                name: "City Name",
-                lat: 59.611366,
-                long: 16.545025,
-                alt: 0,
-            },
             times: getTimes(5, 1000 * 60 * 60),
             forecasts: [],
         }
     }
 
     componentDidMount() {
-        this.updateWeather(this.state.location.lat.toString(), this.state.location.long.toString())
+        // this.updateWeather(this.state.location.lat.toString(), this.state.location.long.toString())
     }
 
     private async updateWeather(lat: string, long: string) {
@@ -47,7 +39,7 @@ class WeatherPage extends React.Component<IWeatherPageProps, IWeatherPageState>{
 
     render() {
         return (
-            <WeatherView location={this.state.location} times={this.state.times} forecasts={this.state.forecasts} />
+            <WeatherView times={this.state.times} forecasts={this.state.forecasts} />
         );
     }
 }

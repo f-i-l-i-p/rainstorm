@@ -2,9 +2,11 @@ import React, { Fragment } from "react";
 import { IForecast } from "../types";
 import WeatherTable from "./WeatherTable";
 import { ILocation } from "../../store/types";
+import { connect } from "react-redux";
+import { AppState } from "../../store";
 
 interface IWeatherViewProps {
-    location: ILocation,
+    location?: ILocation,
     times: Date[],
     forecasts: IForecast[],
 }
@@ -24,7 +26,7 @@ class WeatherView extends React.Component<IWeatherViewProps, IWeatherViewState> 
     createHeading(): JSX.Element {
         return (
             <Fragment>
-                <h1 style={{ margin: 0 }}>{this.props.location.name}</h1>
+                <h1 style={{ margin: 0 }}>{this.props.location?.name}</h1>
                 <p style={{ margin: 0, fontSize: "10ex" }}>{this.currentTemp() + "°C"}</p>
             </Fragment>
         )
@@ -43,4 +45,10 @@ class WeatherView extends React.Component<IWeatherViewProps, IWeatherViewState> 
     }
 }
 
-export default WeatherView;
+function mapStateToProps(state: AppState) {
+    return {
+        location: state.locationSearch.selectedLocation,
+    }
+}
+
+export default connect(mapStateToProps)(WeatherView);
