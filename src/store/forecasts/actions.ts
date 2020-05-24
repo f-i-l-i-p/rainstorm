@@ -2,7 +2,7 @@ import { ForecastActionTypes, FETCH_START, FETCH_SUCCESS, FETCH_FAILURE } from "
 import { IForecast } from "../types";
 import { ILocation } from "../types";
 import { Dispatch } from "redux";
-import { fetchSMHIWeather } from "./fetchForecast";
+import { fetchSMHIWeather, fetchMETWeather } from "./fetchForecast";
 
 function searchStart(): ForecastActionTypes {
     return {
