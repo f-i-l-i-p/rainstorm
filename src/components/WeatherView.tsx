@@ -18,9 +18,11 @@ class WeatherView extends React.Component<IWeatherViewProps, IWeatherViewState> 
 
     // Returns the average temperature from the first temperature of all forecasts
     currentTemp(): number {
-        let totalTemp = 0;
-        this.props.forecasts.forEach(forecast => totalTemp += forecast.times[0].weather.temperature)
-        return totalTemp / this.props.forecasts.length;
+        // TODO: fix this
+        // let totalTemp = 0;
+        // this.props.forecasts.forEach(forecast => totalTemp += forecast.times[0].weather.temperature)
+        // return totalTemp / this.props.forecasts.length;
+        return 0;
     }
 
     createHeading(): JSX.Element {

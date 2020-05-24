@@ -1,7 +1,12 @@
-import { IForecast, ITimePoint, IWeatherProvider } from "../types";
+import { IForecast, ITimePoint, IWeatherProvider } from "../../types";
+
+export const SMHIWeatherProvider: IWeatherProvider = {
+    name: 'SMHI',
+    logo: ''
+}
 
 // Fetches weather data from SMHI
-export async function fetchSMHIWeather(lat: string, long: string): Promise<IForecast> {
+export async function fetchSMHIForecast(lat: string, long: string): Promise<IForecast> {
     const max = 9; // the maximum precision allowed by the api (including decimal point)
     const result = await fetch('https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/'
         + long.substr(0, max) + '/lat/' + lat.substr(0, max) + '/data.json');
@@ -11,10 +16,7 @@ export async function fetchSMHIWeather(lat: string, long: string): Promise<IFore
     }
 
     return {
-        weatherProvider: {
-            name: 'SMHI',
-            logo: ''
-        },
+        weatherProvider: SMHIWeatherProvider,
         times: result.ok ? SMHIToITimePoints(await result.json()) : [],
     };
 }
@@ -62,75 +64,6 @@ function SMHIToITimePoints(json: any): ITimePoint[] {
                     symbol: par[symbolIndex]['values'][0],
                 }
             });
-        });
-    }
-    catch (error) {
-        console.error(error.message)
-    }
-
-    console.log(timePoints);
-
-    return timePoints;
-}
-
-// Fetches weather data from MET
-export async function fetchMETWeather(lat: string, long: string): Promise<IForecast> {
-    const weatherProvider: IWeatherProvider = {
-        name: 'MET',
-        logo: ''
-    };
-
-    const result = await fetch('https://api.met.no/weatherapi/locationforecast/1.9/?lat='
-        + lat + '&lon=' + long);
-
-    if (!result.ok) {
-        console.error('MET weather response error! status: ' + result.status);
-        return {
-            weatherProvider: weatherProvider,
-            times: []
-        }
-    }
-
-    const text = await result.text();
-
-    let json;
-    const parseString = require('xml2js').parseString;
-    parseString(text, function (err: any, result: any) {
-        json = result;
-    });
-
-    return {
-        weatherProvider: weatherProvider,
-        times: METToITimePoints(json),
-    };
-}
-
-// Converts json data from MET to an ITimePoint array
-// TODO: add weather symbol
-function METToITimePoints(json: any): ITimePoint[] {
-    let timePoints: ITimePoint[] = []
-
-    try {
-        const times = json['weatherdata']['product'][0]['time'];
-        console.log(times)
-
-        times.forEach((timeObject: any) => {
-            const from = timeObject['$']['from']
-            const to = timeObject['$']['to']
-
-            if (from === to){
-                const data = timeObject['location'][0];
-
-                timePoints.push({
-                    time: new Date(from),
-                    weather: {
-                        temperature: data['temperature'][0]['$']['value'],
-                        wind: data['windSpeed'][0]['$']['mps'],
-                        gust: data['windGust'][0]['$']['mps'],
-                        symbol: ''
-                    }
-                });
-            }
         });
     }
     catch (error) {
