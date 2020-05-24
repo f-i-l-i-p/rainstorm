@@ -1,4 +1,4 @@
-import { IForecast, ITimePoint } from "../../weather/types";
+import { IForecast, ITimePoint } from "../types";
 
 // Fetches weather data from SMHI
 export async function fetchSMHIWeather(lat: string, long: string): Promise<IForecast> {

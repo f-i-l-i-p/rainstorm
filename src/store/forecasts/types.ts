@@ -1,4 +1,4 @@
-import { IForecast } from "../../weather/types";
+import { IForecast } from "../types";
 import { Interface } from "readline";
 
 export interface IWeatherState {

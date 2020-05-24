@@ -1,5 +1,5 @@
 import { ForecastActionTypes, FETCH_START, FETCH_SUCCESS, FETCH_FAILURE } from "./types";
-import { IForecast } from "../../weather/types";
+import { IForecast } from "../types";
 import { ILocation } from "../types";
 import { Dispatch } from "redux";
 import { fetchSMHIWeather } from "./fetchForecast";

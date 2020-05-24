@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import CSS from 'csstype';
-import { IForecast, ITimePoint, IWeather, IWeatherProvider } from "../types";
+import { IForecast, ITimePoint, IWeather, IWeatherProvider } from "../../store/types";
 import { connect } from "react-redux";
 import { AppState } from "../../store";
 
