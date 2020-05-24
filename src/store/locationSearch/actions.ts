@@ -1,6 +1,15 @@
-import { LocationSearchActionTypes, SEARCH_START, SEARCH_SUCCESS, SEARCH_FAILURE, SELECT_LOCATION } from './types';
+import { LocationSearchActionTypes, SEARCH_START, SEARCH_SUCCESS, SEARCH_FAILURE, SELECT_LOCATION, UPDATE_USER_LOCATION } from './types';
 import { Dispatch } from 'redux';
 import { ILocation } from '../types';
+
+
+export function updateUserLocation(location?: ILocation): LocationSearchActionTypes {
+    return {
+        type: UPDATE_USER_LOCATION,
+        location: location
+    }
+}
+
 
 export function selectLocation(location: ILocation): LocationSearchActionTypes {
     return {

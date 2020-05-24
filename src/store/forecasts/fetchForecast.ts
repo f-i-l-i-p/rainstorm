@@ -2,7 +2,9 @@ import { IForecast, ITimePoint } from "../types";
 
 // Fetches weather data from SMHI
 export async function fetchSMHIWeather(lat: string, long: string): Promise<IForecast> {
-    const result = await fetch('https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/' + long + '/lat/' + lat + '/data.json');
+    const max = 9; // the maximum precision allowed by the api (including decimal point)
+    const result = await fetch('https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/'
+        + long.substr(0, max) + '/lat/' + lat.substr(0, max) + '/data.json');
 
     if (result.ok !== true) {
         console.error('Weather response error! status: ' + result.status);

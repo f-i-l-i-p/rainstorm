@@ -4,7 +4,15 @@ export interface ILocationSearchState {
     selectedLocation?: ILocation,
     searchResults: ILocation[],
     isLoading: boolean,
-    errorMessage: string
+    errorMessage: string,
+    userLocation?: ILocation,
+}
+
+export const UPDATE_USER_LOCATION = 'UPDATE_USER_LOCATION';
+
+interface IUpdateUserLocationAction {
+    type: typeof UPDATE_USER_LOCATION,
+    location?: ILocation
 }
 
 export const SELECT_LOCATION = 'SELECT_LOCATION';
@@ -34,4 +42,4 @@ interface ISearchFailureAction {
     errorMessage: string
 }
 
-export type LocationSearchActionTypes = ISelectLocationAction | ISearchStartAction | ISearchSuccessAction | ISearchFailureAction;
+export type LocationSearchActionTypes = IUpdateUserLocationAction | ISelectLocationAction | ISearchStartAction | ISearchSuccessAction | ISearchFailureAction;

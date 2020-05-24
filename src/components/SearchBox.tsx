@@ -2,7 +2,7 @@ import React from "react";
 import { Select, Typography, Spin } from 'antd';
 import { connect } from 'react-redux';
 import { AppState } from "../store";
-import { search, selectLocation } from "../store/locationSearch/actions";
+import { search, selectLocation, updateUserLocation } from "../store/locationSearch/actions";
 import { ILocation } from "../store/types";
 import { fetchForecasts } from "../store/forecasts/actions";
 
@@ -17,7 +17,8 @@ interface ISearchPageProps {
     locationResults: ILocation[],
     selectLocation: (location: ILocation) => void,
     searchLocations: (searchTerm: string) => void,
-    fetchForecasts: (location: ILocation) => void
+    fetchForecasts: (location: ILocation) => void,
+    updateUserLocation: (location?: ILocation) => void,
 }
 
 interface ISearchPageState {
@@ -33,6 +34,29 @@ class SearchBox extends React.Component<ISearchPageProps, ISearchPageState> {
         }
 
         this.handleTextChange = this.handleTextChange.bind(this);
+    }
+
+    componentDidMount() {
+        // Get the user location
+        // TODO: Move this somewhere else
+        navigator.geolocation.getCurrentPosition(pos => {
+            const userLocation: ILocation = {
+                country: '',
+                name: 'Your Location',
+                lat: pos.coords.latitude,
+                long: pos.coords.longitude,
+                alt: pos.coords.altitude ? pos.coords.altitude : 0
+            };
+            // update user location
+            this.props.updateUserLocation(userLocation);
+            // select user location
+            this.props.selectLocation(userLocation);
+            // fetch forecast for user location
+            this.props.fetchForecasts(userLocation);
+        }, error => {
+            // user location error
+            this.props.updateUserLocation(undefined)
+        });
     }
 
     private handleTextChange(value: string): void {
@@ -132,7 +156,8 @@ function mapDispatchToProps(dispatch: any) { // TODO: Fix any type
     return {
         selectLocation: (location: ILocation) => dispatch(selectLocation(location)),
         searchLocations: (searchTerm: string) => dispatch(search(searchTerm)),
-        fetchForecasts: (location: ILocation) => dispatch(fetchForecasts(location))
+        fetchForecasts: (location: ILocation) => dispatch(fetchForecasts(location)),
+        updateUserLocation: (location?: ILocation) => dispatch(updateUserLocation(location))
     }
 }
 
