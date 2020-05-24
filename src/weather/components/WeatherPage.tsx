@@ -1,17 +1,11 @@
 import React  from "react";
 import WeatherView from "./WeatherView";
-import { IForecast } from "../types";
-import collectWeatherData from "../search";
-import { ILocation } from "../../store/types";
-
 
 interface IWeatherPageProps {
-
 }
 
 interface IWeatherPageState {
     times: Date[],
-    forecasts: IForecast[],
 }
 
 class WeatherPage extends React.Component<IWeatherPageProps, IWeatherPageState>{
@@ -20,26 +14,12 @@ class WeatherPage extends React.Component<IWeatherPageProps, IWeatherPageState>{
 
         this.state = {
             times: getTimes(5, 1000 * 60 * 60),
-            forecasts: [],
         }
-    }
-
-    componentDidMount() {
-        // this.updateWeather(this.state.location.lat.toString(), this.state.location.long.toString())
-    }
-
-    private async updateWeather(lat: string, long: string) {
-        const weather = await collectWeatherData(lat, long);
-
-        this.setState({
-            ...this.state,
-            forecasts: weather,
-        });
     }
 
     render() {
         return (
-            <WeatherView times={this.state.times} forecasts={this.state.forecasts} />
+            <WeatherView times={this.state.times} />
         );
     }
 }

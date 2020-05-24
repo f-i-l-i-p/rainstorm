@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { AppState } from "../store";
 import { search, selectLocation } from "../store/locationSearch/actions";
 import { ILocation } from "../store/types";
+import { fetchForecasts } from "../store/forecasts/actions";
 
 const { Option } = Select;
 const { Text } = Typography;
@@ -15,7 +16,8 @@ interface ISearchPageProps {
     errorMessage: string
     locationResults: ILocation[],
     selectLocation: (location: ILocation) => void,
-    searchLocations: (searchTerm: string) => void
+    searchLocations: (searchTerm: string) => void,
+    fetchForecasts: (location: ILocation) => void
 }
 
 interface ISearchPageState {
@@ -49,6 +51,7 @@ class SearchBox extends React.Component<ISearchPageProps, ISearchPageState> {
         for (let i = 0; i < results.length; i++) {
             if (results[i].name === value) {
                 this.props.selectLocation(results[i])
+                this.props.fetchForecasts(results[i])
                 break;
             }
         }
@@ -128,7 +131,8 @@ function mapStateToProps(state: AppState) {
 function mapDispatchToProps(dispatch: any) { // TODO: Fix any type
     return {
         selectLocation: (location: ILocation) => dispatch(selectLocation(location)),
-        searchLocations: (searchTerm: string) => dispatch(search(searchTerm))
+        searchLocations: (searchTerm: string) => dispatch(search(searchTerm)),
+        fetchForecasts: (location: ILocation) => dispatch(fetchForecasts(location))
     }
 }
 

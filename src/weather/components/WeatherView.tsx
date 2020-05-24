@@ -39,7 +39,7 @@ class WeatherView extends React.Component<IWeatherViewProps, IWeatherViewState> 
                 flexDirection: "column",
             }}>
                 {this.createHeading()}
-                <WeatherTable targetTimes={this.props.times} forecasts={this.props.forecasts} />
+                <WeatherTable targetTimes={this.props.times} />
             </ div>
         );
     }
@@ -48,6 +48,7 @@ class WeatherView extends React.Component<IWeatherViewProps, IWeatherViewState> 
 function mapStateToProps(state: AppState) {
     return {
         location: state.locationSearch.selectedLocation,
+        forecasts: state.forecasts.forecasts,
     }
 }
 

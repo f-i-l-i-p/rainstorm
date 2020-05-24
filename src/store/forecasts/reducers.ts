@@ -1,12 +1,12 @@
-import { IWeatherState, ForecastActionTypes, FETCH_START, FETCH_SUCCESS, FETCH_FAILURE } from "./types";
+import { IWeatherState as IForecastState, ForecastActionTypes, FETCH_START, FETCH_SUCCESS, FETCH_FAILURE } from "./types";
 
-const initialState: IWeatherState = {
+const initialState: IForecastState = {
     forecasts: [],
     isLoading: false,
     errorMessage: ''
 }
 
-export function weatherReducer(state = initialState, action: ForecastActionTypes): IWeatherState {
+export function forecastReducer(state = initialState, action: ForecastActionTypes): IForecastState {
     switch (action.type) {
         case FETCH_START:
             return {

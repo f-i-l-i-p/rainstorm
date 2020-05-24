@@ -1,6 +1,8 @@
 import React, { Fragment } from "react";
 import CSS from 'csstype';
 import { IForecast, ITimePoint, IWeather, IWeatherProvider } from "../types";
+import { connect } from "react-redux";
+import { AppState } from "../../store";
 
 const _gridStyle: CSS.Properties = {
     display: 'grid',
@@ -50,7 +52,7 @@ interface IWeatherTableProps {
 interface IWeatherTableState {
 }
 
-export default class WeatherTable extends React.Component<IWeatherTableProps, IWeatherTableState> {
+class WeatherTable extends React.Component<IWeatherTableProps, IWeatherTableState> {
     public render() {
         return (
             <div style={_gridStyle}>
@@ -147,3 +149,12 @@ function createWeatherCell(weather: IWeather, gridRow: number, gridColumn: numbe
         </div >
     );
 }
+
+function mapStateToProps(state: AppState) {
+    return {
+        selectedLocation: state.locationSearch.selectedLocation,
+        forecasts: state.forecasts.forecasts,
+    }
+}
+
+export default connect(mapStateToProps)(WeatherTable);

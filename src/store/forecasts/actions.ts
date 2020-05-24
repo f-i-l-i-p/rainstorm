@@ -30,10 +30,10 @@ export const fetchForecasts = (location: ILocation) => async (dispatch: Dispatch
     fetchSMHIWeather(location.lat.toString(), location.long.toString())
         .then(forecast => {
             if (forecast.times.length > 0){
-                searchSuccess([forecast])
+                dispatch(searchSuccess([forecast]))
             }
             else {
-                searchFailure("Fetch forecast error.")
+                dispatch(searchFailure("Fetch forecast error."))
             }
         })
 }
