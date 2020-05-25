@@ -4,6 +4,8 @@ import SearchBox from './components/SearchBox';
 import WeatherPage from './components/WeatherPage';
 import Header from './components/Header';
 import { updateUserLocation } from './store/locationSearch/actions';
+import WeatherTable from './components/WeatherTable';
+import WeatherView from './components/WeatherView';
 
 function App() {
   return (

@@ -3,12 +3,18 @@ import CSS from 'csstype';
 import { IForecast, ITimePoint, IWeather, IWeatherProvider } from "../store/types";
 import { connect } from "react-redux";
 import { AppState } from "../store";
-import { Spin } from "antd";
+import { Spin, Typography, Divider } from "antd";
+import { findByLabelText } from "@testing-library/react";
+
+const { Text } = Typography;
 
 const _gridStyle: CSS.Properties = {
     display: 'grid',
     padding: '10px',
     gridRowGap: "20px",
+    gridAutoColumns: '15ch',
+    gridTemplateColumns: '25ch',
+    overflow: 'auto',
 }
 
 const _rowStyle: CSS.Properties = {
@@ -21,18 +27,20 @@ const _cellStyle: CSS.Properties = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    marginTop: '1ch',
+    marginBottom: '1ch',
+    flexDirection: "row",
 }
 
 const _weatherProviderCellStyle: CSS.Properties = {
     ..._cellStyle,
+    margin: '1ch',
 }
 
-const _timeCellStyle: CSS.Properties = {
-    ..._cellStyle,
-}
-
-const _weatherCellStyle: CSS.Properties = {
-    ..._cellStyle,
+const _innerCellStyle: CSS.Properties = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
     flexDirection: "column",
     whiteSpace: "nowrap",
 }
@@ -42,7 +50,6 @@ const _weatherIconStyle: CSS.Properties = {
 }
 
 const _logoStyle: CSS.Properties = {
-    width: "10ch",
 }
 
 interface IWeatherTableProps {
@@ -94,7 +101,7 @@ function createCells(targetTimes: Date[], forecasts: IForecast[], isLoading: boo
 
         for (let f = 0; f < forecasts.length; f++) {
             if (isLoading[f]) {
-                cells.push(<Spin style={{gridRow: f + 2, gridColumn: t + 2}} />);
+                cells.push(<Spin style={{ gridRow: f + 2, gridColumn: t + 2 }} />);
             }
             else {
                 const forecast = forecasts[f];
@@ -130,7 +137,7 @@ function createTimeCell(time: Date, gridRow: number, gridColumn: number): JSX.El
     return (
         <div
             style={{
-                ..._timeCellStyle,
+                ..._cellStyle,
                 gridRow: gridRow,
                 gridColumn: gridColumn,
             }}
@@ -142,18 +149,21 @@ function createTimeCell(time: Date, gridRow: number, gridColumn: number): JSX.El
 
 function createWeatherCell(weather: IWeather, gridRow: number, gridColumn: number): JSX.Element {
     return (
-        <div
-            style={{
-                ..._weatherCellStyle,
-                gridRow: gridRow,
-                gridColumn: gridColumn
-            }}
-        >
-            <p>{weather.temperature}°C</p>
-            <p>{weather.wind} ({weather.gust}) m/s</p>
-            <p>{weather.symbol}</p>
-            <img style={_weatherIconStyle} src={require("../icons/weather symbols/4.svg")} />
-        </div >
+        <div style={{ ..._cellStyle, gridRow: gridRow, gridColumn: gridColumn }}>
+
+            <Divider style={{ height: '100%', margin: '3px', backgroundColor: '#DDD' }} dashed={false} type="vertical" />
+
+            <div style={{ ..._innerCellStyle }}>
+                <Text strong>{weather.temperature} °C</Text>
+                <div>
+                    <Text strong>{weather.wind}</Text>
+                    <Text type="secondary"> ({weather.gust}) </Text>
+                    <Text strong>m/s</Text>
+                </div>
+                <Text strong>{weather.symbol}</Text>
+                <img style={_weatherIconStyle} src={require("../icons/weather symbols/4.svg")} />
+            </div >
+        </div>
     );
 }
 

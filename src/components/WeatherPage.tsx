@@ -13,7 +13,7 @@ class WeatherPage extends React.Component<IWeatherPageProps, IWeatherPageState>{
         super(props);
 
         this.state = {
-            times: getTimes(5, 1000 * 60 * 60),
+            times: getTimes(24, 1000 * 60 * 60),
         }
     }
 
