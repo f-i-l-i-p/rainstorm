@@ -14,7 +14,7 @@ const _gridStyle: CSS.Properties = {
     gridRowGap: "20px",
     gridAutoColumns: '15ch',
     gridTemplateColumns: '25ch',
-    overflow: 'auto',
+    overflowX: 'auto',
 }
 
 const _rowStyle: CSS.Properties = {
@@ -50,6 +50,8 @@ const _weatherIconStyle: CSS.Properties = {
 }
 
 const _logoStyle: CSS.Properties = {
+    maxWidth: '100%',
+    maxHeight: '100%',
 }
 
 interface IWeatherTableProps {

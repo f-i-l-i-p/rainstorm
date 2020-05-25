@@ -36,10 +36,7 @@ class WeatherView extends React.Component<IWeatherViewProps, IWeatherViewState> 
 
     public render() {
         return (
-            <div style={{
-                display: "flex",
-                flexDirection: "column",
-            }}>
+            <div>
                 {this.createHeading()}
                 <WeatherTable targetTimes={this.props.times} />
             </ div>
