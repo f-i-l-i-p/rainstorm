@@ -25,8 +25,6 @@ const _cellStyle: CSS.Properties = {
 
 const _weatherProviderCellStyle: CSS.Properties = {
     ..._cellStyle,
-    paddingLeft: "20px",
-    paddingRight: "20px",
 }
 
 const _timeCellStyle: CSS.Properties = {
@@ -36,7 +34,6 @@ const _timeCellStyle: CSS.Properties = {
 const _weatherCellStyle: CSS.Properties = {
     ..._cellStyle,
     flexDirection: "column",
-    padding: "1ch 5ch",
     whiteSpace: "nowrap",
 }
 
@@ -45,7 +42,7 @@ const _weatherIconStyle: CSS.Properties = {
 }
 
 const _logoStyle: CSS.Properties = {
-    maxHeight: "10vh"
+    width: "10ch",
 }
 
 interface IWeatherTableProps {

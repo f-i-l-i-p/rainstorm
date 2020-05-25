@@ -55,7 +55,7 @@ class SearchBox extends React.Component<ISearchPageProps, ISearchPageState> {
             this.props.fetchForecasts(userLocation);
         }, error => {
             // user location error
-            this.props.updateUserLocation(undefined)
+            // this.props.updateUserLocation(undefined)
         });
     }
 

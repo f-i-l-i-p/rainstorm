@@ -5,11 +5,11 @@ body {
 }
 
 .header {
-    background-color: #5AA9C2;
+    background-color: #343A40;
 }
 
 .page {
-    background-image: linear-gradient(-45deg, #EFEEF1, #5B8FC1);
+    background-image: linear-gradient(-45deg, #EFEEF1, #6e99c2);
     overflow: auto;
     flex-grow: 1;
     padding-bottom: 12vh;

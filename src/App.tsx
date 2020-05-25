@@ -8,7 +8,7 @@ import { updateUserLocation } from './store/locationSearch/actions';
 function App() {
   return (
     <div id="app">
-      <Header title={"RainStorm"} items={[<SearchBox style={{ width: "25em" }} />]} />
+      <Header items={[<SearchBox style={{ width: "25em" }} />]} />
       <div className="page">
         <WeatherPage />
       </div>
