@@ -44,6 +44,9 @@ const _weatherIconStyle: CSS.Properties = {
     filter: "drop-shadow(0 3px 5px rgba(0, 0, 0, 0.19))",
 }
 
+const _logoStyle: CSS.Properties = {
+    maxHeight: "10vh"
+}
 
 interface IWeatherTableProps {
     targetTimes: Date[],
@@ -121,7 +124,7 @@ function createWeatherProviderCell(weatherProvider: IWeatherProvider, gridRow: n
                 gridColumn: gridColumn,
             }}
         >
-            {weatherProvider.name}
+            <img style={_logoStyle} src={weatherProvider.logo} alt={weatherProvider.name} />
         </div>
     );
 }
@@ -152,7 +155,7 @@ function createWeatherCell(weather: IWeather, gridRow: number, gridColumn: numbe
             <p>{weather.temperature}°C</p>
             <p>{weather.wind} ({weather.gust}) m/s</p>
             <p>{weather.symbol}</p>
-            <img style={_weatherIconStyle} src={require("../icons/4.svg")} />
+            <img style={_weatherIconStyle} src={require("../icons/weather symbols/4.svg")} />
         </div >
     );
 }

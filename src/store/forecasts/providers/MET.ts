@@ -1,24 +1,20 @@
 import { IForecast, IWeatherProvider, ITimePoint } from "../../types";
+import logo from '../../../icons/provider logos/MET.jpg'
 
 export const METWeatherProvider: IWeatherProvider = {
     name: 'MET',
-    logo: ''
+    logo: logo
 }
 
 // Fetches weather data from MET
 export async function fetchMETForecast(lat: string, long: string): Promise<IForecast> {
-    const weatherProvider: IWeatherProvider = {
-        name: 'MET',
-        logo: ''
-    };
-
     const result = await fetch('https://api.met.no/weatherapi/locationforecast/1.9/?lat='
         + lat + '&lon=' + long);
 
     if (!result.ok) {
         console.error('MET weather response error! status: ' + result.status);
         return {
-            weatherProvider: weatherProvider,
+            weatherProvider: METWeatherProvider,
             times: []
         }
     }
@@ -32,7 +28,7 @@ export async function fetchMETForecast(lat: string, long: string): Promise<IFore
     });
 
     return {
-        weatherProvider: weatherProvider,
+        weatherProvider: METWeatherProvider,
         times: METToITimePoints(json),
     };
 }

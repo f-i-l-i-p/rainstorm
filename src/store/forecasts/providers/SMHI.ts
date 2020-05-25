@@ -1,8 +1,9 @@
 import { IForecast, ITimePoint, IWeatherProvider } from "../../types";
+import logo from '../../../icons/provider logos/SMHI.jpg'
 
 export const SMHIWeatherProvider: IWeatherProvider = {
     name: 'SMHI',
-    logo: ''
+    logo: logo
 }
 
 // Fetches weather data from SMHI
