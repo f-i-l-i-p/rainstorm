@@ -3,6 +3,7 @@ import CSS from 'csstype';
 import { IForecast, ITimePoint, IWeather, IWeatherProvider } from "../store/types";
 import { connect } from "react-redux";
 import { AppState } from "../store";
+import { Spin } from "antd";
 
 const _gridStyle: CSS.Properties = {
     display: 'grid',
@@ -47,6 +48,7 @@ const _weatherIconStyle: CSS.Properties = {
 interface IWeatherTableProps {
     targetTimes: Date[],
     forecasts: IForecast[],
+    isLoading: boolean[]
 }
 
 interface IWeatherTableState {
@@ -56,13 +58,13 @@ class WeatherTable extends React.Component<IWeatherTableProps, IWeatherTableStat
     public render() {
         return (
             <div style={_gridStyle}>
-                {createCells(this.props.targetTimes, this.props.forecasts)}
+                {createCells(this.props.targetTimes, this.props.forecasts, this.props.isLoading)}
             </div>
         );
     }
 }
 
-function createCells(targetTimes: Date[], forecasts: IForecast[]): JSX.Element[] {
+function createCells(targetTimes: Date[], forecasts: IForecast[], isLoading: boolean[]): JSX.Element[] {
     let cells: JSX.Element[] = []
 
     // Crete row backgrounds
@@ -91,13 +93,18 @@ function createCells(targetTimes: Date[], forecasts: IForecast[]): JSX.Element[]
         cells.push(createTimeCell(targetTime, 1, t + 2));
 
         for (let f = 0; f < forecasts.length; f++) {
-            const forecast = forecasts[f];
+            if (isLoading[f]) {
+                cells.push(<Spin style={{gridRow: f + 2, gridColumn: t + 2}} />);
+            }
+            else {
+                const forecast = forecasts[f];
 
-            for (let p = 0; p < forecast.times.length; p++) {
-                const timePoint = forecast.times[p];
+                for (let p = 0; p < forecast.times.length; p++) {
+                    const timePoint = forecast.times[p];
 
-                if (targetTime.getTime() === timePoint.time.getTime()) {
-                    cells.push(createWeatherCell(timePoint.weather, f + 2, t + 2))
+                    if (targetTime.getTime() === timePoint.time.getTime()) {
+                        cells.push(createWeatherCell(timePoint.weather, f + 2, t + 2))
+                    }
                 }
             }
         }
@@ -154,6 +161,7 @@ function mapStateToProps(state: AppState) {
     return {
         selectedLocation: state.locationSearch.selectedLocation,
         forecasts: state.forecasts.forecasts,
+        isLoading: state.forecasts.isLoading,
     }
 }
 

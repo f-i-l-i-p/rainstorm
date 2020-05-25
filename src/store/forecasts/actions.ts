@@ -28,8 +28,7 @@ function searchFailure(id: number, errorMessage: string): ForecastActionTypes {
     }
 }
 
-
-function fetchForecast(id: number, location: ILocation, fetchFunction: (lat: string, long: string) => Promise<IForecast>, dispatch: Dispatch) {
+async function fetchForecast(id: number, location: ILocation, fetchFunction: (lat: string, long: string) => Promise<IForecast>, dispatch: Dispatch) {
     dispatch(searchStart(id));
 
     fetchFunction(location.lat.toString(), location.long.toString())
@@ -46,16 +45,7 @@ function fetchForecast(id: number, location: ILocation, fetchFunction: (lat: str
 const fetchFunctions: ((lat: string, long: string) => Promise<IForecast>)[] = [fetchSMHIForecast, fetchMETForecast];
 
 export const fetchForecasts = (location: ILocation) => async (dispatch: Dispatch) => {
-    // fetchFunctions.forEach((fetchFunction, index) => {
-    //     fetchForecast(index, location, fetchFunction, dispatch);
-    // });
-
-    fetchForecast(1, location, fetchMETForecast, dispatch);
-    fetchForecast(0, location, fetchSMHIForecast, dispatch);
+    fetchFunctions.forEach((fetchFunction, index) => {
+        fetchForecast(index, location, fetchFunction, dispatch);
+    });
 }
-
-// export function fetchForecasts(location: ILocation) {
-//     for (let i = 0; i < 2; i++) {
-//         fetchForecast(i, location);
-//     }
-// }
