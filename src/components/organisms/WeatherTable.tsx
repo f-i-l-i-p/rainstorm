@@ -6,6 +6,7 @@ import { Spin, Typography, Divider } from "antd";
 import { findByLabelText } from "@testing-library/react";
 import { IForecast, IWeatherProvider, IWeather } from "../../store/types";
 import WeatherCell from "../molecules/WeatherCell";
+import TimeCell from "../molecules/TimeCell";
 
 const { Text } = Typography;
 
@@ -145,7 +146,7 @@ function createTimeCell(time: Date, gridRow: number, gridColumn: number): JSX.El
                 gridColumn: gridColumn,
             }}
         >
-            {time.getHours()}
+            <TimeCell time={time}/>
         </div>
     );
 }

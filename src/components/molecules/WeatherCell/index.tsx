@@ -11,7 +11,7 @@ interface Props {
 }
 
 const WeatherCell = (props: Props) => (
-    <div className="cell">
+    <div className="weather_cell">
         <Text strong>{props.weather.temperature} °C</Text>
         <div>
             <Text strong>{props.weather.wind}</Text>
