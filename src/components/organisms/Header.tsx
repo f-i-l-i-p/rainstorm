@@ -1,7 +1,5 @@
 import React from "react";
-import Title from "antd/lib/typography/Title";
-import logo from '../icons/temp.png';
-import { Select } from "antd";
+import logo from '../../icons/temp.png';
 
 interface IHeaderProps {
     items?: JSX.Element[],

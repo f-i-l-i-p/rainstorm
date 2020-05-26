@@ -1,10 +1,10 @@
 import React, { Fragment } from "react";
 import CSS from 'csstype';
-import { IForecast, ITimePoint, IWeather, IWeatherProvider } from "../store/types";
 import { connect } from "react-redux";
-import { AppState } from "../store";
+import { AppState } from "../../store";
 import { Spin, Typography, Divider } from "antd";
 import { findByLabelText } from "@testing-library/react";
+import { IForecast, IWeatherProvider, IWeather } from "../../store/types";
 
 const { Text } = Typography;
 
@@ -163,7 +163,7 @@ function createWeatherCell(weather: IWeather, gridRow: number, gridColumn: numbe
                     <Text strong>m/s</Text>
                 </div>
                 <Text strong>{weather.symbol}</Text>
-                <img style={_weatherIconStyle} src={require("../icons/weather symbols/4.svg")} />
+                <img style={_weatherIconStyle} src={require("../../icons/weather symbols/4.svg")} />
             </div >
         </div>
     );

@@ -1,5 +1,5 @@
 import React  from "react";
-import WeatherView from "./WeatherView";
+import WeatherView from "../templates/WeatherView";
 
 interface IWeatherPageProps {
 }

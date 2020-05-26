@@ -1,9 +1,10 @@
 import React, { Fragment } from "react";
-import { IForecast } from "../store/types";
-import WeatherTable from "./WeatherTable";
-import { ILocation } from "../store/types";
+import { IForecast } from "../../store/types";
+import WeatherTable from "../organisms/WeatherTable";
+import { ILocation } from "../../store/types";
 import { connect } from "react-redux";
-import { AppState } from "../store";
+import { AppState } from "../../store";
+import CurrentWeather from "../molecules/CurrentWeather";
 
 interface IWeatherViewProps {
     location?: ILocation,
@@ -37,7 +38,7 @@ class WeatherView extends React.Component<IWeatherViewProps, IWeatherViewState> 
     public render() {
         return (
             <div>
-                {this.createHeading()}
+                <CurrentWeather location={this.props.location}/>
                 <WeatherTable targetTimes={this.props.times} />
             </ div>
         );

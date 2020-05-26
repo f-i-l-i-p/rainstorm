@@ -1,11 +1,11 @@
 import React, { Dispatch } from 'react';
 import './App.css';
-import SearchBox from './components/SearchBox';
-import WeatherPage from './components/WeatherPage';
-import Header from './components/Header';
+import SearchBox from './components/atoms/SearchBox';
+import WeatherPage from './components/pages/WeatherPage';
+import Header from './components/organisms/Header';
 import { updateUserLocation } from './store/locationSearch/actions';
-import WeatherTable from './components/WeatherTable';
-import WeatherView from './components/WeatherView';
+import WeatherTable from './components/organisms/WeatherTable';
+import WeatherView from './components/templates/WeatherView';
 
 function App() {
   return (
