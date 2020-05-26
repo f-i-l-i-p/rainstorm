@@ -5,6 +5,7 @@ import { AppState } from "../../store";
 import { Spin, Typography, Divider } from "antd";
 import { findByLabelText } from "@testing-library/react";
 import { IForecast, IWeatherProvider, IWeather } from "../../store/types";
+import WeatherCell from "../molecules/WeatherCell";
 
 const { Text } = Typography;
 
@@ -155,16 +156,7 @@ function createWeatherCell(weather: IWeather, gridRow: number, gridColumn: numbe
 
             <Divider style={{ height: '100%', margin: '3px', backgroundColor: '#DDD' }} dashed={false} type="vertical" />
 
-            <div style={{ ..._innerCellStyle }}>
-                <Text strong>{weather.temperature} °C</Text>
-                <div>
-                    <Text strong>{weather.wind}</Text>
-                    <Text type="secondary"> ({weather.gust}) </Text>
-                    <Text strong>m/s</Text>
-                </div>
-                <Text strong>{weather.symbol}</Text>
-                <img style={_weatherIconStyle} src={require("../../icons/weather symbols/4.svg")} />
-            </div >
+            <WeatherCell weather={weather}/>
         </div>
     );
 }

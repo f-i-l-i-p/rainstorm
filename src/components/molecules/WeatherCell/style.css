@@ -1,0 +1,11 @@
+.cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    white-space: nowrap;
+}
+
+.weather_symbol {
+    filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.19));
+}
