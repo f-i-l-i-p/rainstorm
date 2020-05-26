@@ -1,0 +1,38 @@
+.table {
+    display: grid;
+    grid-template-columns: 300px 10px auto;
+    width: 100%;
+}
+
+.row {
+    margin-top: 10 px;
+    margin-bottom: 10px;
+    height: 20ch;
+}
+
+.left-column {
+    grid-row: 1;
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+
+.right-column {
+    grid-row: 1;
+    grid-column-start: 2;
+    grid-column-end: 4;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    overflow: auto;
+}
+
+.center-column {
+    grid-row: 1;
+    grid-column: 2;
+}
+
+.column-gap-filler {
+    background-color: #FFF;
+    width: 100%;
+    height: 100%;
+}

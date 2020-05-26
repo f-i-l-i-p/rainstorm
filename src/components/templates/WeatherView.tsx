@@ -1,15 +1,16 @@
 import React, { Fragment } from "react";
 import { IForecast } from "../../store/types";
-import WeatherTable from "../organisms/WeatherTable";
 import { ILocation } from "../../store/types";
 import { connect } from "react-redux";
 import { AppState } from "../../store";
 import CurrentWeather from "../molecules/CurrentWeather";
+import WeatherTable from "../organisms/WeatherTable";
 
 interface IWeatherViewProps {
     location?: ILocation,
     times: Date[],
     forecasts: IForecast[],
+    isLoading: boolean[],
 }
 
 interface IWeatherViewState {
@@ -39,7 +40,7 @@ class WeatherView extends React.Component<IWeatherViewProps, IWeatherViewState> 
         return (
             <div>
                 <CurrentWeather location={this.props.location}/>
-                <WeatherTable targetTimes={this.props.times} />
+                <WeatherTable targetTimes={this.props.times} forecasts={this.props.forecasts} isLoading={this.props.isLoading} />
             </ div>
         );
     }
@@ -49,6 +50,7 @@ function mapStateToProps(state: AppState) {
     return {
         location: state.locationSearch.selectedLocation,
         forecasts: state.forecasts.forecasts,
+        isLoading: state.forecasts.isLoading,
     }
 }
 

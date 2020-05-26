@@ -65,7 +65,7 @@ interface IWeatherTableProps {
 interface IWeatherTableState {
 }
 
-class WeatherTable extends React.Component<IWeatherTableProps, IWeatherTableState> {
+class oldWeatherTable extends React.Component<IWeatherTableProps, IWeatherTableState> {
     public render() {
         return (
             <div style={_gridStyle}>
@@ -170,4 +170,4 @@ function mapStateToProps(state: AppState) {
     }
 }
 
-export default connect(mapStateToProps)(WeatherTable);
+export default connect(mapStateToProps)(oldWeatherTable);
