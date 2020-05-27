@@ -3,15 +3,15 @@ import { ILocation, IWeather } from "../../../store/types";
 
 import './style.css';
 
-interface props {
-    location?: ILocation,
-    weather?: IWeather,
+interface CurrentWeatherProps {
+    location: ILocation,
+    weather: IWeather,
 }
 
-const CurrentWeather = (props: props) => (
+const CurrentWeather = (props: CurrentWeatherProps) => (
     <div>
-        <h1>{props.location?.name}</h1>
-        <p>{props.weather?.temperature + "°C"}</p>
+        <h1>{props.location.name}</h1>
+        <p>{props.weather.temperature + "°C"}</p>
     </div>
 );
 
