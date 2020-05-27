@@ -1,49 +1,76 @@
 import React from "react";
 import { IForecast, ITimePoint } from "../../../store/types";
-
-import './style.css';
 import Paper from "../../atoms/Paper";
 import WeatherCell from "../../molecules/WeatherCell";
+import { Divider } from "antd";
+import TimeCell from "../../molecules/TimeCell";
 
-interface Props {
+import './style.css';
+
+interface WeatherTableProps {
     targetTimes: Date[],
     forecasts: IForecast[],
     isLoading: boolean[]
 }
 
-const WeatherTable = (props: Props) => (
-    <div className="table">
-        <div className="center-column">
-            {props.forecasts.map((forecast, index) =>
-                <div className="row">
-                    <div className="row column-gap-filler"></div>
-                </div>
-            )}
-        </div>
+class WeatherTable extends React.Component<WeatherTableProps> {
+    public render() {
+        return (
+            <div className="columns">
 
-        <div className="right-column">
-            {props.forecasts.map((forecast, index) =>
-                <div className="row">
-                    <Paper style={{ height: '100%', display: 'flex', flexDirection: 'row' }}>
-                        {getWeatherAtTimes(forecast.times, props.targetTimes).map(timePoint =>
-                            <WeatherCell weather={timePoint.weather} />
+                <div className="right-column">
+                    <div className="time-row" style={{width: '100%'}}>
+                        <Paper style={{width: '100%', height: '100%'}}/>
+                    </div>
+                </div>
+
+                <div className="all-columns">
+                    <div className="time-row" />
+                    {this.props.forecasts.map(forecast =>
+                        <div className="weather-row">
+                            <Paper style={{ width: '100%', height: '100%' }} />
+                        </div>
+                    )}
+                </div>
+
+                <div className="left-column">
+                    <div className="time-row" />
+                    {this.props.forecasts.map(forecast =>
+                        <div className="weather-row">
+                            <div>
+                                <img className="weather-provider-logo" src={forecast.weatherProvider.logo} />
+                            </div>
+                        </div>
+                    )}
+                </div>
+
+                <div className="divider-column">
+                    <div className="time-row" />
+                    {this.props.forecasts.map(forecast =>
+                        <div className="weather-row">
+                            <Divider type="vertical" style={{ height: 'calc(100% - 5px)', margin: 0 }} />
+                        </div>
+                    )}
+                </div>
+
+                <div className="right-column" style={{overflowX: 'auto'}}>
+                    <div className="time-row">
+                        {this.props.targetTimes.map(time =>
+                            <TimeCell time={time} />
                         )}
-                    </Paper>
+                    </div>
+                    {this.props.forecasts.map(forecast =>
+                        <div className="weather-row">
+                            {getWeatherAtTimes(forecast.times, this.props.targetTimes).map(timePoint =>
+                                <WeatherCell weather={timePoint.weather} />
+                            )}
+                        </div>
+                    )}
                 </div>
-            )}
-        </div>
-
-        <div className="left-column">
-            {props.forecasts.map((forecast, index) =>
-                <div className="row">
-                    <Paper style={{ width: '100%', height: '100%' }}>
-                        left
-                    </Paper>
-                </div>
-            )}
-        </div>
-    </div>
-);
+            </div >
+        );
+    }
+}
 
 function getWeatherAtTimes(timePoints: ITimePoint[], targetTimes: Date[]): ITimePoint[] {
     let temp: ITimePoint[] = [];

@@ -5,7 +5,7 @@ import './style.css';
 
 interface Props {
     style?: CSS.Properties,
-    children: React.ReactNode
+    children?: React.ReactNode
 }
 
 const Paper = (props: Props) => (

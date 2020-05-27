@@ -13,13 +13,13 @@ interface Props {
 const WeatherCell = (props: Props) => (
     <div className="weather_cell">
         <Text strong>{props.weather.temperature} °C</Text>
+        <img className='weather_symbol' src={require("../../../icons/weather symbols/4.svg")} />
         <div>
             <Text strong>{props.weather.wind}</Text>
             <Text type="secondary"> ({props.weather.gust}) </Text>
             <Text strong>m/s</Text>
         </div>
-        <Text strong>{props.weather.symbol}</Text>
-        <img className='weather_symbol' src={require("../../../icons/weather symbols/4.svg")} />
+        {/* <Text strong>{props.weather.symbol}</Text> */}
     </div>
 );
 
