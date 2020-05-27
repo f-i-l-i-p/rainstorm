@@ -11,7 +11,7 @@ interface CurrentWeatherProps {
 const CurrentWeather = (props: CurrentWeatherProps) => (
     <div>
         <h1>{props.location.name}</h1>
-        <p>{props.weather.temperature + "°C"}</p>
+        <p>{Math.round(props.weather.temperature * 10) / 10 + "°C"}</p>
     </div>
 );
 
