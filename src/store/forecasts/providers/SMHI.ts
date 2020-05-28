@@ -27,42 +27,41 @@ function SMHIToITimePoints(json: any): ITimePoint[] {
     let timePoints: ITimePoint[] = []
 
     try {
-        let ts: [any] = json['timeSeries'];
-
-        let tempIndex: number, windIndex: number, gustIndex: number, symbolIndex: number;
-
-        const testParams: [any] = ts[0]['parameters'];
-        for (let i = 0; i < testParams.length; i++) {
-            switch (testParams[i].name) {
-                case 't':
-                    tempIndex = i;
-                    break;
-                case 'ws':
-                    windIndex = i;
-                    break;
-                case 'gust':
-                    gustIndex = i;
-                    break;
-                case 'Wsymb2':
-                    symbolIndex = i;
-                    break;
-            }
-        }
+        let ts: [] = json['timeSeries'];
 
         ts.forEach((element: any) => {
-            const par = element['parameters']
+            const parameters: [] = element['parameters']
 
-            timePoints.push({
+            let timePoint: ITimePoint = {
                 time: new Date(element['validTime']),
+                weather: {
+                    temperature: NaN,
+                    wind: NaN,
+                    gust: NaN,
+                    symbol: '',
+                }
+            }
+
+            for (let i = 0; i < parameters.length; i++) {
+                const par = parameters[i];
                 // Weather parameter descriptions can be found at:
                 // https://opendata.smhi.se/apidocs/metfcst/parameters.html#parameter-table
-                weather: {
-                    temperature: par[tempIndex]['values'][0],
-                    wind: par[windIndex]['values'][0],
-                    gust: par[gustIndex]['values'][0],
-                    symbol: par[symbolIndex]['values'][0],
+                switch (par['name']) {
+                    case 't':
+                        timePoint.weather.temperature = par['values'][0];
+                        break;
+                    case 'ws':
+                        timePoint.weather.wind = par['values'][0];
+                        break;
+                    case 'gust':
+                        timePoint.weather.gust = par['values'][0];
+                        break;
+                    case 'Wsymb2':
+                        timePoint.weather.symbol = par['values'][0];
+                        break;
                 }
-            });
+            }
+            timePoints.push(timePoint);
         });
     }
     catch (error) {
