@@ -7,9 +7,13 @@ export const SMHIWeatherProvider: IWeatherProvider = {
 }
 
 function getIcon(icon: number): string {
+    // Weather symbol descriptions can be found at:
+    // https://opendata.smhi.se/apidocs/metfcst/parameters.html#parameter-info
     switch (icon) {
         case 1:
             return "clear_sky";
+        case 2:
+            return "nearly_clear_sky";
         case 4:
             return "halfclear_sky";
         case 9:
@@ -63,8 +67,7 @@ function SMHIToITimePoints(json: any): ITimePoint[] {
                 }
             }
 
-            for (let i = 0; i < parameters.length; i++) {
-                const par = parameters[i];
+            parameters.forEach(par => {
                 // Weather parameter descriptions can be found at:
                 // https://opendata.smhi.se/apidocs/metfcst/parameters.html#parameter-table
                 switch (par['name']) {
@@ -81,7 +84,7 @@ function SMHIToITimePoints(json: any): ITimePoint[] {
                         timePoint.weather.symbol = getIcon(Number(par['values'][0]));
                         break;
                 }
-            }
+            });
             timePoints.push(timePoint);
         });
     }
