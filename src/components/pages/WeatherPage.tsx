@@ -28,8 +28,8 @@ class WeatherPage extends React.Component<IWeatherPageProps, IWeatherPageState>{
 function getTimes(count: number, interval: number): Date[] {
     let times: Date[] = []
 
-    let start = new Date(Date.now())
-    start.setHours(start.getHours() + 1)
+    let start = new Date();
+    start.setHours(start.getHours() + 1);
     start.setMinutes(0);
     start.setSeconds(0);
     start.setMilliseconds(0);
