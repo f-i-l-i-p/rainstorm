@@ -2,7 +2,7 @@
 
 .columns {
     display: grid;
-    grid-template-columns: 60px auto auto;
+    grid-template-columns: 40px auto auto;
 }
 
 .all-columns {
@@ -53,10 +53,10 @@
 
 .weather-provider-logo {
     width: 120px;
-    height: 60px;
+    height: 40px;
     padding: 5px;
     top: 0;
-    transform: rotate(-90deg) translateY(-30px);
+    transform: rotate(-90deg) translateY(-40px);
     object-fit: contain;
 }
 
