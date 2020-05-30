@@ -6,6 +6,27 @@ export const SMHIWeatherProvider: IWeatherProvider = {
     logo: logo
 }
 
+function getIcon(icon: number): string {
+    switch (icon) {
+        case 1:
+            return "clear_sky";
+        case 4:
+            return "halfclear_sky";
+        case 9:
+            return "moderate_rain_showers";
+        case 11:
+            return "thunderstorm";
+        case 19:
+            return "moderate_rain";
+        case 21:
+            return "thunder";
+        case 23:
+            return "moderate_sleet";
+        default:
+            return "unknown";
+    }
+}
+
 // Fetches weather data from SMHI
 export async function fetchSMHIForecast(lat: string, long: string): Promise<IForecast> {
     const max = 9; // the maximum precision allowed by the api (including decimal point)
@@ -57,7 +78,7 @@ function SMHIToITimePoints(json: any): ITimePoint[] {
                         timePoint.weather.gust = par['values'][0];
                         break;
                     case 'Wsymb2':
-                        timePoint.weather.symbol = par['values'][0];
+                        timePoint.weather.symbol = getIcon(Number(par['values'][0]));
                         break;
                 }
             }
