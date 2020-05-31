@@ -1,4 +1,4 @@
-import { ForecastActionTypes, FETCH_START, FETCH_SUCCESS, FETCH_FAILURE } from "./types";
+import { ForecastActionTypes, FETCH_START, FETCH_SUCCESS, FETCH_FAILURE, SET_DISPLAY_TIMES } from "./types";
 import { IForecast } from "../types";
 import { ILocation } from "../types";
 import { Dispatch } from "redux";
@@ -48,4 +48,11 @@ export const fetchForecasts = (location: ILocation) => async (dispatch: Dispatch
     fetchFunctions.forEach((fetchFunction, index) => {
         fetchForecast(index, location, fetchFunction, dispatch);
     });
+}
+
+export function setDisplayTimes(displayTimes: Date[]) {
+    return {
+        type: SET_DISPLAY_TIMES,
+        displayTimes: displayTimes
+    };
 }

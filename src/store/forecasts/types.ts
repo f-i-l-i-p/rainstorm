@@ -2,6 +2,8 @@ import { IForecast } from "../types";
 
 export interface IWeatherState {
     forecasts: IForecast[],
+    displayTimes: Date[],
+    displayForecasts: IForecast [],
 }
 
 export const FETCH_START = 'FETCH_START';
@@ -27,4 +29,11 @@ interface IFetchFailureAction {
     id: number
 }
 
-export type ForecastActionTypes = IFetchStartAction | IFetchSuccessAction | IFetchFailureAction;
+export const SET_DISPLAY_TIMES = 'SET_DISPLAY_TIMES';
+
+interface ISetDisplayTimesAction {
+    type: typeof SET_DISPLAY_TIMES,
+    displayTimes: Date[]
+}
+
+export type ForecastActionTypes = IFetchStartAction | IFetchSuccessAction | IFetchFailureAction | ISetDisplayTimesAction;

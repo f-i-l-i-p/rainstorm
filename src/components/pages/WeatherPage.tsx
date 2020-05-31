@@ -1,44 +1,40 @@
 import React  from "react";
 import WeatherView from "../templates/WeatherView";
+import { connect } from "react-redux";
+import { AppState } from "../../store";
+import { IForecast, ILocation } from "../../store/types";
+import { setDisplayTimes } from "../../store/forecasts/actions";
 
 interface IWeatherPageProps {
+    location?: ILocation,
+    displayTimes: Date[],
+    displayForecasts: IForecast[],
+    setDisplayTimes: (times: Date[]) => void,
 }
 
 interface IWeatherPageState {
-    times: Date[],
 }
 
 class WeatherPage extends React.Component<IWeatherPageProps, IWeatherPageState>{
-    constructor(props: Readonly<IWeatherPageProps>) {
-        super(props);
-
-        this.state = {
-            times: getTimes(24, 1000 * 60 * 60),
-        }
-    }
-
     render() {
         return (
-            <WeatherView times={this.state.times} />
+            <WeatherView times={this.props.displayTimes} forecasts={this.props.displayForecasts} location={this.props.location}/>
         );
     }
 }
 
-// Returns a list of Date objects with a specified time difference
-function getTimes(count: number, interval: number): Date[] {
-    let times: Date[] = []
-
-    let start = new Date();
-    start.setHours(start.getHours() + 1);
-    start.setMinutes(0);
-    start.setSeconds(0);
-    start.setMilliseconds(0);
-
-    for (let i = 0; i < count; i++) {
-        times.push(new Date(start.getTime() + (i * interval)));
+function mapStateToProps(state: AppState) {
+    return {
+        location: state.locationSearch.selectedLocation,
+        displayForecasts : state.forecasts.displayForecasts,
+        displayTimes: state.forecasts.displayTimes
     }
-
-    return times;
 }
 
-export default WeatherPage;
+function mapDispatchToProps(dispatch: any) { // TODO: Fix any type
+    return {
+        setDisplayTimes: (time: Date[]) => dispatch(setDisplayTimes(time)),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(WeatherPage);
