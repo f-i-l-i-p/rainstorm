@@ -18,7 +18,7 @@ interface IWeatherPageState {
 class WeatherPage extends React.Component<IWeatherPageProps, IWeatherPageState>{
     render() {
         return (
-            <WeatherView times={this.props.displayTimes} forecasts={this.props.displayForecasts} location={this.props.location}/>
+            <WeatherView displayTimes={this.props.displayTimes} displayForecasts={this.props.displayForecasts} location={this.props.location}/>
         );
     }
 }

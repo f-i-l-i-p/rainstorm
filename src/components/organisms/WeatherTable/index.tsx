@@ -8,8 +8,8 @@ import TimeCell from "../../molecules/TimeCell";
 import './style.css';
 
 interface WeatherTableProps {
-    targetTimes: Date[],
-    forecasts: IForecast[],
+    displayTimes: Date[],
+    displayForecasts: IForecast[],
 }
 
 class WeatherTable extends React.Component<WeatherTableProps> {
@@ -25,7 +25,7 @@ class WeatherTable extends React.Component<WeatherTableProps> {
 
                 <div className="all-columns">
                     <div className="time-row" />
-                    {this.props.forecasts.map(forecast =>
+                    {this.props.displayForecasts.map(forecast =>
                         <div className="weather-row">
                             <Paper style={{ width: '100%', height: '100%' }} />
                         </div>
@@ -34,7 +34,7 @@ class WeatherTable extends React.Component<WeatherTableProps> {
 
                 <div className="left-column">
                     <div className="time-row" />
-                    {this.props.forecasts.map(forecast =>
+                    {this.props.displayForecasts.map(forecast =>
                         <div className="weather-row">
                             <div>
                                 <img className="weather-provider-logo" src={forecast.weatherProvider.logo} />
@@ -45,7 +45,7 @@ class WeatherTable extends React.Component<WeatherTableProps> {
 
                 <div className="divider-column">
                     <div className="time-row" />
-                    {this.props.forecasts.map(forecast =>
+                    {this.props.displayForecasts.map(forecast =>
                         <div className="weather-row">
                             <Divider type="vertical" style={{ height: 'calc(100% - 5px)', margin: 0 }} />
                         </div>
@@ -54,13 +54,13 @@ class WeatherTable extends React.Component<WeatherTableProps> {
 
                 <div className="right-column" style={{overflowX: 'auto'}}>
                     <div className="time-row">
-                        {this.props.targetTimes.map(time =>
+                        {this.props.displayTimes.map(time =>
                             <TimeCell time={time} />
                         )}
                     </div>
-                    {this.props.forecasts.map(forecast =>
+                    {this.props.displayForecasts.map(forecast =>
                         <div className="weather-row">
-                            {getWeatherAtTimes(forecast.times, this.props.targetTimes).map(timePoint =>
+                            {forecast.times.map(timePoint =>
                                 <WeatherCell weather={timePoint.weather} />
                             )}
                         </div>
@@ -69,21 +69,6 @@ class WeatherTable extends React.Component<WeatherTableProps> {
             </div >
         );
     }
-}
-
-function getWeatherAtTimes(timePoints: ITimePoint[], targetTimes: Date[]): ITimePoint[] {
-    let temp: ITimePoint[] = [];
-
-    targetTimes.forEach(time => {
-        for (let i = 0; i < timePoints.length; i++) {
-            if (time.getTime() === timePoints[i].time.getTime()) {
-                temp.push(timePoints[i])
-                break;
-            }
-        }
-    });
-
-    return temp;
 }
 
 export default WeatherTable;
