@@ -3,11 +3,18 @@ import { IForecast, IWeather } from "../../store/types";
 import { ILocation } from "../../store/types";
 import CurrentWeather from "../molecules/CurrentWeather";
 import WeatherTable from "../organisms/WeatherTable";
+import ToggleButton from "../atoms/ToggleButton";
+
+interface IDisplayMode {
+    title: string,
+    activate: any,
+}
 
 interface IWeatherViewProps {
     location?: ILocation,
     displayTimes: Date[],
     displayForecasts: IForecast[],
+    displayModes: IDisplayMode[],
 }
 
 const WeatherView = (props: IWeatherViewProps) => (
@@ -15,6 +22,9 @@ const WeatherView = (props: IWeatherViewProps) => (
         {props.location &&
             <CurrentWeather location={props.location} weather={currentWeather(props.displayForecasts)} />
         }
+        <ToggleButton
+            options={props.displayModes.map(mode => { return { title: mode.title, onClick: mode.activate } })}
+        />
         <WeatherTable displayTimes={props.displayTimes} displayForecasts={props.displayForecasts} />
     </ div>
 )

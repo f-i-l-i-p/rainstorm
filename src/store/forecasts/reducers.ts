@@ -58,8 +58,8 @@ export function forecastReducer(state = initialState, action: ForecastActionType
         case SET_DISPLAY_TIMES:
             return {
                 ...state,
-                displayForecasts: getNewDisplayForecasts(state.forecasts, state.displayTimes),
                 displayTimes: action.displayTimes,
+                displayForecasts: getNewDisplayForecasts(state.forecasts, action.displayTimes),
             }
         default:
             return state;
@@ -67,8 +67,8 @@ export function forecastReducer(state = initialState, action: ForecastActionType
 }
 
 function getNewDisplayForecasts(forecasts: IForecast[], displayTimes: Date[]): IForecast[] {
-    let displayForecasts: IForecast[] = [];
-
+        let displayForecasts: IForecast[] = [];
+    
     // add forecasts
     forecasts.forEach(forecast => {
         displayForecasts.push({
@@ -76,7 +76,7 @@ function getNewDisplayForecasts(forecasts: IForecast[], displayTimes: Date[]): I
             times: []
         });
     });
-
+    
     // add times to forecasts
     displayTimes.forEach(dTime => {
         for (let forecastID = 0; forecastID < forecasts.length; forecastID++) {

@@ -1,9 +1,10 @@
-import React  from "react";
+import React from "react";
 import WeatherView from "../templates/WeatherView";
 import { connect } from "react-redux";
 import { AppState } from "../../store";
 import { IForecast, ILocation } from "../../store/types";
 import { setDisplayTimes } from "../../store/forecasts/actions";
+import { listHoursFromNow, listDaysFromNow } from "../../helpers/date";
 
 interface IWeatherPageProps {
     location?: ILocation,
@@ -18,7 +19,20 @@ interface IWeatherPageState {
 class WeatherPage extends React.Component<IWeatherPageProps, IWeatherPageState>{
     render() {
         return (
-            <WeatherView displayTimes={this.props.displayTimes} displayForecasts={this.props.displayForecasts} location={this.props.location}/>
+            <WeatherView
+                displayTimes={this.props.displayTimes}
+                displayForecasts={this.props.displayForecasts}
+                location={this.props.location}
+                displayModes={[
+                    {
+                        title: "7d",
+                        activate: () => this.props.setDisplayTimes(listDaysFromNow(3)),
+                    }, {
+                        title: "24h",
+                        activate: () => this.props.setDisplayTimes(listHoursFromNow(24)),
+                    },
+                ]}
+            />
         );
     }
 }
@@ -26,7 +40,7 @@ class WeatherPage extends React.Component<IWeatherPageProps, IWeatherPageState>{
 function mapStateToProps(state: AppState) {
     return {
         location: state.locationSearch.selectedLocation,
-        displayForecasts : state.forecasts.displayForecasts,
+        displayForecasts: state.forecasts.displayForecasts,
         displayTimes: state.forecasts.displayTimes
     }
 }
