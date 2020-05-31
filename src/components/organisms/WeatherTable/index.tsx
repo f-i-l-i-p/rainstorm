@@ -10,7 +10,6 @@ import './style.css';
 interface WeatherTableProps {
     targetTimes: Date[],
     forecasts: IForecast[],
-    isLoading: boolean[]
 }
 
 class WeatherTable extends React.Component<WeatherTableProps> {

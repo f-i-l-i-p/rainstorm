@@ -10,7 +10,6 @@ interface IWeatherViewProps {
     location?: ILocation,
     times: Date[],
     forecasts: IForecast[],
-    isLoading: boolean[],
 }
 
 interface IWeatherViewState {
@@ -46,7 +45,7 @@ class WeatherView extends React.Component<IWeatherViewProps, IWeatherViewState> 
                 {this.props.location &&
                     <CurrentWeather location={this.props.location} weather={this.currentWeather()}/>
                 }
-                <WeatherTable targetTimes={this.props.times} forecasts={this.props.forecasts} isLoading={this.props.isLoading} />
+                <WeatherTable targetTimes={this.props.times} forecasts={this.props.forecasts} />
             </ div>
         );
     }
@@ -56,7 +55,6 @@ function mapStateToProps(state: AppState) {
     return {
         location: state.locationSearch.selectedLocation,
         forecasts: state.forecasts.forecasts,
-        isLoading: state.forecasts.isLoading,
     }
 }
 

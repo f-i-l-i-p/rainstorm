@@ -9,6 +9,8 @@ export interface ILocation {
 
 export interface IForecast {
     weatherProvider: IWeatherProvider,
+    isLoading?: boolean,
+    errorMessage?: string,
     times: ITimePoint[]
 }
 

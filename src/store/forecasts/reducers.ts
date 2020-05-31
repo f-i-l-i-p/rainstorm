@@ -3,47 +3,52 @@ import { SMHIWeatherProvider } from "./providers/SMHI";
 import { METWeatherProvider } from "./providers/MET";
 
 const initialState: IForecastState = {
-    forecasts: [{weatherProvider: SMHIWeatherProvider, times: []}, {weatherProvider: METWeatherProvider, times:[]}],
-    isLoading: [],
-    errorMessages: []
+    forecasts: [
+        {
+            weatherProvider: SMHIWeatherProvider,
+            isLoading: false,
+            errorMessage: '',
+            times: []
+        },
+        {
+            weatherProvider: METWeatherProvider,
+            isLoading: false,
+            errorMessage: '',
+            times: []
+        }]
 }
 
 export function forecastReducer(state = initialState, action: ForecastActionTypes): IForecastState {
     switch (action.type) {
-        case FETCH_START:
-            var loadings = [...state.isLoading];
-            loadings[action.id] = true;
-            
+        case FETCH_START: {
+            let forecasts = [...state.forecasts];
+            forecasts[action.id].isLoading = true;
+
             return {
                 ...state,
-                isLoading: loadings
-            };
-
-        case FETCH_SUCCESS:
-            var loadings = [...state.isLoading];
-            loadings[action.id] = false;
-
-            var forecasts = [...state.forecasts];
-            forecasts[action.id] = action.forecast;
-            
-            return {
-                ...state,
-                isLoading: loadings,
                 forecasts: forecasts
             };
-
-        case FETCH_FAILURE:
-            var loadings = [...state.isLoading];
-            loadings[action.id] = false;
-
-            var errors = [...state.errorMessages];
-            errors[action.id] = action.errorMessage;
+        }
+        case FETCH_SUCCESS: {
+            let forecasts = [...state.forecasts];
+            forecasts[action.id].isLoading = false;
+            forecasts[action.id].times = action.forecast.times;
 
             return {
                 ...state,
-                isLoading: loadings,
-                errorMessages: errors
-            }
+                forecasts: forecasts
+            };
+        }
+        case FETCH_FAILURE: {
+            let forecasts = [...state.forecasts];
+            forecasts[action.id].isLoading = false;
+            forecasts[action.id].errorMessage = action.errorMessage;
+
+            return {
+                ...state,
+                forecasts: forecasts
+            };
+        }
         default:
             return state;
     }

@@ -2,8 +2,6 @@ import { IForecast } from "../types";
 
 export interface IWeatherState {
     forecasts: IForecast[],
-    isLoading: boolean[],
-    errorMessages: string[]
 }
 
 export const FETCH_START = 'FETCH_START';
