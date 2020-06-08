@@ -26,7 +26,7 @@ class WeatherPage extends React.Component<IWeatherPageProps, IWeatherPageState>{
                 displayModes={[
                     {
                         title: "7d",
-                        activate: () => this.props.setDisplayTimes(listDaysFromNow(3)),
+                        activate: () => this.props.setDisplayTimes(listDaysFromNow(7)),
                     }, {
                         title: "24h",
                         activate: () => this.props.setDisplayTimes(listHoursFromNow(24)),
