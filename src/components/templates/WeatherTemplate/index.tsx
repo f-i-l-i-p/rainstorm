@@ -20,7 +20,7 @@ interface IWeatherViewProps {
 }
 
 const WeatherView = (props: IWeatherViewProps) => (
-    <div>
+    <div id="weather-template-container">
         {props.location &&
             <CurrentWeather location={props.location} weather={currentWeather(props.displayForecasts)} />
         }

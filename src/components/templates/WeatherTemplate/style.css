@@ -1,3 +1,9 @@
 .weather-time-button {
     margin: 8px;
+    align-self: flex-end;
+}
+
+#weather-template-container {
+    display: flex;
+    flex-direction: column;
 }
