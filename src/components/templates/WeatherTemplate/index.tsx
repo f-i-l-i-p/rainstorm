@@ -1,9 +1,11 @@
 import React from "react";
-import { IForecast, IWeather } from "../../store/types";
-import { ILocation } from "../../store/types";
-import CurrentWeather from "../molecules/CurrentWeather";
-import WeatherTable from "../organisms/WeatherTable";
-import ToggleButton from "../atoms/ToggleButton";
+import { IForecast, IWeather } from "../../../store/types";
+import { ILocation } from "../../../store/types";
+import CurrentWeather from "../../molecules/CurrentWeather";
+import WeatherTable from "../../organisms/WeatherTable";
+import ToggleButton from "../../atoms/ToggleButton";
+
+import './style.css';
 
 interface IDisplayMode {
     title: string,
@@ -23,6 +25,9 @@ const WeatherView = (props: IWeatherViewProps) => (
             <CurrentWeather location={props.location} weather={currentWeather(props.displayForecasts)} />
         }
         <ToggleButton
+            className="weather-time-button"
+            type="primary"
+            shape="round"
             options={props.displayModes.map(mode => { return { title: mode.title, onClick: mode.activate } })}
         />
         <WeatherTable displayTimes={props.displayTimes} displayForecasts={props.displayForecasts} />

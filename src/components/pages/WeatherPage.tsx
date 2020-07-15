@@ -1,5 +1,5 @@
 import React from "react";
-import WeatherView from "../templates/WeatherView";
+import WeatherView from "../templates/WeatherTemplate";
 import { connect } from "react-redux";
 import { AppState } from "../../store";
 import { IForecast, ILocation } from "../../store/types";

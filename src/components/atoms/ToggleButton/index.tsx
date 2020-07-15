@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "antd";
 import { ButtonType } from "antd/lib/button";
-import { BaseButtonProps } from "antd/lib/button/button";
+import { BaseButtonProps, ButtonShape } from "antd/lib/button/button";
 
 import './style.css';
 
@@ -13,7 +13,9 @@ export interface IToggleButtonOption {
 }
 
 interface IToggleButtonProps {
+    className?: string,
     type?: ButtonType,
+    shape?: ButtonShape,
     options: IToggleButtonOption[],
 }
 
@@ -45,7 +47,9 @@ class ToggleButton extends React.Component<IToggleButtonProps, IToggleButtonStat
         const buttonOption = this.props.options[this.state.currentId];
 
         return <Button
+            className={this.props.className}
             type={this.props.type}
+            shape={this.props.shape}
             onClick={() => this.clickHandler(buttonOption.onClick)}
             disabled={buttonOption.disabled}
             icon={buttonOption.icon}
