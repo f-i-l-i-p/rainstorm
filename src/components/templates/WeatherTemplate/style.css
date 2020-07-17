@@ -1,9 +1,23 @@
+h2 {
+    margin: 0 !important;
+}
+
 .weather-time-button {
     margin: 8px;
     align-self: flex-end;
 }
 
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 8px;
+    margin-left: 48px;
+}
+
 #weather-template-container {
     display: flex;
     flex-direction: column;
+    margin: 5px
 }
