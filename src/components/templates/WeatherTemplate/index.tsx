@@ -28,7 +28,6 @@ const WeatherView = (props: IWeatherViewProps) => (
                 <Title level={2}>{props.location.name}</Title>
             }
             <ToggleButton
-                className="row-end-item"
                 type="primary"
                 shape="round"
                 options={props.displayModes.map(mode => { return { title: mode.title, onClick: mode.activate } })}

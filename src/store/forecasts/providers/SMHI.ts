@@ -14,8 +14,15 @@ function getIcon(icon: number): string {
             return "clear_sky";
         case 2:
             return "nearly_clear_sky";
+        case 3:
+            return "clouds";
         case 4:
             return "halfclear_sky";
+        case 6:
+            return "overcast";
+        case 8:
+        case 18:
+            return "light_rain";
         case 9:
             return "moderate_rain_showers";
         case 11:
