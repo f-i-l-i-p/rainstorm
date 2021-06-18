@@ -1,10 +1,10 @@
 import React from "react";
 import { Select, Typography, Spin } from 'antd';
 import { connect } from 'react-redux';
-import { AppState } from "../../store";
-import { search, selectLocation, updateUserLocation } from "../../store/locationSearch/actions";
-import { ILocation } from "../../store/types";
-import { fetchForecasts } from "../../store/forecasts/actions";
+import { AppState } from "../../../store";
+import { search, selectLocation, updateUserLocation } from "../../../store/locationSearch/actions";
+import { ILocation } from "../../../store/types";
+import { fetchForecasts } from "../../../store/forecasts/actions";
 
 const { Option } = Select;
 const { Text } = Typography;

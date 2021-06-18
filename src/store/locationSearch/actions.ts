@@ -41,8 +41,6 @@ function searchFailure(errorMessage: string): LocationSearchActionTypes {
 export const search = (searchTerm: string) => async (dispatch: Dispatch) => {
     dispatch(searchStart());
 
-    // TODO: handle search failure
-
     const key = process.env.REACT_APP_LOCATIONIQ;
     const result = await fetch('https://eu1.locationiq.com/v1/search.php?key=' + key + '&q=' + searchTerm + '&format=json');
 
@@ -54,12 +52,6 @@ export const search = (searchTerm: string) => async (dispatch: Dispatch) => {
         console.error('Geocode response error! status: ' + result.statusText);
         dispatch(searchFailure(result.status.toString()));
     }
-
-    // fetch('https://geocode.xyz/' + searchTerm + '?json=1')
-    //     .then(res => res.json())
-    //     .then(json => {
-    //         dispatch(searchSuccess(toILocations(json)));
-    //     })
 }
 
 // Converts JSON data from locationIQ to an ILocation array
