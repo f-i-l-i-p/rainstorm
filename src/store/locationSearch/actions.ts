@@ -43,41 +43,42 @@ export const search = (searchTerm: string) => async (dispatch: Dispatch) => {
 
     // TODO: handle search failure
 
-    
-    // const result = await fetch('https://geocode.xyz/' + searchTerm + '?json=1');
+    const key = process.env.REACT_APP_LOCATIONIQ;
+    const result = await fetch('https://eu1.locationiq.com/v1/search.php?key=' + key + '&q=' + searchTerm + '&format=json');
 
-    // if (result.ok) {
-    //     const locations = toILocations(await result.json());
-    //     dispatch(searchSuccess(locations))
-    // }
-    // else {
-    //     console.error('Geocode response error! status: ' + result.statusText);
-    //     dispatch(searchFailure(result.status.toString()));
-    // }
+    if (result.ok) {
+        const locations = toILocations(await result.json());
+        dispatch(searchSuccess(locations))
+    }
+    else {
+        console.error('Geocode response error! status: ' + result.statusText);
+        dispatch(searchFailure(result.status.toString()));
+    }
 
-    fetch('https://geocode.xyz/' + searchTerm + '?json=1')
-        .then(res => res.json())
-        .then(json => {
-            dispatch(searchSuccess(toILocations(json)));
-        })
+    // fetch('https://geocode.xyz/' + searchTerm + '?json=1')
+    //     .then(res => res.json())
+    //     .then(json => {
+    //         dispatch(searchSuccess(toILocations(json)));
+    //     })
 }
 
-// Converts JSON data from geocode.xyz to an ILocation array
+// Converts JSON data from locationIQ to an ILocation array
 function toILocations(json: any): ILocation[] {
-    if (json['error'])
-        return [];
+    const locations: ILocation[] = []
 
     try {
-        let loc = json['alt']['loc'];
-
-        let location: ILocation = {
-            country: loc['countryname'],
-            name: loc['city'],
-            lat: Number(loc['latt']),
-            long: Number(loc['longt']),
-            alt: 0,
+        for (const loc of json) {
+            locations.push({
+                country: loc['display_name'],
+                name: loc['display_name'].split(',')[0],
+                lat: Number(loc['lat']),
+                long: Number(loc['lon']),
+                alt: 0,
+            });
         }
-        return [location];
+
+        console.log(locations)
+        return locations
     }
     catch (error) {
         console.error(error.message)

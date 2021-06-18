@@ -86,31 +86,37 @@ class SearchBox extends React.Component<ISearchPageProps, ISearchPageState> {
 
         // Loading
         if (this.props.isLoading)
-            options.push(CreateOption(<Spin />, "spin"));
+            options.push(CreateOption(<Spin />, "spin", 0));
         else {
             // Response error
             if (this.props.errorMessage) {
                 options.push(CreateOption(
                     <Text type="danger">Error! Response status: {this.props.errorMessage}</Text>,
-                    "error",
+                    "error", 0
                 ));
             }
             else {
 
                 // No locations found
                 if (this.props.locationResults.length === 0)
-                    options.push(CreateOption(<Text>No locations found.</Text>, "no locations"));
+                    options.push(CreateOption(<Text>No locations found.</Text>, "no locations", 0));
                 // Locations found
-                else
-                    this.props.locationResults.forEach(location =>
+                else {
+                    const locations = this.props.locationResults;
+
+                    for (let i = 0; i < locations.length; i++) {
+                        const location = locations[i]
+
                         options.push(CreateOption(
                             <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
                                 <Text strong>{location.name}  </Text>
                                 <Text type="secondary">{location.country}</Text>
                             </div>,
                             location.name,
+                            i
                         ))
-                    );
+                    }
+                }
             }
         }
 
@@ -135,9 +141,9 @@ class SearchBox extends React.Component<ISearchPageProps, ISearchPageState> {
     }
 }
 
-function CreateOption(content: JSX.Element, value: string): JSX.Element {
+function CreateOption(content: JSX.Element, value: string, key: any): JSX.Element {
     return (
-        <Option value={value} key={value}>
+        <Option value={value} key={key}>
             {content}
         </Option>
     );
