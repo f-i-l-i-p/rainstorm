@@ -7,7 +7,6 @@ import Header from './components/organisms/Header';
 function App() {
   return (
     <div id="app">
-      <Header items={[<SearchBox style={{ width: "25em" }} />]} />
       <div className="page">
         <WeatherPage />
       </div>

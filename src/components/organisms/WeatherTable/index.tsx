@@ -2,7 +2,7 @@ import React from "react";
 import { IForecast, ITimePoint } from "../../../store/types";
 import Paper from "../../atoms/Paper";
 import WeatherCell from "../../molecules/WeatherCell";
-import { Divider } from "antd";
+import { Divider, Typography } from "antd";
 import TimeCell from "../../molecules/TimeCell";
 
 import './style.css';
@@ -18,8 +18,8 @@ class WeatherTable extends React.Component<WeatherTableProps> {
             <div className="columns">
 
                 <div className="right-column">
-                    <div className="time-row" style={{width: '100%'}}>
-                        <Paper style={{width: '100%', height: '100%'}}/>
+                    <div className="time-row" style={{ width: '100%' }}>
+                        <Paper style={{ width: '100%', height: '100%' }} />
                     </div>
                 </div>
 
@@ -36,9 +36,9 @@ class WeatherTable extends React.Component<WeatherTableProps> {
                     <div className="time-row" />
                     {this.props.displayForecasts.map(forecast =>
                         <div className="weather-row">
-                            <div>
-                                <img className="weather-provider-logo" src={forecast.weatherProvider.logo} />
-                            </div>
+                            <Typography className="weather-provider-name">
+                                {forecast.weatherProvider.name}
+                            </Typography>
                         </div>
                     )}
                 </div>
@@ -52,7 +52,7 @@ class WeatherTable extends React.Component<WeatherTableProps> {
                     )}
                 </div>
 
-                <div className="right-column" style={{overflowX: 'auto'}}>
+                <div className="right-column" style={{ overflowX: 'auto' }}>
                     <div className="time-row">
                         {this.props.displayTimes.map(time =>
                             <TimeCell time={time} />

@@ -4,5 +4,6 @@
     justify-content: center;
     flex-direction: column;
     white-space: nowrap;
-    width: 85px;
+    width: 65px;
+    font-size: 11px;
 }
