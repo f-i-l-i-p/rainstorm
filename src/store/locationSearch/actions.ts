@@ -3,13 +3,17 @@ import { Dispatch } from 'redux';
 import { ILocation } from '../types';
 
 
+const minSearchDelay: number = 1000;
+var nextSearchTime: number = Date.now();
+var lastSearch: String = ""
+
+
 export function updateUserLocation(location?: ILocation): LocationSearchActionTypes {
     return {
         type: UPDATE_USER_LOCATION,
         location: location
     }
 }
-
 
 export function selectLocation(location: ILocation): LocationSearchActionTypes {
     return {
@@ -39,10 +43,35 @@ function searchFailure(errorMessage: string): LocationSearchActionTypes {
 }
 
 export const search = (searchTerm: string) => async (dispatch: Dispatch) => {
+    const trimmed = searchTerm.trim()
+    if (trimmed == lastSearch) {
+        return;
+    }
+
+    lastSearch = trimmed;
+
     dispatch(searchStart());
 
+    nextSearchTime = Date.now() + minSearchDelay;
+    setTimeout(() => tryPerformSearch(searchTerm, dispatch), minSearchDelay + 1) // Add 1 for extra marginal
+}
+
+/**
+ * Tries to perform a search, but cancels if the search time has moved.
+ */
+function tryPerformSearch(searchTerm: string, dispatch: Dispatch) {
+    if (Date.now() < nextSearchTime) {
+        return;
+    }
+
+    performSearch(searchTerm, dispatch);
+}
+
+async function performSearch(searchTerm: string, dispatch: Dispatch) {
     const key = process.env.REACT_APP_LOCATIONIQ;
-    const result = await fetch('https://eu1.locationiq.com/v1/search.php?key=' + key + '&q=' + searchTerm + '&format=json');
+    const address = "https://api.locationiq.com/v1/autocomplete.php";
+
+    const result = await fetch(`${address}?key=${key}&q=${searchTerm}&accept-language=sv`);//&accept-language=native');
 
     if (result.ok) {
         const locations = toILocations(await result.json());
@@ -61,8 +90,8 @@ function toILocations(json: any): ILocation[] {
     try {
         for (const loc of json) {
             locations.push({
-                country: loc['display_name'],
-                name: loc['display_name'].split(',')[0],
+                country: loc['display_address'],
+                name: loc['display_place'],
                 lat: Number(loc['lat']),
                 long: Number(loc['lon']),
                 alt: 0,

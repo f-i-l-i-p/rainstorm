@@ -67,6 +67,7 @@ class SearchBox extends React.Component<ISearchPageProps, ISearchPageState> {
     }
 
     private handleSearch(value: string): void {
+        if (!value) return;
         this.props.searchLocations(value);
     }
 
@@ -108,9 +109,9 @@ class SearchBox extends React.Component<ISearchPageProps, ISearchPageState> {
                         const location = locations[i]
 
                         options.push(CreateOption(
-                            <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+                            <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
                                 <Text strong>{location.name}  </Text>
-                                <Text type="secondary">{location.country}</Text>
+                                {<Text type="secondary">{location.country}</Text>}
                             </div>,
                             location.name,
                             i

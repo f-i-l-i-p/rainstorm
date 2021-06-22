@@ -11,7 +11,7 @@ const initialState: ILocationSearchState = {
 export function locationSearchReducer(state = initialState, action: LocationSearchActionTypes): ILocationSearchState {
     switch (action.type) {
         case UPDATE_USER_LOCATION:
-            return{
+            return {
                 ...state,
                 userLocation: action.location
             };
@@ -29,7 +29,8 @@ export function locationSearchReducer(state = initialState, action: LocationSear
             return {
                 ...state,
                 isLoading: false,
-                searchResults: action.results
+                searchResults: action.results,
+                errorMessage: "",
             }
         case SEARCH_FAILURE:
             return {
