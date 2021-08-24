@@ -44,7 +44,7 @@ function searchFailure(errorMessage: string): LocationSearchActionTypes {
 
 export const search = (searchTerm: string) => async (dispatch: Dispatch) => {
     const trimmed = searchTerm.trim()
-    if (trimmed == lastSearch) {
+    if (trimmed === lastSearch) {
         return;
     }
 
