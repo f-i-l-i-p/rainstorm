@@ -10,11 +10,13 @@ interface Props {
     weather: IWeather
 }
 
+console.log(require("../../../icons/weather symbols/day_" + "clear_sky" + ".svg"))
+
 const WeatherCell = (props: Props) => (
     <div className="weather_cell">
         <Text strong>{Math.round(props.weather.temperature)} °C</Text>
         {props.weather.symbol &&
-            <img className='weather_symbol' src={require("../../../icons/weather symbols/day_" + props.weather.symbol + ".svg")} />
+            <img className='weather_symbol' src={require("../../../icons/weather symbols/day_" + props.weather.symbol + ".svg").default} />
         }
         <div>
             <Text strong>{Math.round(props.weather.wind)}</Text>
@@ -24,5 +26,6 @@ const WeatherCell = (props: Props) => (
         {/* <Text strong>{props.weather.symbol}</Text> */}
     </div>
 );
+
 
 export default WeatherCell;
