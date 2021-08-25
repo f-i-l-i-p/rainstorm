@@ -41,31 +41,29 @@ export default class SMHI extends AbstractProvider {
             // https://opendata.smhi.se/apidocs/metfcst/parameters.html#parameter-table
 
             const weather: IWeather = {
-                temperature: parameters['t']['values'][0],
-                wind: 0,
-                gust: 0,
-                symbol: 'unknown'
+                temperature: NaN,
+                wind: NaN,
+                gust: NaN,
+                symbol: ''
             }
 
-            /**
             parameters.forEach(parameter => {
+                const value = parameter['values'][0];
                 switch (parameter['name']) {
                     case 't':
-                        timePoint.weather.temperature = parameter['values'][0];
+                        weather.temperature = value;
                         break;
                     case 'ws':
-                        timePoint.weather.wind = parameter['values'][0];
+                        weather.wind = value;
                         break;
                     case 'gust':
-                        timePoint.weather.gust = parameter['values'][0];
+                        weather.gust = value;
                         break;
                     case 'Wsymb2':
-                        timePoint.weather.symbol = getIcon(Number(parameter['values'][0]));
+                        weather.symbol = value;
                         break;
                 }
             });
-            timePoints.push(timePoint);
-             */
 
             forecast.weatherPoints.set(date, weather);
         });
