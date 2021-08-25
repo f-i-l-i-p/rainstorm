@@ -11,8 +11,10 @@ export default abstract class AbstractProvider implements IWeatherProvider {
     }
 
     async fetchForecast(location: ILocation): Promise<IForecast> {
+        // TODO: Handle errors
         let response = await this.requestData(location.lat.toString(), location.long.toString());
 
+        // TODO: Handle errors
         let result = await this.formatResponse(response);
 
         return result;
