@@ -34,11 +34,11 @@ export default class SMHI extends AbstractProvider {
             const date = new Date(time['validTime']);
 
             // Get the weather for this time:
-
-            const parameters: [] = time['parameters']
-
+            
             // Weather parameter descriptions can be found at:
             // https://opendata.smhi.se/apidocs/metfcst/parameters.html#parameter-table
+            
+            const parameters: [] = time['parameters']
 
             const weather: IWeather = {
                 temperature: NaN,
