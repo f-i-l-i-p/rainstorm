@@ -1,3 +1,6 @@
+For location search: Add a .env file containing REACT_APP_LOCATIONIQ=[token]
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
