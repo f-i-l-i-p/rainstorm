@@ -1,4 +1,4 @@
-import { IWeatherState as IForecastState, ForecastActionTypes, FORECAST_FETCH_START, FORECAST_FETCH_SUCCESS, FORECAST_FETCH_FAILURE, SET_DISPLAY_TIMES, IWeatherStateForecast } from "./types";
+import { IWeatherState as IForecastState, ForecastActionTypes, FORECAST_FETCH_START, FORECAST_FETCH_SUCCESS, FORECAST_FETCH_FAILURE, SET_DISPLAY_TIMES, IWeatherStateForecast, ITest } from "./types";
 import { listHoursFromNow } from "../../helpers/date";
 import { IForecast, IWeatherProvider } from "../../weather/types";
 import { getWeatherProviders } from "../../weather";
@@ -6,6 +6,7 @@ import { strictEqual } from "assert";
 
 const initialState: IForecastState = {
     weatherStateForecasts: createInitialForecasts(),
+    tests: createInitialTests(),
     displayTimes: listHoursFromNow(24),
     nothing: 1,
 }
@@ -13,82 +14,53 @@ const initialState: IForecastState = {
 export function forecastReducer(state = initialState, action: ForecastActionTypes): IForecastState {
     switch (action.type) {
         case FORECAST_FETCH_START:
-            var index = state.weatherStateForecasts.findIndex(element => element.weatherProvider.name === action.provider.name)
+            console.log("Fetch start!!", state.weatherStateForecasts[0].loading)
 
-            var newWeatherStateForecasts: IWeatherStateForecast[] = []
+            var newWeatherStateForecasts: IWeatherStateForecast[] = [...state.weatherStateForecasts];
 
-            for (let i = 0; i < state.weatherStateForecasts.length; i++) {
-                if (i !== index) {
-                    newWeatherStateForecasts.push(state.weatherStateForecasts[i])
-                }
-                else {
-                    let old = state.weatherStateForecasts[index];
-                    newWeatherStateForecasts.push({
-                        weatherProvider: old.weatherProvider,
-                        loading: true,
-                        forecast: old.forecast,
-                    })
-                }
+            var weatherStateForecast = newWeatherStateForecasts.find(element => element.weatherProvider.name === action.provider.name);
+            if (weatherStateForecast !== undefined) {
+                weatherStateForecast.loading = true;
             }
-
-            var a = state.weatherStateForecasts.map((content) => {
-                if (content.weatherProvider.name === action.provider.name) {
-                    return {
-                        weatherProvider: action.provider,
-                        loading: true,
-                        forecast: content.forecast
-                    } as IWeatherStateForecast
-                }
-                else {
-                    return content;
-                }
-            });
-
-            a.push(a[0])
-            a.splice(0, 0)
-
-            console.log("new: ", newWeatherStateForecasts === state.weatherStateForecasts, newWeatherStateForecasts)
 
             return {
                 ...state,
-                weatherStateForecasts: a,
-                nothing: state.nothing + 1,
+                weatherStateForecasts: [...state.weatherStateForecasts],
             };
+
         case FORECAST_FETCH_SUCCESS:
-            console.log("abcde")
-            var weatherStateForecast = state.weatherStateForecasts.find(element => element.weatherProvider.name === action.provider.name)
+            console.log("Fetch success!!", state.weatherStateForecasts[0].loading);
 
-            if (weatherStateForecast === undefined) {
-                console.error("Can't find provider with name ", action.provider.name, " in state.")
-                return {...state}
+            var newWeatherStateForecasts: IWeatherStateForecast[] = [...state.weatherStateForecasts];
+
+            var weatherStateForecast = newWeatherStateForecasts.find(element => element.weatherProvider.name === action.provider.name);
+            if (weatherStateForecast !== undefined) {
+                weatherStateForecast.loading = false;
             }
 
-            weatherStateForecast.loading = false;
-            var weatherStateForecasts = [...state.weatherStateForecasts];
-
             return {
                 ...state,
-                weatherStateForecasts: weatherStateForecasts,
+                weatherStateForecasts: [...state.weatherStateForecasts],
             };
+
         case FORECAST_FETCH_FAILURE:
+            console.log("Fetch fail", state)
 
-            console.log("Fail")
-            
-            return {...state}
-            /*var forecasts = [...state.forecastMap];
-            forecasts[action.id].isLoading = false;
-            forecasts[action.id].errorMessage = action.errorMessage;
+            return { ...state }
+        /*var forecasts = [...state.forecastMap];
+        forecasts[action.id].isLoading = false;
+        forecasts[action.id].errorMessage = action.errorMessage;
 
-            return {
-                ...state,
-                forecastMap: forecasts,
-            };*/
+        return {
+            ...state,
+            forecastMap: forecasts,
+        };*/
         case SET_DISPLAY_TIMES:
-            /*return {
-                ...state,
-                displayTimes: action.displayTimes,
-                displayForecasts: getNewDisplayForecasts(state.forecastMap, action.displayTimes),
-            }*/
+        /*return {
+            ...state,
+            displayTimes: action.displayTimes,
+            displayForecasts: getNewDisplayForecasts(state.forecastMap, action.displayTimes),
+        }*/
         default:
             return state;
     }
@@ -136,8 +108,20 @@ function createInitialForecasts(): IWeatherStateForecast[] {
         forecasts.push(forecast)
     });
 
-    console.log("Aadsfjalkdfjaslkdfj")
-    console.log(forecasts)
+    console.log("Initial forecasts:", forecasts)
 
     return forecasts;
+}
+
+function createInitialTests(): ITest[] {
+    const tests: ITest[] = [];
+
+    tests.push({
+        value: "one",
+    });
+    tests.push({
+        value: "two",
+    })
+
+    return tests;
 }

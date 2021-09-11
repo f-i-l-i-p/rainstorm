@@ -6,8 +6,13 @@ export interface IWeatherStateForecast {
     forecast: IForecast;
 }
 
+export interface ITest {
+    value: string;
+}
+
 export interface IWeatherState {
     weatherStateForecasts: IWeatherStateForecast[],
+    tests: ITest[],
     displayTimes: Date[],
     nothing: number,
 }
