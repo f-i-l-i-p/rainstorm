@@ -10,14 +10,22 @@ export default abstract class AbstractProvider implements IWeatherProvider {
         this.logo = logo;
     }
 
-    async fetchForecast(location: ILocation): Promise<IForecast> {
-        // TODO: Handle errors
-        let response = await this.requestData(location.lat.toString(), location.long.toString());
+    public async fetchForecast(location: ILocation, onSuccess: (result: IForecast) => any, onFailure: (error: Error) => any) {
+        let result: IForecast;
 
-        // TODO: Handle errors
-        let result = await this.formatResponse(response);
+        try {
+            // Send a request
+            let response = await this.requestData(location.lat.toString(), location.long.toString());
 
-        return result;
+            // Format the response 
+            result = await this.formatResponse(response);
+
+        } catch (e) {
+            onFailure(e);
+            return;
+        }
+
+        onSuccess(result)
     }
 
     protected abstract requestData(lat: string, long: string): Promise<Response>;

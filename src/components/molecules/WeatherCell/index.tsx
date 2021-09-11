@@ -1,8 +1,8 @@
 import React from "react";
-import { IWeather } from "../../../store/types";
 import { Typography } from "antd";
 
 import './style.css';
+import { IWeather } from "../../../weather/types";
 
 const { Text } = Typography;
 

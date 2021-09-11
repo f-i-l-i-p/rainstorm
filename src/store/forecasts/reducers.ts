@@ -1,74 +1,102 @@
-import { IWeatherState as IForecastState, ForecastActionTypes, FETCH_START, FETCH_SUCCESS, FETCH_FAILURE, SET_DISPLAY_TIMES } from "./types";
-import { SMHIWeatherProvider } from "./providers/SMHI";
-import { METWeatherProvider } from "./providers/MET";
-import { IForecast } from "../types";
-import { listHoursFromNow, listDaysFromNow } from "../../helpers/date";
+import { IWeatherState as IForecastState, ForecastActionTypes, FORECAST_FETCH_START, FORECAST_FETCH_SUCCESS, FORECAST_FETCH_FAILURE, SET_DISPLAY_TIMES, IWeatherStateForecast } from "./types";
+import { listHoursFromNow } from "../../helpers/date";
+import { IForecast, IWeatherProvider } from "../../weather/types";
+import { getWeatherProviders } from "../../weather";
+import { strictEqual } from "assert";
 
 const initialState: IForecastState = {
-    forecasts: [
-        {
-            weatherProvider: SMHIWeatherProvider,
-            isLoading: true,
-            errorMessage: '',
-            times: []
-        },
-        {
-            weatherProvider: METWeatherProvider,
-            isLoading: true,
-            errorMessage: '',
-            times: []
-        }
-    ],
-    displayForecasts: [],
-    displayTimes: listHoursFromNow(24)
+    weatherStateForecasts: createInitialForecasts(),
+    displayTimes: listHoursFromNow(24),
+    nothing: 1,
 }
 
 export function forecastReducer(state = initialState, action: ForecastActionTypes): IForecastState {
     switch (action.type) {
-        case FETCH_START:
-            var forecasts = [...state.forecasts];
-            forecasts[action.id].isLoading = true;
+        case FORECAST_FETCH_START:
+            var index = state.weatherStateForecasts.findIndex(element => element.weatherProvider.name === action.provider.name)
+
+            var newWeatherStateForecasts: IWeatherStateForecast[] = []
+
+            for (let i = 0; i < state.weatherStateForecasts.length; i++) {
+                if (i !== index) {
+                    newWeatherStateForecasts.push(state.weatherStateForecasts[i])
+                }
+                else {
+                    let old = state.weatherStateForecasts[index];
+                    newWeatherStateForecasts.push({
+                        weatherProvider: old.weatherProvider,
+                        loading: true,
+                        forecast: old.forecast,
+                    })
+                }
+            }
+
+            var a = state.weatherStateForecasts.map((content) => {
+                if (content.weatherProvider.name === action.provider.name) {
+                    return {
+                        weatherProvider: action.provider,
+                        loading: true,
+                        forecast: content.forecast
+                    } as IWeatherStateForecast
+                }
+                else {
+                    return content;
+                }
+            });
+
+            a.push(a[0])
+            a.splice(0, 0)
+
+            console.log("new: ", newWeatherStateForecasts === state.weatherStateForecasts, newWeatherStateForecasts)
 
             return {
                 ...state,
-                forecasts: forecasts,
-                displayForecasts: getNewDisplayForecasts(forecasts, state.displayTimes),
+                weatherStateForecasts: a,
+                nothing: state.nothing + 1,
             };
-        case FETCH_SUCCESS:
-            var forecasts = [...state.forecasts];
-            forecasts[action.id].isLoading = false;
-            forecasts[action.id].times = action.forecast.times;
+        case FORECAST_FETCH_SUCCESS:
+            console.log("abcde")
+            var weatherStateForecast = state.weatherStateForecasts.find(element => element.weatherProvider.name === action.provider.name)
 
-            console.log(action.forecast.times);
+            if (weatherStateForecast === undefined) {
+                console.error("Can't find provider with name ", action.provider.name, " in state.")
+                return {...state}
+            }
+
+            weatherStateForecast.loading = false;
+            var weatherStateForecasts = [...state.weatherStateForecasts];
 
             return {
                 ...state,
-                forecasts: forecasts,
-                displayForecasts: getNewDisplayForecasts(forecasts, state.displayTimes),
+                weatherStateForecasts: weatherStateForecasts,
             };
-        case FETCH_FAILURE:
-            var forecasts = [...state.forecasts];
+        case FORECAST_FETCH_FAILURE:
+
+            console.log("Fail")
+            
+            return {...state}
+            /*var forecasts = [...state.forecastMap];
             forecasts[action.id].isLoading = false;
             forecasts[action.id].errorMessage = action.errorMessage;
 
             return {
                 ...state,
-                forecasts: forecasts,
-            };
+                forecastMap: forecasts,
+            };*/
         case SET_DISPLAY_TIMES:
-            return {
+            /*return {
                 ...state,
                 displayTimes: action.displayTimes,
-                displayForecasts: getNewDisplayForecasts(state.forecasts, action.displayTimes),
-            }
+                displayForecasts: getNewDisplayForecasts(state.forecastMap, action.displayTimes),
+            }*/
         default:
             return state;
     }
 }
 
-function getNewDisplayForecasts(forecasts: IForecast[], displayTimes: Date[]): IForecast[] {
-        let displayForecasts: IForecast[] = [];
-    
+/*function getNewDisplayForecasts(forecasts: IForecast[], displayTimes: Date[]): IForecast[] {
+    let displayForecasts: IForecast[] = [];
+
     // add forecasts
     forecasts.forEach(forecast => {
         displayForecasts.push({
@@ -76,7 +104,7 @@ function getNewDisplayForecasts(forecasts: IForecast[], displayTimes: Date[]): I
             times: []
         });
     });
-    
+
     // add times to forecasts
     displayTimes.forEach(dTime => {
         for (let forecastID = 0; forecastID < forecasts.length; forecastID++) {
@@ -90,4 +118,26 @@ function getNewDisplayForecasts(forecasts: IForecast[], displayTimes: Date[]): I
     });
 
     return displayForecasts;
+}*/
+
+
+function createInitialForecasts(): IWeatherStateForecast[] {
+    let forecasts: IWeatherStateForecast[] = []
+    const providers = getWeatherProviders();
+
+    providers.forEach(provider => {
+        let forecast: IWeatherStateForecast = {
+            weatherProvider: provider,
+            loading: false,
+            forecast: {
+                weatherPoints: new Map()
+            }
+        }
+        forecasts.push(forecast)
+    });
+
+    console.log("Aadsfjalkdfjaslkdfj")
+    console.log(forecasts)
+
+    return forecasts;
 }

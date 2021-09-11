@@ -1,17 +1,10 @@
 import { ILocation } from "../store/types";
 import { IForecast, IWeatherProvider } from "./types";
+import SMHI from "./weatherProviders/SMHI";
 
-export function fetchWeather(location: ILocation): Promise<IForecast>[] {
-    let providers = getWeatherProviders();
-    let result: Promise<IForecast>[] = []
+const weatherProviders: IWeatherProvider[] = [new SMHI()]
 
-    providers.forEach(provider => {
-        result.push(provider.fetchForecast(location))
-    });
-
-    return result;
-}
 
 export function getWeatherProviders(): IWeatherProvider[] {
-    return []
+    return weatherProviders;
 }

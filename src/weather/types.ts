@@ -14,5 +14,5 @@ export interface IWeather {
 export interface IWeatherProvider {
     name: string;
     logo: string;
-    fetchForecast(location: ILocation): Promise<IForecast>;
+    fetchForecast(location: ILocation, onSuccess: (result: IForecast) => any, onFailure: (error: Error) => any ): void; 
 }

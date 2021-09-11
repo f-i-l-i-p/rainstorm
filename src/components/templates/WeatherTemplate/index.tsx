@@ -1,5 +1,4 @@
 import React from "react";
-import { IForecast } from "../../../store/types";
 import { ILocation } from "../../../store/types";
 import WeatherTable from "../../organisms/WeatherTable";
 import ToggleButton from "../../atoms/ToggleButton";
@@ -7,6 +6,8 @@ import { Typography } from "antd";
 
 import './style.css';
 import SearchBox from "../../atoms/SearchBox";
+import { IForecast, IWeatherProvider } from "../../../weather/types";
+import { IWeatherStateForecast } from "../../../store/forecasts/types";
 
 const { Title } = Typography;
 
@@ -18,8 +19,8 @@ interface IDisplayMode {
 interface IWeatherViewProps {
     location?: ILocation,
     displayTimes: Date[],
-    displayForecasts: IForecast[],
     displayModes: IDisplayMode[],
+    weatherStateForecasts: IWeatherStateForecast[],
 }
 
 const WeatherView = (props: IWeatherViewProps) => (
@@ -35,7 +36,7 @@ const WeatherView = (props: IWeatherViewProps) => (
                 options={props.displayModes.map(mode => { return { title: mode.title, onClick: mode.activate } })}
             />
         </div>
-        <WeatherTable displayTimes={props.displayTimes} displayForecasts={props.displayForecasts} />
+    <WeatherTable displayTimes={props.displayTimes} weatherStateForecasts={props.weatherStateForecasts}/>
     </ div>
 )
 

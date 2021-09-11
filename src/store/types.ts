@@ -7,26 +7,26 @@ export interface ILocation {
     alt: number
 }
 
-export interface IForecast {
+/*export interface IForecast {
     weatherProvider: IWeatherProvider,
     isLoading?: boolean,
     errorMessage?: string,
     times: ITimePoint[]
-}
+}*/
 
-export interface IWeatherProvider {
+/*export interface IWeatherProvider {
     name: string,
     logo: string,
-}
+}*/
 
-export interface ITimePoint {
+/*export interface ITimePoint {
     time: Date,
     weather: IWeather,
-}
+}*/
 
-export interface IWeather {
+/*export interface IWeather {
     temperature: number,
     wind: number,
     gust: number,
     symbol: string,
-}
+}*/

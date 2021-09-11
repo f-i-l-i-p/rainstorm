@@ -1,32 +1,38 @@
-import { IForecast } from "../types";
+import { IForecast, IWeatherProvider } from "../../weather/types";
+
+export interface IWeatherStateForecast {
+    weatherProvider: IWeatherProvider;
+    loading: boolean;
+    forecast: IForecast;
+}
 
 export interface IWeatherState {
-    forecasts: IForecast[],
+    weatherStateForecasts: IWeatherStateForecast[],
     displayTimes: Date[],
-    displayForecasts: IForecast [],
+    nothing: number,
 }
 
-export const FETCH_START = 'FETCH_START';
+export const FORECAST_FETCH_START = 'FORECAST_FETCH_START';
 
 interface IFetchStartAction {
-    type: typeof FETCH_START,
-    id: number
+    type: typeof FORECAST_FETCH_START,
+    provider: IWeatherProvider
 }
 
-export const FETCH_SUCCESS = 'FETCH_SUCCESS';
+export const FORECAST_FETCH_SUCCESS = 'FORECAST_FETCH_SUCCESS';
 
 interface IFetchSuccessAction {
-    type: typeof FETCH_SUCCESS,
+    type: typeof FORECAST_FETCH_SUCCESS,
     forecast: IForecast,
-    id: number
+    provider: IWeatherProvider
 }
 
-export const FETCH_FAILURE = 'FETCH_FAILURE';
+export const FORECAST_FETCH_FAILURE = 'FORECAST_FETCH_FAILURE';
 
 interface IFetchFailureAction {
-    type: typeof FETCH_FAILURE,
+    type: typeof FORECAST_FETCH_FAILURE,
     errorMessage: string,
-    id: number
+    provider: IWeatherProvider
 }
 
 export const SET_DISPLAY_TIMES = 'SET_DISPLAY_TIMES';
