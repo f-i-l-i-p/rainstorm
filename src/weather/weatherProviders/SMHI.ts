@@ -1,11 +1,23 @@
 import logo from '../../icons/provider logos/SMHI.jpg'
-import { IForecast, IWeather } from "../types";
+import { IForecast, IWeather, WeatherIcon } from "../types";
 import AbstractProvider from "./abstractProvider";
 
 
 export default class SMHI extends AbstractProvider {
     constructor() {
         super("SMHI", logo)
+    }
+
+    private icons = {
+        1: WeatherIcon.clear_sky,          // Clear sky
+        2: WeatherIcon.nearly_clear_sky,   // Nearly clear sky
+        3: WeatherIcon.half_clear_sky,     // Variable cloudiness
+        4: WeatherIcon.half_clear_sky,     // Half clear sky
+        5: WeatherIcon.cloudy_sky,         // Cloudy sky
+        6: WeatherIcon.overcast,           // Overcast
+        18: WeatherIcon.light_rain,        // Light rain
+        19: WeatherIcon.moderate_rain,     // Moderate rain
+        20: WeatherIcon.heavy_rain,        // Heavy rain
     }
 
     protected async requestData(lat: string, long: string): Promise<Response> {
@@ -34,17 +46,17 @@ export default class SMHI extends AbstractProvider {
             const date = new Date(time['validTime']);
 
             // Get the weather for this time:
-            
+
             // Weather parameter descriptions can be found at:
             // https://opendata.smhi.se/apidocs/metfcst/parameters.html#parameter-table
-            
+
             const parameters: [] = time['parameters']
 
             const weather: IWeather = {
                 temperature: NaN,
                 wind: NaN,
                 gust: NaN,
-                symbol: ''
+                symbol: WeatherIcon.unknown,
             }
 
             parameters.forEach(parameter => {
@@ -60,7 +72,12 @@ export default class SMHI extends AbstractProvider {
                         weather.gust = value;
                         break;
                     case 'Wsymb2':
-                        weather.symbol = value;
+                        let icon = this.icons[value];
+                        if (!icon) {
+                            console.error("Unknown symbol value", value)
+                            break;
+                        }
+                        weather.symbol = this.icons[value];
                         break;
                 }
             });

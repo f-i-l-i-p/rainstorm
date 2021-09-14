@@ -36,6 +36,7 @@ export function forecastReducer(state = initialState, action: ForecastActionType
             var weatherStateForecast = newWeatherStateForecasts.find(element => element.weatherProvider.name === action.provider.name);
             if (weatherStateForecast !== undefined) {
                 weatherStateForecast.loading = false;
+                weatherStateForecast.forecast = action.forecast;
             }
 
             return {
