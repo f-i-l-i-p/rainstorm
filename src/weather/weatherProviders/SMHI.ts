@@ -59,6 +59,7 @@ export default class SMHI extends AbstractProvider {
                 symbol: WeatherIcon.unknown,
             }
 
+            // TODO: Optimize. Don't loop through all parameters.
             parameters.forEach(parameter => {
                 const value = parameter['values'][0];
                 switch (parameter['name']) {
