@@ -38,7 +38,7 @@ const WeatherView = (props: IWeatherViewProps) => (
                 options={props.displayModes.map(mode => { return { title: mode.title, onClick: mode.activate } })}
             />
         </div>
-    <WeatherTable displayTimes={props.displayTimes} weatherStateForecasts={props.weatherStateForecasts}/>
+        {/*     <WeatherTable displayTimes={props.displayTimes} weatherStateForecasts={props.weatherStateForecasts}/>*/}
     </ div>
 )
 

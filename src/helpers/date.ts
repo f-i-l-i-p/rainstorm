@@ -45,3 +45,13 @@ export function listDates(start: Date, interval: number, count: number): Date[] 
 
     return times;
 }
+
+/**
+ * Returns the number of days from today to the given date.
+ */
+export function getDayOffset(date: Date) {
+    let now = new Date().getTime();
+    let diff = date.getTime() - now;
+
+    return Math.floor(diff / 86400000);  // 86400000 milliseconds in a day)
+}
