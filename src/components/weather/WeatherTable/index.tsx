@@ -1,8 +1,8 @@
 import React from "react";
 import Paper from "../../atoms/Paper";
-import WeatherCell from "../../molecules/WeatherCell";
+import WeatherCell from "../WeatherCell";
 import { Divider, Typography } from "antd";
-import TimeCell from "../../molecules/TimeCell";
+import TimeCell from "../TimeCell";
 import { IForecast, IWeather, IWeatherProvider } from "../../../weather/types";
 
 import './style.css';

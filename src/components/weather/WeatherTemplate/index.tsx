@@ -1,6 +1,6 @@
 import React from "react";
 import { ILocation } from "../../../store/types";
-import WeatherTable from "../../organisms/WeatherTable";
+import WeatherTable from "../WeatherTable";
 import ToggleButton from "../../atoms/ToggleButton";
 import { Typography } from "antd";
 
@@ -22,6 +22,8 @@ interface IWeatherViewProps {
     displayModes: IDisplayMode[],
     weatherStateForecasts: IWeatherStateForecast[],
 }
+
+// TODO: This component is not used and can be removed.
 
 const WeatherView = (props: IWeatherViewProps) => (
     <div id="weather-template-container">
