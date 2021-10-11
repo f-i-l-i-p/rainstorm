@@ -38,7 +38,7 @@ export function forecastReducer(state = initialState, action: ForecastActionType
 
             return {
                 ...state,
-                weatherStateForecasts: [...state.weatherStateForecasts],
+                weatherStateForecasts: [...newWeatherStateForecasts],
             };
 
         case FORECAST_FETCH_FAILURE:
