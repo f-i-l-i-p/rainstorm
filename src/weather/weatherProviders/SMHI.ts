@@ -83,6 +83,8 @@ export default class SMHI extends AbstractProvider {
                         break;
                 }
             });
+
+            forecast.weatherPoints.set(date, weather);
         });
 
         return forecast;
