@@ -3,9 +3,9 @@ import { IForecast, IWeather, WeatherIcon } from "../types";
 import AbstractProvider from "./abstractProvider";
 
 
-export default class SMHI extends AbstractProvider {
+export default class SMHI2 extends AbstractProvider {
     constructor() {
-        super("SMHI", logo)
+        super("SMHI2", logo)
     }
 
     private icons = {
@@ -17,7 +17,7 @@ export default class SMHI extends AbstractProvider {
         6: WeatherIcon.overcast,           // Overcast
         18: WeatherIcon.light_rain,        // Light rain
         19: WeatherIcon.moderate_rain,     // Moderate rain
-        //20: WeatherIcon.heavy_rain,        // Heavy rain
+        20: WeatherIcon.heavy_rain,        // Heavy rain
     }
 
     protected async requestData(lat: string, long: string): Promise<Response> {
@@ -40,6 +40,8 @@ export default class SMHI extends AbstractProvider {
         const json = await response.json();
 
         const timeSeries: [] = json['timeSeries'];
+
+        let count = 0;
 
         timeSeries.forEach((time: any) => {
             // Get the time:
@@ -76,13 +78,17 @@ export default class SMHI extends AbstractProvider {
                         let icon = this.icons[value];
                         if (!icon) {
                             console.warn("Unknown symbol value", value)
-                            weather.symbol = WeatherIcon.unknown;
                             break;
                         }
                         weather.symbol = this.icons[value];
                         break;
                 }
             });
+
+            count++;
+            if (count < 2)
+                forecast.weatherPoints.set(date, weather);
+
         });
 
         return forecast;
