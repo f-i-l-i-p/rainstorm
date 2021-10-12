@@ -73,8 +73,15 @@ async function performSearch(searchTerm: string, dispatch: Dispatch) {
 
     const result = await fetch(`${address}?key=${key}&q=${searchTerm}&accept-language=sv`);//&accept-language=native');
 
+    const json = await result.json();
+
     if (result.ok) {
-        const locations = toILocations(await result.json());
+        const locations = toILocations(json);
+        dispatch(searchSuccess(locations));
+    }
+    // Returns this with a 404 status when no location found.
+    else if ( json['error'] == "Unable to geocode" ) {
+        const locations: ILocation[] = [];
         dispatch(searchSuccess(locations))
     }
     else {

@@ -1,6 +1,6 @@
 {
-    "short_name": "Temp",
-    "name": "Temp weather app",
+    "short_name": "Väder",
+    "name": "Väder",
     "icons": [{
             "src": "favicon.ico",
             "sizes": "64x64 32x32 24x24 16x16",

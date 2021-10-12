@@ -126,7 +126,7 @@ class SearchBox extends React.Component<ISearchPageProps, ISearchPageState> {
                 showSearch
                 style={this.props.style}
                 value={this.state.searchText ? this.state.searchText : undefined} // the placeholder only shows when value=undefined
-                placeholder="Search for a city"
+                placeholder="Sök"
                 size="large"
                 defaultActiveFirstOption={false}
                 showArrow={false}
