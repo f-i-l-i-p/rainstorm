@@ -2,7 +2,7 @@
 
 .columns {
     display: grid;
-    grid-template-columns: 20px auto auto;
+    grid-template-columns: 20px 1px auto;
 }
 
 .all-columns {
@@ -69,12 +69,12 @@
     transform: translateY(20px);
 }
 
- ::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background: #dbdbdb;
 }
 
- ::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb:hover {
     border-radius: 10px;
     background: #d1d1d1;
 }

@@ -13,3 +13,7 @@
     background-color: orchid !important;
     background: red !important;
 }
+
+.search-box {
+    width: 100%;
+}

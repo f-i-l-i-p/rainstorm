@@ -136,7 +136,7 @@ export default class WeatherTableList extends React.Component<IWeatherTableListP
         let tableData = this.getTableData();
 
         return (
-            <div>
+            <div className="list">
                 {tableData.map((data, index) =>
                     <WeatherTable key={index} tableData={data} name={this.getTableName(index, data.columns.get(data.columns.keys().next().value)?.date)} />
                 )}
