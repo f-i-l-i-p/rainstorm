@@ -1,15 +1,18 @@
 import React from "react";
-import WeatherView from "../templates/WeatherTemplate";
+import WeatherView from "../weather/WeatherTemplate";
 import { connect } from "react-redux";
 import { AppState } from "../../store";
-import { IForecast, ILocation } from "../../store/types";
+import { ILocation } from "../../store/types";
 import { setDisplayTimes } from "../../store/forecasts/actions";
 import { listHoursFromNow, listDaysFromNow } from "../../helpers/date";
+import { IWeatherStateForecast } from "../../store/forecasts/types";
+import WeatherTableList from "../weather/WeatherTableList";
+import SearchBox from "../atoms/SearchBox";
 
 interface IWeatherPageProps {
     location?: ILocation,
     displayTimes: Date[],
-    displayForecasts: IForecast[],
+    weatherStateForecasts: IWeatherStateForecast[],
     setDisplayTimes: (times: Date[]) => void,
 }
 
@@ -18,21 +21,12 @@ interface IWeatherPageState {
 
 class WeatherPage extends React.Component<IWeatherPageProps, IWeatherPageState>{
     render() {
+        console.log("Render!!")
         return (
-            <WeatherView
-                displayTimes={this.props.displayTimes}
-                displayForecasts={this.props.displayForecasts}
-                location={this.props.location}
-                displayModes={[
-                    {
-                        title: "7d",
-                        activate: () => this.props.setDisplayTimes(listDaysFromNow(7)),
-                    }, {
-                        title: "24h",
-                        activate: () => this.props.setDisplayTimes(listHoursFromNow(24)),
-                    },
-                ]}
-            />
+            <div>
+                <SearchBox />
+                <WeatherTableList weatherStateForecasts={this.props.weatherStateForecasts} />
+            </div>
         );
     }
 }
@@ -40,8 +34,8 @@ class WeatherPage extends React.Component<IWeatherPageProps, IWeatherPageState>{
 function mapStateToProps(state: AppState) {
     return {
         location: state.locationSearch.selectedLocation,
-        displayForecasts: state.forecasts.displayForecasts,
-        displayTimes: state.forecasts.displayTimes
+        displayTimes: state.forecasts.displayTimes,
+        weatherStateForecasts: state.forecasts.weatherStateForecasts,
     }
 }
 

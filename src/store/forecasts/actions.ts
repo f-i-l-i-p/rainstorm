@@ -1,53 +1,43 @@
-import { ForecastActionTypes, FETCH_START, FETCH_SUCCESS, FETCH_FAILURE, SET_DISPLAY_TIMES } from "./types";
-import { IForecast } from "../types";
+import { ForecastActionTypes, FORECAST_FETCH_START, FORECAST_FETCH_SUCCESS, FORECAST_FETCH_FAILURE, SET_DISPLAY_TIMES } from "./types";
 import { ILocation } from "../types";
 import { Dispatch } from "redux";
-import { fetchSMHIForecast } from "./providers/SMHI";
-import { fetchMETForecast } from "./providers/MET";
+import { getWeatherProviders } from "../../weather";
+import { IForecast, IWeatherProvider } from "../../weather/types";
 
-function searchStart(id: number): ForecastActionTypes {
+function searchStart(provider: IWeatherProvider): ForecastActionTypes {
     return {
-        type: FETCH_START,
-        id: id
+        type: FORECAST_FETCH_START,
+        provider: provider
     }
 }
 
-function searchSuccess(id: number, forecast: IForecast): ForecastActionTypes {
+function searchSuccess(provider: IWeatherProvider, forecast: IForecast): ForecastActionTypes {
     return {
-        type: FETCH_SUCCESS,
+        type: FORECAST_FETCH_SUCCESS,
         forecast: forecast,
-        id: id
+        provider: provider
     }
 }
 
-function searchFailure(id: number, errorMessage: string): ForecastActionTypes {
+function searchFailure(provider: IWeatherProvider, errorMessage: string): ForecastActionTypes {
     return {
-        type: FETCH_FAILURE,
+        type: FORECAST_FETCH_FAILURE,
         errorMessage: errorMessage,
-        id: id
+        provider: provider
     }
 }
-
-async function fetchForecast(id: number, location: ILocation, fetchFunction: (lat: string, long: string) => Promise<IForecast>, dispatch: Dispatch) {
-    dispatch(searchStart(id));
-
-    fetchFunction(location.lat.toString(), location.long.toString())
-        .then(forecast => {
-            if (forecast.times.length > 0) {
-                dispatch(searchSuccess(id, forecast))
-            }
-            else {
-                dispatch(searchFailure(id, "Fetch forecast error."))
-            }
-        })
-}
-
-const fetchFunctions: ((lat: string, long: string) => Promise<IForecast>)[] = [fetchSMHIForecast, fetchMETForecast];
 
 export const fetchForecasts = (location: ILocation) => async (dispatch: Dispatch) => {
-    fetchFunctions.forEach((fetchFunction, index) => {
-        fetchForecast(index, location, fetchFunction, dispatch);
+    const onSuccess = (provider: IWeatherProvider, result: IForecast) => dispatch(searchSuccess(provider, result));
+    const onFailure = (provider: IWeatherProvider, error: Error) => dispatch(searchFailure(provider, error.message));
+
+    const providers = getWeatherProviders();
+
+    providers.forEach(provider => {
+        dispatch(searchStart(provider));
+        provider.fetchForecast(location, (result: IForecast) => onSuccess(provider, result), (error: Error) => onFailure(provider, error));
     });
+
 }
 
 export function setDisplayTimes(displayTimes: Date[]) {
