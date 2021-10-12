@@ -27,7 +27,6 @@ const WeatherCell = (props: Props) => (
                 </div>
             </React.Fragment>
         }
-        {/* <Text strong>{props.weather.symbol}</Text> */}
     </div>
 );
 

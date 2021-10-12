@@ -5,6 +5,7 @@ import WeatherTable from "../WeatherTable";
 import { getDayOffset, listHoursFromNow } from "../../../helpers/date";
 import { ITableData } from "../WeatherTable/types";
 import { table } from "console";
+import { IWeather } from "../../../weather/types";
 
 interface IWeatherTableListProps {
     weatherStateForecasts: IWeatherStateForecast[],
@@ -31,7 +32,15 @@ export default class WeatherTableList extends React.Component<IWeatherTableListP
 
         stateForecasts.forEach(stateForecast => {
             if (!stateForecast.loading) {
-                stateForecast.forecast.weatherPoints.forEach((weather, date) => {
+                stateForecast.forecast.weatherPoints.forEach((weatherTime) => {
+                    
+                    // Sometimes the date is a string because the reducer is bad.
+                    let date: Date;
+                    if (typeof weatherTime.time === 'string')
+                        date = new Date(weatherTime.time);
+                    else
+                        date = weatherTime.time;
+
                     const dayOffset = getDayOffset(date);
 
                     if (dayOffset >= 0) {
@@ -55,7 +64,7 @@ export default class WeatherTableList extends React.Component<IWeatherTableListP
                             })
                         }
 
-                        const weatherMap = tableData.columns.get(time)?.weatherMap.set(stateForecast.weatherProvider, weather);
+                        tableData.columns.get(time)?.weatherMap.set(stateForecast.weatherProvider, weatherTime.weather);
                     }
                 });
             }

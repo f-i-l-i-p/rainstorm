@@ -34,7 +34,7 @@ export default class SMHI extends AbstractProvider {
 
     protected async formatResponse(response: Response): Promise<IForecast> {
         let forecast: IForecast = {
-            weatherPoints: new Map()
+            weatherPoints: [],
         }
 
         const json = await response.json();
@@ -84,7 +84,7 @@ export default class SMHI extends AbstractProvider {
                 }
             });
 
-            forecast.weatherPoints.set(date, weather);
+            forecast.weatherPoints.push({ time: date, weather: weather });
         });
 
         return forecast;

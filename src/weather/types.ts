@@ -1,7 +1,12 @@
 import { ILocation } from "../store/types";
 
 export interface IForecast {
-    weatherPoints: Map<Date, IWeather>
+    weatherPoints: IWeatherTime[],
+}
+
+export interface IWeatherTime {
+    time: Date,
+    weather: IWeather,
 }
 
 export interface IWeather {
@@ -14,7 +19,7 @@ export interface IWeather {
 export interface IWeatherProvider {
     name: string;
     logo: string;
-    fetchForecast(location: ILocation, onSuccess: (result: IForecast) => any, onFailure: (error: Error) => any ): void; 
+    fetchForecast(location: ILocation, onSuccess: (result: IForecast) => any, onFailure: (error: Error) => any): void;
 }
 
 export enum WeatherIcon {
