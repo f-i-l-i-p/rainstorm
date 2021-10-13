@@ -1,0 +1,36 @@
+{
+  "files": {
+    "main.css": "/static/css/main.cb07e6be.chunk.css",
+    "main.js": "/static/js/main.7eb052da.chunk.js",
+    "main.js.map": "/static/js/main.7eb052da.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.79136666.js",
+    "runtime-main.js.map": "/static/js/runtime-main.79136666.js.map",
+    "static/css/2.786ae0dd.chunk.css": "/static/css/2.786ae0dd.chunk.css",
+    "static/js/2.a8c16fab.chunk.js": "/static/js/2.a8c16fab.chunk.js",
+    "static/js/2.a8c16fab.chunk.js.map": "/static/js/2.a8c16fab.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.786ae0dd.chunk.css.map": "/static/css/2.786ae0dd.chunk.css.map",
+    "static/css/main.cb07e6be.chunk.css.map": "/static/css/main.cb07e6be.chunk.css.map",
+    "static/js/2.a8c16fab.chunk.js.LICENSE.txt": "/static/js/2.a8c16fab.chunk.js.LICENSE.txt",
+    "static/media/SMHI.147242e8.jpg": "/static/media/SMHI.147242e8.jpg",
+    "static/media/day_clear_sky.svg": "/static/media/day_clear_sky.3cec5a70.svg",
+    "static/media/day_cloudy_sky.svg": "/static/media/day_cloudy_sky.28c5a064.svg",
+    "static/media/day_half_clear_sky.svg": "/static/media/day_half_clear_sky.f2367887.svg",
+    "static/media/day_light_rain.svg": "/static/media/day_light_rain.8de418d1.svg",
+    "static/media/day_moderate_rain.svg": "/static/media/day_moderate_rain.1ac9a777.svg",
+    "static/media/day_moderate_rain_showers.svg": "/static/media/day_moderate_rain_showers.5bdbfbe3.svg",
+    "static/media/day_moderate_sleet.svg": "/static/media/day_moderate_sleet.b195ed64.svg",
+    "static/media/day_nearly_clear_sky.svg": "/static/media/day_nearly_clear_sky.9a7090ce.svg",
+    "static/media/day_overcast.svg": "/static/media/day_overcast.062fc05d.svg",
+    "static/media/day_thunder.svg": "/static/media/day_thunder.08acff3b.svg",
+    "static/media/day_thunderstorm.svg": "/static/media/day_thunderstorm.fb8d6c57.svg",
+    "static/media/day_unknown.svg": "/static/media/day_unknown.d6ceac86.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.79136666.js",
+    "static/css/2.786ae0dd.chunk.css",
+    "static/js/2.a8c16fab.chunk.js",
+    "static/css/main.cb07e6be.chunk.css",
+    "static/js/main.7eb052da.chunk.js"
+  ]
+}
