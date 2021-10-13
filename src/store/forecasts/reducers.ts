@@ -42,7 +42,7 @@ export function forecastReducer(state = initialState, action: ForecastActionType
             };
 
         case FORECAST_FETCH_FAILURE:
-            console.log("Fetch fail", state)
+            console.log("Fetch fail")
 
             // TODO: Implement
 
