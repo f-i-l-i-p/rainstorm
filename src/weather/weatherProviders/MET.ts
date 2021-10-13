@@ -10,8 +10,11 @@ export default class MET extends AbstractProvider {
 
     private icons: any = {
         "lightrain": WeatherIcon.light_rain,
-        3: WeatherIcon.light_rain,
-        //20: WeatherIcon.heavy_rain,        // Heavy rain
+        "rain": WeatherIcon.moderate_rain,
+        "clearsky_night": WeatherIcon.clear_sky,
+        "partlycloudy_day": WeatherIcon.half_clear_sky,
+        "partlycloudy_night": WeatherIcon.half_clear_sky,
+        "cloudy": WeatherIcon.cloudy_sky,
     }
 
     protected async requestData(lat: string, long: string): Promise<Response> {
@@ -44,25 +47,30 @@ export default class MET extends AbstractProvider {
                 continue;
             }
 
-            let symbol: string;
+            let symbol_str: string;
             if (timeobj.data.next_1_hours) {
-                symbol = timeobj.data.next_1_hours.summary.symbol_code;
+                symbol_str = timeobj.data.next_1_hours.summary.symbol_code;
+            }
+            else if (timeobj.data.next_6_hours) {
+                symbol_str = timeobj.data.next_6_hours.summary.symbol_code;
             }
             else if (timeobj.data.next_12_hours) {
-                symbol = timeobj.data.next_12_hours.summary.symbol_code;
-            }
-            else if (timeobj.data.next_12_hours) {
-                symbol = timeobj.data.next_12_hours.summary.symbol_code;
+                symbol_str = timeobj.data.next_12_hours.summary.symbol_code;
             }
             else {
                 continue;
+            }
+
+            const symbol = this.icons[symbol_str] || WeatherIcon.unknown;
+            if (symbol === WeatherIcon.unknown) {
+                console.warn("Unknown symbol", symbol_str)
             }
 
             const weather: IWeather = {
                 temperature: timeobj.data.instant.details.air_temperature,
                 wind: timeobj.data.instant.details.wind_speed,
                 gust: NaN,
-                symbol: this.icons[symbol] || WeatherIcon.unknown,
+                symbol: this.icons[symbol_str] || WeatherIcon.unknown,
             }
 
             forecast.weatherPoints.push({ time: date, weather: weather })
