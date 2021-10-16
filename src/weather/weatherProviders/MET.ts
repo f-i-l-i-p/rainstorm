@@ -37,13 +37,15 @@ export default class MET extends AbstractProvider {
 
         const timeSeries: [] = json.properties.timeseries;
 
+        const currentDateTime = new Date().getTime();
+
         // Loop through all timeseries
         for (let i = 0; i < timeSeries.length; i++) {
             const timeobj: any = timeSeries[i];
             const date: Date = new Date(timeobj.time);
 
             // If this is old weather.
-            if (date.getTime() < new Date().getTime()) {
+            if (date.getTime() < currentDateTime) {
                 continue;
             }
 

@@ -40,50 +40,54 @@ export default class SMHI extends AbstractProvider {
 
         const timeSeries: [] = json['timeSeries'];
 
+        const currentDateTime = new Date().getTime();
+
         timeSeries.forEach((time: any) => {
             // Get the time:
             const date = new Date(time['validTime']);
 
-            // Get the weather for this time:
+            if (date.getTime() >= currentDateTime) {
+                // Get the weather for this time:
 
-            // Weather parameter descriptions can be found at:
-            // https://opendata.smhi.se/apidocs/metfcst/parameters.html#parameter-table
+                // Weather parameter descriptions can be found at:
+                // https://opendata.smhi.se/apidocs/metfcst/parameters.html#parameter-table
 
-            const parameters: [] = time['parameters']
+                const parameters: [] = time['parameters']
 
-            const weather: IWeather = {
-                temperature: NaN,
-                wind: NaN,
-                gust: NaN,
-                symbol: WeatherIcon.unknown,
-            }
-
-            // TODO: Optimize. Don't loop through all parameters.
-            parameters.forEach(parameter => {
-                const value = parameter['values'][0];
-                switch (parameter['name']) {
-                    case 't':
-                        weather.temperature = value;
-                        break;
-                    case 'ws':
-                        weather.wind = value;
-                        break;
-                    case 'gust':
-                        weather.gust = value;
-                        break;
-                    case 'Wsymb2':
-                        let icon = this.icons[value];
-                        if (!icon) {
-                            console.warn("Unknown symbol value", value)
-                            weather.symbol = WeatherIcon.unknown;
-                            break;
-                        }
-                        weather.symbol = this.icons[value];
-                        break;
+                const weather: IWeather = {
+                    temperature: NaN,
+                    wind: NaN,
+                    gust: NaN,
+                    symbol: WeatherIcon.unknown,
                 }
-            });
 
-            forecast.weatherPoints.push({ time: date, weather: weather });
+                // TODO: Optimize. Don't loop through all parameters.
+                parameters.forEach(parameter => {
+                    const value = parameter['values'][0];
+                    switch (parameter['name']) {
+                        case 't':
+                            weather.temperature = value;
+                            break;
+                        case 'ws':
+                            weather.wind = value;
+                            break;
+                        case 'gust':
+                            weather.gust = value;
+                            break;
+                        case 'Wsymb2':
+                            let icon = this.icons[value];
+                            if (!icon) {
+                                console.warn("Unknown symbol value", value)
+                                weather.symbol = WeatherIcon.unknown;
+                                break;
+                            }
+                            weather.symbol = this.icons[value];
+                            break;
+                    }
+                });
+
+                forecast.weatherPoints.push({ time: date, weather: weather });
+            }
         });
 
         return forecast;
