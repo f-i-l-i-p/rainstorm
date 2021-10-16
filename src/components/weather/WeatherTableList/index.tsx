@@ -24,53 +24,124 @@ export default class WeatherTableList extends React.Component<IWeatherTableListP
         const stateForecasts = this.props.weatherStateForecasts;
         const providers = stateForecasts.map(stateForecast => { return stateForecast.weatherProvider });
 
+        // For every provider
+        for (let i = 0; i < stateForecasts.length; i++) {
+            const stateForecast = stateForecasts[i];
+
+            if (stateForecast.loading) {
+                continue;
+            }
+
+            // For every weather point
+            for (let j = 0; j < stateForecast.forecast.weatherPoints.length; j++) {
+                const weatherPoint = stateForecast.forecast.weatherPoints[j];
+
+                // Sometimes the date is a string because the reducer is bad.
+                let weatherPointDate: Date;
+                if (typeof weatherPoint.time === 'string')
+                    weatherPointDate = new Date(weatherPoint.time);
+                else
+                    weatherPointDate = weatherPoint.time
+
+                const dayOffset = getDayOffset(weatherPointDate);
+
+                if (dayOffset < 0) {
+                    console.warn("Old weather data");
+                    continue;
+                }
+
+                // Create new table if needed
+                if (dayOffset >= result.length) {
+                    result.push({
+                        columns: [],
+                        providers: providers,
+                    })
+                }
+
+                const tableData = result[dayOffset];
+                const time = weatherPointDate.getTime();
+
+                // If no columns, add one
+                if (tableData.columns.length === 0) {
+                    tableData.columns.push({
+                        date: weatherPointDate,
+                        weatherMap: new Map(),
+                    })
+                }
+
+                // Create new column if needed, and add data.
+                for (let k = tableData.columns.length - 1; k >= 0; k--) {
+                    const column = tableData.columns[k];
+                    const columnTime = column.date.getTime();
+
+                    // Column already exists
+                    if (columnTime === time) {
+                        // Add data
+                        column.weatherMap.set(stateForecast.weatherProvider, weatherPoint.weather);
+                        break;
+                    }
+                    // Column should be after this column
+                    else if (columnTime < time) {
+                        // Add column
+                        tableData.columns.splice(k + 1, 0, {
+                            date: weatherPointDate,
+                            weatherMap: new Map(),
+                        })
+
+                        // Make sure that the data gets added in the next loop.
+                        k += 2;
+                    }
+                }
+            }
+        }
+
 
         // For every provider
         // Loop through times
         // Check which day
         // Check is day exists in result
         // Add data
-
-        stateForecasts.forEach(stateForecast => {
-            if (!stateForecast.loading) {
-                stateForecast.forecast.weatherPoints.forEach((weatherTime) => {
-
-                    // Sometimes the date is a string because the reducer is bad.
-                    let date: Date;
-                    if (typeof weatherTime.time === 'string')
-                        date = new Date(weatherTime.time);
-                    else
-                        date = weatherTime.time;
-
-                    const dayOffset = getDayOffset(date);
-
-                    if (dayOffset >= 0) {
-                        // Create new table if needed
-                        if (dayOffset >= result.length) {
-                            result.push({
-                                columns: new Map(),
-                                providers: providers,
-                            })
-                        }
-
-                        const tableData = result[dayOffset];
-
-                        const time = date.getTime();
-
-                        // Create new column if needed
-                        if (!tableData.columns.has(time)) {
-                            tableData.columns.set(time, {
-                                date: date,
-                                weatherMap: new Map(),
-                            })
-                        }
-
-                        tableData.columns.get(time)?.weatherMap.set(stateForecast.weatherProvider, weatherTime.weather);
+        /* 
+                stateForecasts.forEach(stateForecast => {
+                    if (!stateForecast.loading) {
+                        stateForecast.forecast.weatherPoints.forEach((weatherTime) => {
+        
+                            // Sometimes the date is a string because the reducer is bad.
+                            let date: Date;
+                            if (typeof weatherTime.time === 'string')
+                                date = new Date(weatherTime.time);
+                            else
+                                date = weatherTime.time;
+        
+                            const dayOffset = getDayOffset(date);
+        
+                            if (dayOffset >= 0) {
+                                // Create new table if needed
+                                if (dayOffset >= result.length) {
+                                    result.push({
+                                        columns: [],
+                                        providers: providers,
+                                    })
+                                }
+        
+                                const tableData = result[dayOffset];
+        
+                                const time = date.getTime();
+        
+                                // Create new column if needed
+                                if (!tableData.columns.has(time)) {
+                                    tableData.columns.push({
+                                        date: date,
+                                        weatherMap: new Map(),
+                                    })
+                                }
+        
+                                tableData.columns.get(time)?.weatherMap.set(stateForecast.weatherProvider, weatherTime.weather);
+                            }
+                        });
                     }
                 });
-            }
-        });
-
+         */
         return result;
     }
 
@@ -128,7 +199,7 @@ export default class WeatherTableList extends React.Component<IWeatherTableListP
         return (
             <div className="list">
                 {tableData.map((data, index) =>
-                    <WeatherTable key={index} tableData={data} name={this.getTableName(index, data.columns.get(data.columns.keys().next().value)?.date)} />
+                    <WeatherTable key={index} tableData={data} name={this.getTableName(index, data.columns.length ? data.columns[0].date : undefined)} />
                 )}
             </div>
         );

@@ -61,14 +61,14 @@ class WeatherTable extends React.Component<IWeatherTableListProps> {
                     {/* Time cells and Weather cells */}
                     <div className="right-column" style={{ overflowX: 'auto' }}>
                         <div className="time-row">
-                            {Array.from(this.props.tableData.columns, ([timeMillis, column]) =>
-                                <TimeCell key={timeMillis} time={column.date} />
+                            {this.props.tableData.columns.map((column, index) =>
+                                <TimeCell key={index} time={column.date} />
                             )}
                         </div>
                         {this.props.tableData.providers.map((provider, index) =>
                             <div key={index} className="weather-row">
-                                {Array.from(this.props.tableData.columns, ([timeMillis, column]) =>
-                                    <WeatherCell key={timeMillis} weather={column.weatherMap.get(provider) as IWeather} />
+                                {this.props.tableData.columns.map((column, index) =>
+                                    <WeatherCell key={index} weather={column.weatherMap.get(provider) as IWeather} />
                                 )}
                             </div>
                         )}

@@ -6,6 +6,6 @@ export interface ITableColumn {
 }
 
 export interface ITableData {
-    columns: Map<number, ITableColumn>,
+    columns: ITableColumn[],
     providers: IWeatherProvider[],
 }
