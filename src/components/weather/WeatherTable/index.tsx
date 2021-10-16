@@ -10,6 +10,7 @@ import { ITableData } from "./types";
 interface IWeatherTableListProps {
     tableData: ITableData,
     name: string,
+    justifyRight: boolean,
 }
 
 class WeatherTable extends React.Component<IWeatherTableListProps> {
@@ -60,13 +61,13 @@ class WeatherTable extends React.Component<IWeatherTableListProps> {
 
                     {/* Time cells and Weather cells */}
                     <div className="right-column" style={{ overflowX: 'auto' }}>
-                        <div className="time-row">
+                        <div className="time-row" style={{justifyContent: this.props.justifyRight ? "flex-end" : "space-around"}}>
                             {this.props.tableData.columns.map((column, index) =>
                                 <TimeCell key={index} time={column.date} />
                             )}
                         </div>
                         {this.props.tableData.providers.map((provider, index) =>
-                            <div key={index} className="weather-row">
+                            <div key={index} className="weather-row" style={{justifyContent: this.props.justifyRight ? "flex-end" : "space-around"}}>
                                 {this.props.tableData.columns.map((column, index) =>
                                     <WeatherCell key={index} weather={column.weatherMap.get(provider) as IWeather} />
                                 )}

@@ -37,16 +37,19 @@
 .weather-row {
     margin-top: 10px;
     height: 80px;
+    min-width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
 }
 
 .time-row {
     height: 20px;
+    min-width: 100%;
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
 }
 
 
