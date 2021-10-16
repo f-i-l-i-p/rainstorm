@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/rainstorm/static/css/main.cb07e6be.chunk.css",
-    "main.js": "/rainstorm/static/js/main.3fa82a01.chunk.js",
-    "main.js.map": "/rainstorm/static/js/main.3fa82a01.chunk.js.map",
+    "main.js": "/rainstorm/static/js/main.477f5b9a.chunk.js",
+    "main.js.map": "/rainstorm/static/js/main.477f5b9a.chunk.js.map",
     "runtime-main.js": "/rainstorm/static/js/runtime-main.711ecce6.js",
     "runtime-main.js.map": "/rainstorm/static/js/runtime-main.711ecce6.js.map",
     "static/css/2.786ae0dd.chunk.css": "/rainstorm/static/css/2.786ae0dd.chunk.css",
-    "static/js/2.9f98226a.chunk.js": "/rainstorm/static/js/2.9f98226a.chunk.js",
-    "static/js/2.9f98226a.chunk.js.map": "/rainstorm/static/js/2.9f98226a.chunk.js.map",
+    "static/js/2.4f66f35b.chunk.js": "/rainstorm/static/js/2.4f66f35b.chunk.js",
+    "static/js/2.4f66f35b.chunk.js.map": "/rainstorm/static/js/2.4f66f35b.chunk.js.map",
     "index.html": "/rainstorm/index.html",
     "static/css/2.786ae0dd.chunk.css.map": "/rainstorm/static/css/2.786ae0dd.chunk.css.map",
     "static/css/main.cb07e6be.chunk.css.map": "/rainstorm/static/css/main.cb07e6be.chunk.css.map",
-    "static/js/2.9f98226a.chunk.js.LICENSE.txt": "/rainstorm/static/js/2.9f98226a.chunk.js.LICENSE.txt",
+    "static/js/2.4f66f35b.chunk.js.LICENSE.txt": "/rainstorm/static/js/2.4f66f35b.chunk.js.LICENSE.txt",
     "static/media/SMHI.147242e8.jpg": "/rainstorm/static/media/SMHI.147242e8.jpg",
     "static/media/day_clear_sky.svg": "/rainstorm/static/media/day_clear_sky.3cec5a70.svg",
     "static/media/day_cloudy_sky.svg": "/rainstorm/static/media/day_cloudy_sky.28c5a064.svg",
@@ -29,8 +29,8 @@
   "entrypoints": [
     "static/js/runtime-main.711ecce6.js",
     "static/css/2.786ae0dd.chunk.css",
-    "static/js/2.9f98226a.chunk.js",
+    "static/js/2.4f66f35b.chunk.js",
     "static/css/main.cb07e6be.chunk.css",
-    "static/js/main.3fa82a01.chunk.js"
+    "static/js/main.477f5b9a.chunk.js"
   ]
 }
