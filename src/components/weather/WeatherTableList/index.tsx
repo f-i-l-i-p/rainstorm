@@ -95,62 +95,7 @@ export default class WeatherTableList extends React.Component<IWeatherTableListP
             }
         }
 
-
-        // For every provider
-        // Loop through times
-        // Check which day
-        // Check is day exists in result
-        // Add data
-        /* 
-                stateForecasts.forEach(stateForecast => {
-                    if (!stateForecast.loading) {
-                        stateForecast.forecast.weatherPoints.forEach((weatherTime) => {
-        
-                            // Sometimes the date is a string because the reducer is bad.
-                            let date: Date;
-                            if (typeof weatherTime.time === 'string')
-                                date = new Date(weatherTime.time);
-                            else
-                                date = weatherTime.time;
-        
-                            const dayOffset = getDayOffset(date);
-        
-                            if (dayOffset >= 0) {
-                                // Create new table if needed
-                                if (dayOffset >= result.length) {
-                                    result.push({
-                                        columns: [],
-                                        providers: providers,
-                                    })
-                                }
-        
-                                const tableData = result[dayOffset];
-        
-                                const time = date.getTime();
-        
-                                // Create new column if needed
-                                if (!tableData.columns.has(time)) {
-                                    tableData.columns.push({
-                                        date: date,
-                                        weatherMap: new Map(),
-                                    })
-                                }
-        
-                                tableData.columns.get(time)?.weatherMap.set(stateForecast.weatherProvider, weatherTime.weather);
-                            }
-                        });
-                    }
-                });
-         */
         return result;
-    }
-
-    /**
-     * Returns the number of time points there should be for a given day.
-     * @param dayOffset 
-     */
-    private getTimePointCount(dayOffset: number): number {
-        return 24;
     }
 
     private getTableName(index: number, date: Date | undefined): string {
