@@ -9,9 +9,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="38.602703mm"
-   height="34.730675mm"
-   viewBox="0 0 38.602702 34.730674"
+   width="40.618816mm"
+   height="38.629169mm"
+   viewBox="0 0 40.618814 38.629168"
    version="1.1"
    id="svg8"
    sodipodi:docname="light_rain.svg"
@@ -610,6 +610,98 @@
          result="composite2"
          id="feComposite16642-0" />
     </filter>
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect6047-3"
+       is_visible="true"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false" />
+    <inkscape:path-effect
+       only_selected="false"
+       apply_with_weight="true"
+       apply_no_weight="true"
+       helper_size="0"
+       steps="2"
+       weight="33.333333"
+       is_visible="true"
+       id="path-effect6051-6"
+       effect="bspline" />
+    <filter
+       style="color-interpolation-filters:sRGB"
+       inkscape:label="Drop Shadow"
+       id="filter2661"
+       x="-0.16"
+       width="1.33"
+       height="1.49"
+       y="-0.18000001">
+      <feFlood
+         flood-opacity="0.321569"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         id="feFlood2651" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite1"
+         id="feComposite2653" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="2.5"
+         result="blur"
+         id="feGaussianBlur2655" />
+      <feOffset
+         dx="-8.32667e-17"
+         dy="0.5"
+         result="offset"
+         id="feOffset2657" />
+      <feComposite
+         in="SourceGraphic"
+         in2="offset"
+         operator="over"
+         result="composite2"
+         id="feComposite2659" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB"
+       inkscape:label="Drop Shadow"
+       id="filter2673"
+       height="1.48"
+       y="-0.19"
+       width="1.29"
+       x="-0.17">
+      <feFlood
+         flood-opacity="0.321569"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         id="feFlood2663" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite1"
+         id="feComposite2665" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="2.5"
+         result="blur"
+         id="feGaussianBlur2667" />
+      <feOffset
+         dx="-8.32667e-17"
+         dy="0.5"
+         result="offset"
+         id="feOffset2669" />
+      <feComposite
+         in="SourceGraphic"
+         in2="offset"
+         operator="over"
+         result="composite2"
+         id="feComposite2671" />
+    </filter>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -618,9 +710,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="4"
-     inkscape:cx="65.716715"
-     inkscape:cy="57.186874"
+     inkscape:zoom="2.8284271"
+     inkscape:cx="79.626595"
+     inkscape:cy="114.85508"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -635,8 +727,8 @@
        spacingx="1.0583333"
        spacingy="1.0583333"
        empspacing="16"
-       originx="-48.921446"
-       originy="-237.26096" />
+       originx="-47.20438"
+       originy="-236.53745" />
   </sodipodi:namedview>
   <metadata
      id="metadata5">
@@ -654,88 +746,72 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-48.921451,-25.008333)">
+     transform="translate(-47.204407,-21.833292)">
     <g
-       id="g6039-3"
-       transform="translate(-84.402114,-135.64582)"
-       style="filter:url(#filter16884-1)">
+       id="g5999"
+       transform="translate(-45.516191,-126.69085)"
+       style="filter:url(#filter2673)">
       <ellipse
-         ry="5.8208332"
+         style="fill:#adadad;fill-opacity:1;stroke:none;stroke-width:0.94017446;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
+         id="ellipse5981"
+         cx="108.47916"
+         cy="170"
          rx="7.1437464"
-         cy="180.58333"
-         cx="147.6375"
-         id="ellipse6001-0"
-         style="fill:#767676;fill-opacity:1;stroke:none;stroke-width:0.94017446;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke" />
+         ry="5.8208332" />
       <ellipse
-         cy="179.61319"
-         cx="161.92502"
-         id="ellipse6003-7"
-         style="fill:#767676;fill-opacity:1;stroke:none;stroke-width:0.94017446;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
+         ry="6.7909713"
          rx="7.1437464"
-         ry="6.7909713" />
+         style="fill:#adadad;fill-opacity:1;stroke:none;stroke-width:0.94017446;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
+         id="circle5983"
+         cx="122.76667"
+         cy="169.02986" />
       <ellipse
-         cy="175.73264"
-         cx="153.76073"
-         id="ellipse6005-8"
-         style="fill:#767676;fill-opacity:1;stroke:none;stroke-width:0.94017446;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
+         ry="6.7909713"
          rx="7.1437464"
-         ry="6.7909713" />
+         style="fill:#adadad;fill-opacity:1;stroke:none;stroke-width:0.94017446;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
+         id="circle5985"
+         cx="114.60238"
+         cy="165.14931" />
       <rect
-         y="180.58333"
-         x="147.6375"
-         height="5.8208332"
+         style="fill:#adadad;fill-opacity:1;stroke:none;stroke-width:0.94017446;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
+         id="rect5987"
          width="14.287493"
-         id="rect6007-6"
-         style="fill:#767676;fill-opacity:1;stroke:none;stroke-width:0.94017446;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke" />
+         height="5.8208332"
+         x="108.47916"
+         y="170" />
     </g>
     <g
-       id="g6029-8"
-       transform="translate(-84.402114,-135.64582)"
-       style="filter:url(#filter16872-3)">
+       transform="translate(-16.676586,-139.21172)"
+       id="g5964"
+       style="filter:url(#filter2661)">
       <ellipse
-         style="fill:#939393;fill-opacity:1;stroke:none;stroke-width:0.82375419;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
-         id="ellipse6011-8"
-         cx="142.08127"
-         cy="182.61458"
+         ry="5.0270839"
          rx="6.3499961"
-         ry="5.0270839" />
+         cy="184.55211"
+         cx="74.083321"
+         id="ellipse5956"
+         style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.82375419;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke" />
       <ellipse
-         style="fill:#939393;fill-opacity:1;stroke:none;stroke-width:0.88372701;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
-         id="ellipse6013-4"
-         cx="152.6646"
-         cy="181.64166"
+         ry="6"
          rx="7.1437464"
-         ry="6" />
+         cy="183.57919"
+         cx="84.666649"
+         id="ellipse5958"
+         style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.88372701;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke" />
       <ellipse
-         style="fill:#939393;fill-opacity:1;stroke:none;stroke-width:0.85714275;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
-         id="ellipse6015-3"
-         cx="146.31461"
-         cy="179.17499"
+         ry="6.349997"
          rx="6.3500009"
-         ry="6.349997" />
+         cy="181.11252"
+         cx="78.31665"
+         id="ellipse5960"
+         style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.85714275;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke" />
       <rect
-         style="fill:#939393;fill-opacity:1;stroke:none;stroke-width:0.6919781;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
-         id="rect6017-1"
-         width="10.642088"
+         y="185.34586"
+         x="74.024567"
          height="4.2333298"
-         x="142.02252"
-         y="183.40833" />
+         width="10.642088"
+         id="rect5962"
+         style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.6919781;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke" />
     </g>
-    <path
-       style="fill:#767676;fill-opacity:1;stroke:#008bff;stroke-width:1.32291663;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke;filter:url(#filter16860-2)"
-       d="m 146.05,191.16666 c 0,0 2.11667,-2.11666 2.11667,-2.11666"
-       id="path6045-4"
-       inkscape:connector-curvature="0"
-       inkscape:path-effect="#path-effect6047-2-9"
-       inkscape:original-d="M 146.05,191.16666 148.16667,189.05"
-       transform="rotate(-22.5,-236.19402,339.37182)" />
-    <path
-       transform="rotate(-22.5,-231.96068,318.08942)"
-       inkscape:original-d="M 146.05,191.16666 148.16667,189.05"
-       inkscape:path-effect="#path-effect6051-91-6"
-       inkscape:connector-curvature="0"
-       id="path6049-9"
-       d="m 146.05,191.16666 c 0,0 2.11667,-2.11666 2.11667,-2.11666"
-       style="fill:#767676;fill-opacity:1;stroke:#008bff;stroke-width:1.32291663;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke;filter:url(#filter16848-3)" />
   </g>
 </svg>
