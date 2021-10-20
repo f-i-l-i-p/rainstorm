@@ -9,9 +9,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="40.618816mm"
-   height="38.629169mm"
-   viewBox="0 0 40.618814 38.629168"
+   width="44.450001mm"
+   height="46.566666mm"
+   viewBox="0 0 44.45 46.566665"
    version="1.1"
    id="svg8"
    sodipodi:docname="light_rain.svg"
@@ -630,78 +630,6 @@
        is_visible="true"
        id="path-effect6051-6"
        effect="bspline" />
-    <filter
-       style="color-interpolation-filters:sRGB"
-       inkscape:label="Drop Shadow"
-       id="filter2661"
-       x="-0.16"
-       width="1.33"
-       height="1.49"
-       y="-0.18000001">
-      <feFlood
-         flood-opacity="0.321569"
-         flood-color="rgb(0,0,0)"
-         result="flood"
-         id="feFlood2651" />
-      <feComposite
-         in="flood"
-         in2="SourceGraphic"
-         operator="in"
-         result="composite1"
-         id="feComposite2653" />
-      <feGaussianBlur
-         in="composite1"
-         stdDeviation="2.5"
-         result="blur"
-         id="feGaussianBlur2655" />
-      <feOffset
-         dx="-8.32667e-17"
-         dy="0.5"
-         result="offset"
-         id="feOffset2657" />
-      <feComposite
-         in="SourceGraphic"
-         in2="offset"
-         operator="over"
-         result="composite2"
-         id="feComposite2659" />
-    </filter>
-    <filter
-       style="color-interpolation-filters:sRGB"
-       inkscape:label="Drop Shadow"
-       id="filter2673"
-       height="1.48"
-       y="-0.19"
-       width="1.29"
-       x="-0.17">
-      <feFlood
-         flood-opacity="0.321569"
-         flood-color="rgb(0,0,0)"
-         result="flood"
-         id="feFlood2663" />
-      <feComposite
-         in="flood"
-         in2="SourceGraphic"
-         operator="in"
-         result="composite1"
-         id="feComposite2665" />
-      <feGaussianBlur
-         in="composite1"
-         stdDeviation="2.5"
-         result="blur"
-         id="feGaussianBlur2667" />
-      <feOffset
-         dx="-8.32667e-17"
-         dy="0.5"
-         result="offset"
-         id="feOffset2669" />
-      <feComposite
-         in="SourceGraphic"
-         in2="offset"
-         operator="over"
-         result="composite2"
-         id="feComposite2671" />
-    </filter>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -711,8 +639,8 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.8284271"
-     inkscape:cx="79.626595"
-     inkscape:cy="114.85508"
+     inkscape:cx="88.526556"
+     inkscape:cy="155.58945"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -727,8 +655,8 @@
        spacingx="1.0583333"
        spacingy="1.0583333"
        empspacing="16"
-       originx="-47.20438"
-       originy="-236.53745" />
+       originx="-46.566664"
+       originy="-226.48332" />
   </sodipodi:namedview>
   <metadata
      id="metadata5">
@@ -746,11 +674,10 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-47.204407,-21.833292)">
+     transform="translate(-46.566669,-23.949978)">
     <g
        id="g5999"
-       transform="translate(-45.516191,-126.69085)"
-       style="filter:url(#filter2673)">
+       transform="translate(-44.979144,-120.65003)">
       <ellipse
          style="fill:#adadad;fill-opacity:1;stroke:none;stroke-width:0.94017446;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
          id="ellipse5981"
@@ -781,9 +708,8 @@
          y="170" />
     </g>
     <g
-       transform="translate(-16.676586,-139.21172)"
-       id="g5964"
-       style="filter:url(#filter2661)">
+       transform="translate(-16.139539,-133.1709)"
+       id="g5964">
       <ellipse
          ry="5.0270839"
          rx="6.3499961"
