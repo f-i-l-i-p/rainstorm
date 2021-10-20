@@ -23,7 +23,7 @@ export default class MET extends AbstractProvider {
     }
 
     protected async requestData(lat: string, long: string): Promise<Response> {
-        const result = await fetch('https://api.met.no/weatherapi/locationforecast/2.0/compact?lat='
+        const result = await fetch('https://api.met.no/weatherapi/locationforecast/2.0/complete?lat='
             + lat + '&lon=' + long);
 
         if (!result.ok) {
@@ -55,14 +55,18 @@ export default class MET extends AbstractProvider {
             }
 
             let symbol_str: string;
+            let precipitation: number;
             if (timeobj.data.next_1_hours) {
                 symbol_str = timeobj.data.next_1_hours.summary.symbol_code;
+                precipitation = timeobj.data.next_1_hours.details.precipitation_amount;
             }
             else if (timeobj.data.next_6_hours) {
                 symbol_str = timeobj.data.next_6_hours.summary.symbol_code;
+                precipitation = timeobj.data.next_6_hours.details.precipitation_amount;
             }
             else if (timeobj.data.next_12_hours) {
                 symbol_str = timeobj.data.next_12_hours.summary.symbol_code;
+                precipitation = timeobj.data.next_12_hours.details.precipitation_amount;
             }
             else {
                 continue;
@@ -77,6 +81,7 @@ export default class MET extends AbstractProvider {
                 temperature: timeobj.data.instant.details.air_temperature,
                 wind: timeobj.data.instant.details.wind_speed,
                 gust: NaN,
+                precipitation: precipitation,
                 symbol: this.icons[symbol_str] || WeatherIcon.unknown,
             }
 

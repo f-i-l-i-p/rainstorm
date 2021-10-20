@@ -58,6 +58,7 @@ export default class SMHI extends AbstractProvider {
                     temperature: NaN,
                     wind: NaN,
                     gust: NaN,
+                    precipitation: NaN,
                     symbol: WeatherIcon.unknown,
                 }
 
@@ -73,6 +74,9 @@ export default class SMHI extends AbstractProvider {
                             break;
                         case 'gust':
                             weather.gust = value;
+                            break;
+                        case 'pmean':
+                            weather.precipitation = value;
                             break;
                         case 'Wsymb2':
                             let icon = this.icons[value];

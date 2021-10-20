@@ -13,6 +13,7 @@ export interface IWeather {
     temperature: number,
     wind: number,
     gust: number,
+    precipitation: number,
     symbol: WeatherIcon,
 }
 
