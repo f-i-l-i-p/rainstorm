@@ -25,6 +25,7 @@ class WeatherPage extends React.Component<IWeatherPageProps, IWeatherPageState>{
         return (
             <div>
                 <SearchBox style={{width: "100%"}}/>
+                <div style={{height: "50px"}}></div>
                 <WeatherTableList weatherStateForecasts={this.props.weatherStateForecasts} />
             </div>
         );

@@ -8,10 +8,15 @@ export default class MET extends AbstractProvider {
         super("Yr", logo)
     }
 
+    // Icon list: https://api.met.no/weatherapi/weathericon/2.0/documentation
     private icons: any = {
+        "heavyrain": WeatherIcon.heavy_rain,
         "lightrain": WeatherIcon.light_rain,
         "rain": WeatherIcon.moderate_rain,
+        "clearsky_day": WeatherIcon.clear_sky,
         "clearsky_night": WeatherIcon.clear_sky,
+        "fair_day": WeatherIcon.nearly_clear_sky,
+        "fair_night": WeatherIcon.nearly_clear_sky,
         "partlycloudy_day": WeatherIcon.half_clear_sky,
         "partlycloudy_night": WeatherIcon.half_clear_sky,
         "cloudy": WeatherIcon.cloudy_sky,

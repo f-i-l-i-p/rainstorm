@@ -7,6 +7,8 @@ import { IForecast, IWeather } from "../../../weather/types";
 import './style.css';
 import { ITableData } from "./types";
 
+const { Title } = Typography;
+
 interface IWeatherTableListProps {
     tableData: ITableData,
     name: string,
@@ -17,7 +19,7 @@ class WeatherTable extends React.Component<IWeatherTableListProps> {
     public render() {
         return (
             <div>
-                {this.props.name}
+                <Title level={4}>{this.props.name}</Title>
                 <div className="columns">
 
                     {/* Time row background */}
@@ -61,13 +63,13 @@ class WeatherTable extends React.Component<IWeatherTableListProps> {
 
                     {/* Time cells and Weather cells */}
                     <div className="right-column" style={{ overflowX: 'auto' }}>
-                        <div className="time-row" style={{justifyContent: this.props.justifyRight ? "flex-end" : "space-around"}}>
+                        <div className="time-row" style={{ justifyContent: this.props.justifyRight ? "flex-end" : "space-around" }}>
                             {this.props.tableData.columns.map((column, index) =>
                                 <TimeCell key={index} time={column.date} />
                             )}
                         </div>
                         {this.props.tableData.providers.map((provider, index) =>
-                            <div key={index} className="weather-row" style={{justifyContent: this.props.justifyRight ? "flex-end" : "space-around"}}>
+                            <div key={index} className="weather-row" style={{ justifyContent: this.props.justifyRight ? "flex-end" : "space-around" }}>
                                 {this.props.tableData.columns.map((column, index) =>
                                     <WeatherCell key={index} weather={column.weatherMap.get(provider) as IWeather} />
                                 )}

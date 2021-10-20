@@ -21,9 +21,9 @@ const WeatherCell = (props: Props) => (
                     <img className='weather_symbol' src={require("../../../icons2/" + props.weather.symbol + ".png").default} />
                 }
                 <div>
-                    <Text strong>{Math.round(props.weather.wind)}</Text>
-                    <Text type="secondary"> ({Math.round(props.weather.gust)}) </Text>
-                    <Text strong>m/s</Text>
+                    <Text type="secondary">{Math.round(props.weather.wind) + " m/s"}</Text>
+                    <br/>
+                    <Text style={{paddingTop: "-5px"}} type="secondary"> 0 mm</Text>
                 </div>
             </React.Fragment>
         }
