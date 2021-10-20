@@ -20,7 +20,7 @@ export default abstract class AbstractProvider implements IWeatherProvider {
             // Format the response 
             result = await this.formatResponse(response);
 
-        } catch (e) {
+        } catch (e: any) {
             console.error(e)
             onFailure(e);
             return;

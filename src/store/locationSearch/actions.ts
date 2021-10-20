@@ -109,7 +109,7 @@ function toILocations(json: any): ILocation[] {
         return locations
     }
     catch (error) {
-        console.error(error.message)
+        console.error(error)
         return []
     }
 }
