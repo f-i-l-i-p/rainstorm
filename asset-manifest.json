@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/rainstorm/static/css/main.73901f82.chunk.css",
-    "main.js": "/rainstorm/static/js/main.b2805869.chunk.js",
-    "main.js.map": "/rainstorm/static/js/main.b2805869.chunk.js.map",
+    "main.js": "/rainstorm/static/js/main.38141f83.chunk.js",
+    "main.js.map": "/rainstorm/static/js/main.38141f83.chunk.js.map",
     "runtime-main.js": "/rainstorm/static/js/runtime-main.3137aea8.js",
     "runtime-main.js.map": "/rainstorm/static/js/runtime-main.3137aea8.js.map",
     "static/css/2.a95be28f.chunk.css": "/rainstorm/static/css/2.a95be28f.chunk.css",
@@ -14,13 +14,13 @@
     "static/js/2.d0a36047.chunk.js.LICENSE.txt": "/rainstorm/static/js/2.d0a36047.chunk.js.LICENSE.txt",
     "static/media/SMHI.147242e8.jpg": "/rainstorm/static/media/SMHI.147242e8.jpg",
     "static/media/day_clear_sky.svg": "/rainstorm/static/media/day_clear_sky.3cec5a70.svg",
-    "static/media/light_rain.svg": "/rainstorm/static/media/light_rain.5159b650.svg"
+    "static/media/light_rain.svg": "/rainstorm/static/media/light_rain.521dfb24.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.3137aea8.js",
     "static/css/2.a95be28f.chunk.css",
     "static/js/2.d0a36047.chunk.js",
     "static/css/main.73901f82.chunk.css",
-    "static/js/main.b2805869.chunk.js"
+    "static/js/main.38141f83.chunk.js"
   ]
 }
