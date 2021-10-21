@@ -13,13 +13,29 @@ export default class MET extends AbstractProvider {
         "heavyrain": WeatherIcon.heavy_rain,
         "lightrain": WeatherIcon.light_rain,
         "rain": WeatherIcon.moderate_rain,
-        "clearsky_day": WeatherIcon.clear_sky,
-        "clearsky_night": WeatherIcon.clear_sky,
-        "fair_day": WeatherIcon.nearly_clear_sky,
-        "fair_night": WeatherIcon.nearly_clear_sky,
-        "partlycloudy_day": WeatherIcon.half_clear_sky,
-        "partlycloudy_night": WeatherIcon.half_clear_sky,
+        "clearsky_day": WeatherIcon.clear_sky_day,
+        "clearsky_night": WeatherIcon.clear_sky_day,
+        "fair_day": WeatherIcon.nearly_clear_sky_day,
+        "fair_night": WeatherIcon.nearly_clear_sky_day,
+        "partlycloudy_day": WeatherIcon.half_clear_sky_day,
+        "partlycloudy_night": WeatherIcon.half_clear_sky_day,
         "cloudy": WeatherIcon.cloudy_sky,
+        "fog": WeatherIcon.fog,
+    }
+
+    private toNight(icon: WeatherIcon, date: Date): WeatherIcon {
+        const hours = date.getHours();
+        if (hours > 17 || hours < 8) {
+            switch (icon) {
+                case WeatherIcon.clear_sky_day:
+                    return WeatherIcon.clear_sky_night;
+                case WeatherIcon.half_clear_sky_day:
+                    return WeatherIcon.half_clear_sky_night;
+                case WeatherIcon.nearly_clear_sky_day:
+                    return WeatherIcon.nearly_clear_sky_night;
+            }
+        }
+        return icon;
     }
 
     protected async requestData(lat: string, long: string): Promise<Response> {
@@ -72,7 +88,7 @@ export default class MET extends AbstractProvider {
                 continue;
             }
 
-            const symbol = this.icons[symbol_str] || WeatherIcon.unknown;
+            const symbol = this.toNight(this.icons[symbol_str] || WeatherIcon.unknown, date);
             if (symbol === WeatherIcon.unknown) {
                 console.warn("Unknown symbol", symbol_str)
             }
@@ -82,7 +98,7 @@ export default class MET extends AbstractProvider {
                 wind: timeobj.data.instant.details.wind_speed,
                 gust: NaN,
                 precipitation: precipitation,
-                symbol: this.icons[symbol_str] || WeatherIcon.unknown,
+                symbol: symbol,
             }
 
             forecast.weatherPoints.push({ time: date, weather: weather })

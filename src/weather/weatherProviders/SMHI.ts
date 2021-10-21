@@ -9,14 +9,43 @@ export default class SMHI extends AbstractProvider {
     }
 
     private icons = {
-        1: WeatherIcon.clear_sky,          // Clear sky
-        2: WeatherIcon.nearly_clear_sky,   // Nearly clear sky
-        3: WeatherIcon.half_clear_sky,     // Variable cloudiness
-        4: WeatherIcon.half_clear_sky,     // Half clear sky
-        5: WeatherIcon.cloudy_sky,         // Cloudy sky
-        6: WeatherIcon.overcast,           // Overcast
-        18: WeatherIcon.light_rain,        // Light rain
-        19: WeatherIcon.moderate_rain,     // Moderate rain
+        1: WeatherIcon.clear_sky_day,        // Clear sky
+        2: WeatherIcon.nearly_clear_sky_day, // Nearly clear sky
+        3: WeatherIcon.half_clear_sky_day,   // Variable cloudiness
+        4: WeatherIcon.half_clear_sky_day,   // Half clear sky
+        5: WeatherIcon.cloudy_sky,           // Cloudy sky
+        6: WeatherIcon.cloudy_sky,           // Overcast
+        7: WeatherIcon.fog,                  // Fo7
+        8: WeatherIcon.light_rain,           // Light rain showers
+        9: WeatherIcon.moderate_rain,        // Moderate rain showers
+        10: WeatherIcon.heavy_rain,          // Heavy rain showers
+        11: WeatherIcon.thunder,             // Thunderstorm
+        18: WeatherIcon.light_rain,          // Light rain
+        19: WeatherIcon.moderate_rain,       // Moderate rain
+        20: WeatherIcon.heavy_rain,          // Heavy rain
+        21: WeatherIcon.thunder,             // Thunder
+    }
+
+    private getIcon(value: never, date: Date): WeatherIcon {
+        let icon = this.icons[value];
+        if (!icon) {
+            console.warn("Unknown symbol value", value)
+            return WeatherIcon.unknown;
+        }
+
+        const hours = date.getHours();
+        if (hours > 17 || hours < 8) {
+            switch (icon) {
+                case WeatherIcon.clear_sky_day:
+                    return WeatherIcon.clear_sky_night;
+                case WeatherIcon.half_clear_sky_day:
+                    return WeatherIcon.half_clear_sky_night;
+                case WeatherIcon.nearly_clear_sky_day:
+                    return WeatherIcon.nearly_clear_sky_night;
+            }
+        }
+
+        return icon;
     }
 
     protected async requestData(lat: string, long: string): Promise<Response> {
@@ -79,13 +108,7 @@ export default class SMHI extends AbstractProvider {
                             weather.precipitation = value;
                             break;
                         case 'Wsymb2':
-                            let icon = this.icons[value];
-                            if (!icon) {
-                                console.warn("Unknown symbol value", value)
-                                weather.symbol = WeatherIcon.unknown;
-                                break;
-                            }
-                            weather.symbol = this.icons[value];
+                            weather.symbol = this.getIcon(value, date);
                             break;
                     }
                 });
