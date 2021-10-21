@@ -1,3 +1,35 @@
 .list {
     margin: 5px;
 }
+
+.spin {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.hidden {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 0.5s, opacity 0.5s linear;
+}
+
+.items>div {
+    position: relative;
+    opacity: 0;
+    animation: animatebottom 0.5s;
+    animation-delay: 0.5s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes animatebottom {
+    from {
+        bottom: -200px;
+        opacity: 0
+    }
+    to {
+        bottom: 0;
+        opacity: 1
+    }
+}

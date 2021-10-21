@@ -7,6 +7,7 @@ import { ITableData } from "../WeatherTable/types";
 import { table } from "console";
 import { IWeather } from "../../../weather/types";
 import { resolveSoa } from "dns/promises";
+import { Spin } from "antd";
 
 interface IWeatherTableListProps {
     weatherStateForecasts: IWeatherStateForecast[],
@@ -29,7 +30,7 @@ export default class WeatherTableList extends React.Component<IWeatherTableListP
             const stateForecast = stateForecasts[i];
 
             if (stateForecast.loading) {
-                continue;
+                break;
             }
 
             // For every weather point
@@ -143,9 +144,14 @@ export default class WeatherTableList extends React.Component<IWeatherTableListP
 
         return (
             <div className="list">
-                {tableData.map((data, index) =>
-                    <WeatherTable key={index} tableData={data} justifyRight={index==0}  name={this.getTableName(index, data.columns.length ? data.columns[0].date : undefined)} />
-                )}
+                <div className={tableData.length > 0 ? "hidden" : ""}>
+                    <Spin className="spin" />
+                </div>
+                <div className="items">
+                    {tableData.map((data, index) =>
+                        <WeatherTable key={index} tableData={data} justifyRight={index == 0} name={this.getTableName(index, data.columns.length ? data.columns[0].date : undefined)} />
+                    )}
+                </div>
             </div>
         );
     }
