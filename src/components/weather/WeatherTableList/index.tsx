@@ -4,9 +4,6 @@ import { IWeatherStateForecast } from "../../../store/forecasts/types";
 import WeatherTable from "../WeatherTable";
 import { getDayOffset, listHoursFromNow } from "../../../helpers/date";
 import { ITableData } from "../WeatherTable/types";
-import { table } from "console";
-import { IWeather } from "../../../weather/types";
-import { resolveSoa } from "dns/promises";
 import { Spin } from "antd";
 
 interface IWeatherTableListProps {
@@ -14,6 +11,15 @@ interface IWeatherTableListProps {
 }
 
 export default class WeatherTableList extends React.Component<IWeatherTableListProps> {
+    private isLoading(): boolean {
+        const stateForecasts = this.props.weatherStateForecasts;
+        for (let i = 0; i < stateForecasts.length; i++) {
+            if (stateForecasts[i].loading) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * Converts the data from props to data accepted by the weather tables.
@@ -28,10 +34,6 @@ export default class WeatherTableList extends React.Component<IWeatherTableListP
         // For every provider
         for (let i = 0; i < stateForecasts.length; i++) {
             const stateForecast = stateForecasts[i];
-
-            if (stateForecast.loading) {
-                break;
-            }
 
             // For every weather point
             for (let j = 0; j < stateForecast.forecast.weatherPoints.length; j++) {
@@ -140,11 +142,12 @@ export default class WeatherTableList extends React.Component<IWeatherTableListP
     }
 
     public render() {
-        let tableData = this.getTableData();
+        const isLoading = this.isLoading();
+        let tableData = isLoading ? [] : this.getTableData();
 
         return (
             <div className="list">
-                <div className={tableData.length > 0 ? "hidden" : ""}>
+                <div className={isLoading ? "" : "hidden"}>
                     <Spin className="spin" />
                 </div>
                 <div className="items">
