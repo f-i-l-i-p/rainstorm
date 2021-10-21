@@ -3,7 +3,7 @@ import { Dispatch } from 'redux';
 import { ILocation } from '../types';
 
 
-const minSearchDelay: number = 1000;
+const minSearchDelay: number = 500;
 var nextSearchTime: number = Date.now();
 var lastSearch: String = ""
 
