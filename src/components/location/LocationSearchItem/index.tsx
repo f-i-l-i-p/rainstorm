@@ -10,12 +10,10 @@ interface Props {
 }
 
 const Item = (props: Props) => (
-    <a className="item" onClick={() => props.onSelect(props.location)}>
-        <div className="container">
-            <Text strong>{props.location.name}</Text>
-            <Text type="secondary">{props.location.country}</Text>
-        </div>
-    </a>
+    <button className="location-list-item" onClick={() => props.onSelect(props.location)}>
+        <Text strong>{props.location.name}</Text>
+        <Text type="secondary">{props.location.country}</Text>
+    </button>
 );
 
 export default Item;

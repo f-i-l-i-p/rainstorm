@@ -11,15 +11,19 @@ import "./style.css";
 interface ILocationSearchListProps {
     selectLocation: (location: ILocation) => void,
     fetchForecasts: (location: ILocation) => void,
-    locationResults: ILocation[],
     onSelect: () => void,
+    locationResults: ILocation[],
+    selectedLocation?: ILocation,
 }
 
 class LocationSearchList extends React.Component<ILocationSearchListProps>{
 
     private onLocationSelect(location: ILocation): void {
-        this.props.selectLocation(location);
-        this.props.fetchForecasts(location);
+        // Select location and fetch forecast if it is a new location
+        if (location.country !== this.props.selectedLocation?.country) {
+            this.props.selectLocation(location);
+            this.props.fetchForecasts(location);
+        }
         this.props.onSelect();
     }
 
@@ -29,7 +33,7 @@ class LocationSearchList extends React.Component<ILocationSearchListProps>{
                 {this.props.locationResults.map((location, index) =>
                     <React.Fragment key={index}>
                         <LocationSearchItem location={location} onSelect={location => this.onLocationSelect(location)} />
-                        <Divider style={{margin: 0}} />
+                        <Divider style={{ margin: 0 }} />
                     </React.Fragment>
                 )}
             </div>
@@ -40,6 +44,7 @@ class LocationSearchList extends React.Component<ILocationSearchListProps>{
 function mapStateToProps(state: AppState) {
     return {
         locationResults: state.locationSearch.searchResults,
+        selectedLocation: state.locationSearch.selectedLocation,
     }
 }
 

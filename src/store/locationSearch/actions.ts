@@ -80,7 +80,7 @@ async function performSearch(searchTerm: string, dispatch: Dispatch) {
         dispatch(searchSuccess(locations));
     }
     // Returns this with a 404 status when no location found.
-    else if ( json['error'] == "Unable to geocode" ) {
+    else if ( json['error'] === "Unable to geocode" ) {
         const locations: ILocation[] = [];
         dispatch(searchSuccess(locations))
     }

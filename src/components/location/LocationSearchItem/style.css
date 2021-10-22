@@ -1,23 +1,19 @@
-.item {
+.location-list-item {
     width: 100%;
-    display: flex;
-}
-
-.item:hover {
-    background-color: #00000008;
-}
-
-.item:active {
-    background-color: #00000030;
-}
-
-.container {
+    margin: 0;
+    padding: 5px 10px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: flex-start;
-    width: 100%;
-    height: 100%;
-    margin: 5px 10px;
     text-align: left;
+    border: none;
+    background-color: transparent;
+}
+
+.location-list-item:hover {
+    background-color: #00000008;
+}
+
+.location-list-item:active {
+    background-color: #00000030;
 }

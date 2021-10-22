@@ -1,6 +1,4 @@
-import { METHODS } from "http";
-import { ILocation } from "../store/types";
-import { IForecast, IWeatherProvider } from "./types";
+import { IWeatherProvider } from "./types";
 import MET from "./weatherProviders/MET";
 import SMHI from "./weatherProviders/SMHI";
 

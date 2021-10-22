@@ -3,7 +3,7 @@ import Paper from "../../atoms/Paper";
 import WeatherCell from "../WeatherCell";
 import { Divider, Typography } from "antd";
 import TimeCell from "../TimeCell";
-import { IForecast, IWeather } from "../../../weather/types";
+import { IWeather } from "../../../weather/types";
 import './style.css';
 import { ITableData } from "./types";
 

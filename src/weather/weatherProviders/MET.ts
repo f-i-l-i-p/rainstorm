@@ -1,5 +1,5 @@
 import logo from '../../icons/provider logos/SMHI.jpg'
-import { IForecast, IWeather, IWeatherTime, WeatherIcon } from "../types";
+import { IForecast, IWeather, WeatherIcon } from "../types";
 import AbstractProvider from "./abstractProvider";
 
 

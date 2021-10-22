@@ -2,7 +2,7 @@ import React from "react";
 import './style.css';
 import { IWeatherStateForecast } from "../../../store/forecasts/types";
 import WeatherTable from "../WeatherTable";
-import { getDayOffset, listHoursFromNow } from "../../../helpers/date";
+import { getDayOffset } from "../../../helpers/date";
 import { ITableData } from "../WeatherTable/types";
 import { Spin, Typography } from "antd";
 import { AppState } from "../../../store";
@@ -160,7 +160,7 @@ class WeatherTableList extends React.Component<IWeatherTableListProps> {
                         <Title className="title">{this.props.selectedLocation?.name}</Title>
                         <div className="items">
                             {tableData.map((data, index) =>
-                                <WeatherTable key={index} tableData={data} justifyRight={index == 0} name={this.getTableName(index, data.columns.length ? data.columns[0].date : undefined)} />
+                                <WeatherTable key={index} tableData={data} justifyRight={index === 0} name={this.getTableName(index, data.columns.length ? data.columns[0].date : undefined)} />
                             )}
                         </div>
                     </React.Fragment>

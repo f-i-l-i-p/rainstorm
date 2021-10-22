@@ -9,13 +9,15 @@ const initialState: IForecastState = {
 }
 
 export function forecastReducer(state = initialState, action: ForecastActionTypes): IForecastState {
+    let newWeatherStateForecasts: IWeatherStateForecast[];
+    let weatherStateForecast: IWeatherStateForecast | undefined;
     switch (action.type) {
         case FORECAST_FETCH_START:
             console.log("Fetch start!!")
 
-            var newWeatherStateForecasts: IWeatherStateForecast[] = JSON.parse(JSON.stringify(state.weatherStateForecasts));
+            newWeatherStateForecasts = JSON.parse(JSON.stringify(state.weatherStateForecasts));
 
-            var weatherStateForecast = newWeatherStateForecasts.find(element => element.weatherProvider.name === action.provider.name);
+            weatherStateForecast = newWeatherStateForecasts.find(element => element.weatherProvider.name === action.provider.name);
             if (weatherStateForecast !== undefined) {
                 weatherStateForecast.loading = true;
             }
@@ -28,9 +30,9 @@ export function forecastReducer(state = initialState, action: ForecastActionType
         case FORECAST_FETCH_SUCCESS:
             console.log("Fetch success!!");
 
-            var newWeatherStateForecasts: IWeatherStateForecast[] = JSON.parse(JSON.stringify(state.weatherStateForecasts));
+            newWeatherStateForecasts = JSON.parse(JSON.stringify(state.weatherStateForecasts));
 
-            var weatherStateForecast = newWeatherStateForecasts.find(element => element.weatherProvider.name === action.provider.name);
+            weatherStateForecast = newWeatherStateForecasts.find(element => element.weatherProvider.name === action.provider.name);
             if (weatherStateForecast !== undefined) {
                 weatherStateForecast.loading = false;
                 weatherStateForecast.forecast = action.forecast;
