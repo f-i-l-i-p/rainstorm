@@ -24,7 +24,7 @@ class LocationSearchList extends React.Component<ILocationSearchListProps>{
 
     render() {
         return (
-            <div>
+            <div style={{overflow: "scroll"}}>
                 {this.props.locationResults.map((location, index) =>
                     <React.Fragment key={index}>
                         <LocationSearchItem location={location} onSelect={location => this.onLocationSelect(location)} />

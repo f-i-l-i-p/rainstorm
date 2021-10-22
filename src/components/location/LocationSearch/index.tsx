@@ -21,7 +21,7 @@ class LocationSearch extends React.Component<ILocationSearchProps>{
     render() {
         return (
             <div className="search">
-                <Input autoFocus allowClear prefix={<SearchOutlined />} onChange={value => this.onChange(value.target.value)} />
+                <Input size="large" autoFocus allowClear prefix={<SearchOutlined />} onChange={value => this.onChange(value.target.value)} />
                 {this.props.isLoading ?
                     <Spin />
                     :
