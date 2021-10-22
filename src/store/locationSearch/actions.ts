@@ -4,7 +4,7 @@ import { ILocation } from '../types';
 
 
 const minSearchDelay: number = 500;
-var nextSearchTime: number = Date.now();
+var latestSearchId: number = 0;
 var lastSearch: String = ""
 
 
@@ -50,30 +50,50 @@ export const search = (searchTerm: string) => async (dispatch: Dispatch) => {
 
     lastSearch = trimmed;
 
-    dispatch(searchStart());
-
-    nextSearchTime = Date.now() + minSearchDelay;
-    setTimeout(() => tryPerformSearch(searchTerm, dispatch), minSearchDelay + 1) // Add 1 for extra marginal
-}
-
-/**
- * Tries to perform a search, but cancels if the search time has moved.
- */
-function tryPerformSearch(searchTerm: string, dispatch: Dispatch) {
-    if (Date.now() < nextSearchTime) {
+    if (trimmed === "") {
+        // Don't do an actual search if there is no search term
+        dispatch(searchSuccess([]))
+        latestSearchId++;
         return;
     }
 
-    performSearch(searchTerm, dispatch);
+
+    dispatch(searchStart());
+
+    latestSearchId++;
+    let newSearchId = latestSearchId;
+
+    setTimeout(() => tryPerformSearch(newSearchId, trimmed, dispatch), minSearchDelay);
 }
 
-async function performSearch(searchTerm: string, dispatch: Dispatch) {
+/**
+ * Tries to perform a search, but cancels if the search has an old ID
+ */
+function tryPerformSearch(searchId: number, searchTerm: string, dispatch: Dispatch) {
+    if (searchId !== latestSearchId) {
+        return;
+    }
+
+    performSearch(searchId, searchTerm, dispatch);
+}
+
+async function performSearch(searchId: number, searchTerm: string, dispatch: Dispatch) {
     const key = process.env.REACT_APP_LOCATIONIQ;
     const address = "https://api.locationiq.com/v1/autocomplete.php";
 
     const result = await fetch(`${address}?key=${key}&q=${searchTerm}&viewbox=3,44,32,71&limit=20&dedupe=1&accept-language=sv`);//&accept-language=native');
+    
+    // Cancel if this is no longer the latest search
+    if (searchId !== latestSearchId) {
+        return;
+    }
 
     const json = await result.json();
+
+    // Yes, check again
+    if (searchId !== latestSearchId) {
+        return;
+    }
 
     if (result.ok) {
         const locations = toILocations(json);
