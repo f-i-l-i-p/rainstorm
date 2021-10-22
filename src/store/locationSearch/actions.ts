@@ -71,7 +71,7 @@ async function performSearch(searchTerm: string, dispatch: Dispatch) {
     const key = process.env.REACT_APP_LOCATIONIQ;
     const address = "https://api.locationiq.com/v1/autocomplete.php";
 
-    const result = await fetch(`${address}?key=${key}&q=${searchTerm}&accept-language=sv`);//&accept-language=native');
+    const result = await fetch(`${address}?key=${key}&q=${searchTerm}&viewbox=3,44,32,71&limit=20&dedupe=1&accept-language=sv`);//&accept-language=native');
 
     const json = await result.json();
 
