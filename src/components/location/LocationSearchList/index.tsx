@@ -6,6 +6,7 @@ import { AppState } from "../../../store";
 import LocationSearchItem from "../LocationSearchItem";
 import { Divider } from "antd";
 import { fetchForecasts } from "../../../store/forecasts/actions";
+import "./style.css";
 
 interface ILocationSearchListProps {
     selectLocation: (location: ILocation) => void,
@@ -24,7 +25,7 @@ class LocationSearchList extends React.Component<ILocationSearchListProps>{
 
     render() {
         return (
-            <div style={{overflow: "scroll"}}>
+            <div className="location-list">
                 {this.props.locationResults.map((location, index) =>
                     <React.Fragment key={index}>
                         <LocationSearchItem location={location} onSelect={location => this.onLocationSelect(location)} />
