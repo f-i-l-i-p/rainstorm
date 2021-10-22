@@ -1,15 +1,4 @@
 @import '~antd/dist/antd.css';
-body {
-    background-image: linear-gradient(-20deg, #e3ecf5, #accdec);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-}
-
-.header {
-    background-color: #343A40;
-}
-
 #app {
     text-align: center;
     display: flex;

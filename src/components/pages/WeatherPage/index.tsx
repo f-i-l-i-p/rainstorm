@@ -37,6 +37,10 @@ export default class WeatherPage extends React.Component<IWeatherPageProps, IWea
     render() {
         return (
             <React.Fragment>
+                {/* Background */}
+                <div id="background"/>
+                
+                {/* Content */}
                 {this.state.showLocationSearch ?
                     <LocationSearch close={() => this.closeLocationSearch()} />
                     :
