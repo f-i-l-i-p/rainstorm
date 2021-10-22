@@ -4,13 +4,19 @@ import { IWeatherStateForecast } from "../../../store/forecasts/types";
 import WeatherTable from "../WeatherTable";
 import { getDayOffset, listHoursFromNow } from "../../../helpers/date";
 import { ITableData } from "../WeatherTable/types";
-import { Spin } from "antd";
+import { Spin, Typography } from "antd";
+import { AppState } from "../../../store";
+import { connect } from "react-redux";
+import { ILocation } from "../../../store/types";
+
+const { Title } = Typography;
 
 interface IWeatherTableListProps {
     weatherStateForecasts: IWeatherStateForecast[],
+    selectedLocation?: ILocation,
 }
 
-export default class WeatherTableList extends React.Component<IWeatherTableListProps> {
+class WeatherTableList extends React.Component<IWeatherTableListProps> {
     private isLoading(): boolean {
         const stateForecasts = this.props.weatherStateForecasts;
         for (let i = 0; i < stateForecasts.length; i++) {
@@ -147,15 +153,29 @@ export default class WeatherTableList extends React.Component<IWeatherTableListP
 
         return (
             <div className="list">
-                <div className={isLoading ? "" : "hidden"}>
-                    <Spin className="spin" />
-                </div>
-                <div className="items">
-                    {tableData.map((data, index) =>
-                        <WeatherTable key={index} tableData={data} justifyRight={index == 0} name={this.getTableName(index, data.columns.length ? data.columns[0].date : undefined)} />
-                    )}
-                </div>
+                {isLoading ?
+                    <Spin className="spin" size="large" />
+                    :
+                    <React.Fragment>
+                        <Title className="title">{this.props.selectedLocation?.name}</Title>
+                        <div className="items">
+                            {tableData.map((data, index) =>
+                                <WeatherTable key={index} tableData={data} justifyRight={index == 0} name={this.getTableName(index, data.columns.length ? data.columns[0].date : undefined)} />
+                            )}
+                        </div>
+                    </React.Fragment>
+                }
             </div>
         );
     }
 }
+
+
+function mapStateToProps(state: AppState) {
+    return {
+        weatherStateForecasts: state.forecasts.weatherStateForecasts,
+        selectedLocation: state.locationSearch.selectedLocation,
+    }
+}
+
+export default connect(mapStateToProps)(WeatherTableList);

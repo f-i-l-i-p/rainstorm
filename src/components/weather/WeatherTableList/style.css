@@ -1,5 +1,5 @@
 .list {
-    margin: 5px;
+    margin-bottom: 20px;
 }
 
 .spin {
@@ -9,17 +9,19 @@
     transform: translate(-50%, -50%);
 }
 
-.hidden {
-    visibility: hidden;
+.title {
+    margin-top: 50px;
+    margin-bottom: 100px !important;
+    position: relative;
     opacity: 0;
-    transition: visibility 0s 0.5s, opacity 0.5s linear;
+    animation: animatetop 0.5s;
+    animation-fill-mode: forwards;
 }
 
-.items>div {
+.items>* {
     position: relative;
     opacity: 0;
     animation: animatebottom 0.5s;
-    animation-delay: 0.5s;
     animation-fill-mode: forwards;
 }
 
@@ -30,6 +32,17 @@
     }
     to {
         bottom: 0;
+        opacity: 1
+    }
+}
+
+@keyframes animatetop {
+    from {
+        top: -30px;
+        opacity: 0
+    }
+    to {
+        top: 0;
         opacity: 1
     }
 }
