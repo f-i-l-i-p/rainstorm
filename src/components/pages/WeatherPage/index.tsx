@@ -38,17 +38,17 @@ export default class WeatherPage extends React.Component<IWeatherPageProps, IWea
         return (
             <React.Fragment>
                 {/* Background */}
-                <div id="background"/>
+                <div id="background" />
+
+                <div className="weather-page" style={{height: 0, overflow: this.state.showLocationSearch ? 'hidden': 'unset'}}>
+                    <Button ghost style={{ right: 0 }} icon={<SearchOutlined />} shape="circle" size="large" onClick={() => this.openLocationSearch()} />
+                    <WeatherTableList />
+                </div>
                 
-                {/* Content */}
-                {this.state.showLocationSearch ?
+                {this.state.showLocationSearch &&
                     <LocationSearch close={() => this.closeLocationSearch()} />
-                    :
-                    <div className="weather-page">
-                        <Button ghost style={{ right: 0 }} icon={<SearchOutlined />} shape="circle" size="large" onClick={() => this.openLocationSearch()} />
-                        <WeatherTableList />
-                    </div>
                 }
+
             </React.Fragment>
         );
     }

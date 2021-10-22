@@ -1,4 +1,4 @@
-import { Input, Spin } from "antd";
+import { Button, Input, Spin } from "antd";
 import React from "react";
 import { connect } from "react-redux";
 import { search } from "../../../store/locationSearch/actions";
@@ -21,9 +21,12 @@ class LocationSearch extends React.Component<ILocationSearchProps>{
     render() {
         return (
             <div className="search">
-                <Input size="large" autoFocus allowClear prefix={<SearchOutlined />} onChange={value => this.onChange(value.target.value)} />
+                <div className="search-bar">
+                    <Input size="large" autoFocus allowClear prefix={<SearchOutlined />} onChange={value => this.onChange(value.target.value)} />
+                    <Button size="large" onClick={() => this.props.close()}>Avbryt</Button>
+                </div>
                 {this.props.isLoading ?
-                    <Spin />
+                    <Spin className="location-search-spin" />
                     :
                     <LocationSearchList onSelect={() => this.props.close()} />
                 }
