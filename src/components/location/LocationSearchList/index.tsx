@@ -1,12 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
 import { selectLocation } from "../../../store/locationSearch/actions";
-import { ILocation } from "../../../store/types";
 import { AppState } from "../../../store";
 import LocationSearchItem from "../LocationSearchItem";
 import { Divider } from "antd";
 import { fetchForecasts } from "../../../store/forecasts/actions";
 import "./style.css";
+import { ILocation } from "../../../location/types";
 
 interface ILocationSearchListProps {
     selectLocation: (location: ILocation) => void,
@@ -43,7 +43,7 @@ class LocationSearchList extends React.Component<ILocationSearchListProps>{
 
 function mapStateToProps(state: AppState) {
     return {
-        locationResults: state.locationSearch.searchResults,
+        locationResults: state.locationSearch.geocodeResults,
         selectedLocation: state.locationSearch.selectedLocation,
     }
 }

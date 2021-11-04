@@ -1,4 +1,4 @@
-import { ILocation } from "../../store/types";
+import { ILocation } from "../../location/types";
 import { IForecast, IWeatherProvider } from "../types";
 
 export default abstract class AbstractProvider implements IWeatherProvider {

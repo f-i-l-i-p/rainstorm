@@ -1,19 +1,18 @@
-import { ILocation } from "../types";
+import { ILocation } from "../../location/types";
 
 export interface ILocationSearchState {
     selectedLocation?: ILocation,
-    searchResults: ILocation[],
-    isLoading: boolean,
-    errorMessage: string,
+
+    geocodeResults: ILocation[],
+    geocodeIsLoading: boolean,
+    geocodeErrorMessage: string,
+
     userLocation?: ILocation,
+    userLocationIsLoading: boolean,
+    userLocationErrorMessage: string,
 }
 
-export const UPDATE_USER_LOCATION = 'UPDATE_USER_LOCATION';
-
-interface IUpdateUserLocationAction {
-    type: typeof UPDATE_USER_LOCATION,
-    location?: ILocation
-}
+// Select location
 
 export const SELECT_LOCATION = 'SELECT_LOCATION';
 
@@ -22,24 +21,56 @@ interface ISelectLocationAction {
     selectedLocation: ILocation
 }
 
-export const SEARCH_START = 'SEARCH_START';
+export const SELECT_USER_LOCATION = "SELECT_USER_LOCATION";
 
-interface ISearchStartAction {
-    type: typeof SEARCH_START,
+interface ISelectUserLocation {
+    type: typeof SELECT_USER_LOCATION,
 }
 
-export const SEARCH_SUCCESS = 'SEARCH_SUCCESS';
+// Geocode
 
-interface ISearchSuccessAction {
-    type: typeof SEARCH_SUCCESS,
+export const GEOCODE_START = 'GEOCODE_START';
+
+interface IGeocodeStartAction {
+    type: typeof GEOCODE_START,
+}
+
+export const GEOCODE_SUCCESS = 'GEOCODE_SUCCESS';
+
+interface IGeocodeSuccessAction {
+    type: typeof GEOCODE_SUCCESS,
     results: ILocation[]
 }
 
-export const SEARCH_FAILURE = 'SEARCH_FAILURE';
+export const GEOCODE_FAILURE = 'GEOCODE_FAILURE';
 
-interface ISearchFailureAction {
-    type: typeof SEARCH_FAILURE,
+interface IGeocodeFailureAction {
+    type: typeof GEOCODE_FAILURE,
     errorMessage: string
 }
 
-export type LocationSearchActionTypes = IUpdateUserLocationAction | ISelectLocationAction | ISearchStartAction | ISearchSuccessAction | ISearchFailureAction;
+// Locate user
+
+export const LOCATE_USER_START = 'LOCATE_USER_START';
+
+interface ILocateUserStartAction {
+    type: typeof LOCATE_USER_START,
+}
+
+export const LOCATE_USER_SUCCESS = 'LOCATE_USER_SUCCESS';
+
+interface ILocateUserSuccessAction {
+    type: typeof LOCATE_USER_SUCCESS,
+    result: ILocation
+}
+
+export const LOCATE_USER_FAILURE = 'LOCATE_USER_FAILURE';
+
+interface ILocateUserFailureAction {
+    type: typeof LOCATE_USER_FAILURE,
+    errorMessage: string
+}
+
+// Types
+
+export type LocationActionTypes = ISelectLocationAction | ISelectUserLocation | IGeocodeStartAction | IGeocodeSuccessAction | IGeocodeFailureAction | ILocateUserStartAction | ILocateUserSuccessAction | ILocateUserFailureAction;

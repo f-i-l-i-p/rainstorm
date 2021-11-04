@@ -1,4 +1,4 @@
-import { ILocation } from "../store/types";
+import { ILocation } from "../location/types";
 
 export interface IForecast {
     weatherPoints: IWeatherTime[],

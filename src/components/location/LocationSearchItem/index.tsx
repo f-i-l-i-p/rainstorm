@@ -1,5 +1,5 @@
 import { Typography } from "antd";
-import { ILocation } from "../../../store/types";
+import { ILocation } from "../../../location/types";
 import './style.css';
 
 const { Text } = Typography;

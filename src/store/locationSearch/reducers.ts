@@ -1,43 +1,40 @@
-import { ILocationSearchState, LocationSearchActionTypes, SEARCH_START, SEARCH_SUCCESS, SEARCH_FAILURE, SELECT_LOCATION, UPDATE_USER_LOCATION } from './types';
+import { GEOCODE_FAILURE, GEOCODE_START, GEOCODE_SUCCESS, ILocationSearchState, LocationActionTypes, SELECT_LOCATION } from "./types";
 
 const initialState: ILocationSearchState = {
     selectedLocation: undefined,
-    searchResults: [],
-    isLoading: false,
-    errorMessage: '',
-    userLocation: undefined
+    geocodeResults: [],
+    geocodeIsLoading: false,
+    geocodeErrorMessage: '',
+    userLocation: undefined,
+    userLocationIsLoading: false,
+    userLocationErrorMessage: '',
 }
 
-export function locationSearchReducer(state = initialState, action: LocationSearchActionTypes): ILocationSearchState {
+export function locationSearchReducer(state = initialState, action: LocationActionTypes): ILocationSearchState {
     switch (action.type) {
-        case UPDATE_USER_LOCATION:
-            return {
-                ...state,
-                userLocation: action.location
-            };
         case SELECT_LOCATION:
             return {
                 ...state,
                 selectedLocation: action.selectedLocation
             };
-        case SEARCH_START:
+        case GEOCODE_START:
             return {
                 ...state,
-                isLoading: true
+                geocodeIsLoading: true
             };
-        case SEARCH_SUCCESS:
+        case GEOCODE_SUCCESS:
             return {
                 ...state,
-                isLoading: false,
-                searchResults: action.results,
-                errorMessage: "",
+                geocodeIsLoading: false,
+                geocodeResults: action.results,
+                geocodeErrorMessage: "",
             }
-        case SEARCH_FAILURE:
+        case GEOCODE_FAILURE:
             return {
                 ...state,
-                isLoading: false,
-                searchResults: [],
-                errorMessage: action.errorMessage
+                geocodeIsLoading: false,
+                geocodeResults: [],
+                geocodeErrorMessage: action.errorMessage
             };
         default:
             return state;

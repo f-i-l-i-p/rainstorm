@@ -1,8 +1,8 @@
 import { ForecastActionTypes, FORECAST_FETCH_START, FORECAST_FETCH_SUCCESS, FORECAST_FETCH_FAILURE, SET_DISPLAY_TIMES } from "./types";
-import { ILocation } from "../types";
 import { Dispatch } from "redux";
 import { getWeatherProviders } from "../../weather";
 import { IForecast, IWeatherProvider } from "../../weather/types";
+import { ILocation } from "../../location/types";
 
 function searchStart(provider: IWeatherProvider): ForecastActionTypes {
     return {

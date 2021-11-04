@@ -7,7 +7,7 @@ import { ITableData } from "../WeatherTable/types";
 import { Spin, Typography } from "antd";
 import { AppState } from "../../../store";
 import { connect } from "react-redux";
-import { ILocation } from "../../../store/types";
+import { ILocation } from "../../../location/types";
 
 const { Title } = Typography;
 

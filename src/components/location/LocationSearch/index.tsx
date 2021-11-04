@@ -1,11 +1,11 @@
 import { Button, Input, Spin } from "antd";
 import React from "react";
 import { connect } from "react-redux";
-import { search } from "../../../store/locationSearch/actions";
 import { SearchOutlined } from '@ant-design/icons';
 import { AppState } from "../../../store";
 import LocationSearchList from "../LocationSearchList";
 import './style.css';
+import { geocode } from "../../../store/locationSearch/actions";
 
 interface ILocationSearchProps {
     searchLocations: (searchTerm: string) => void,
@@ -37,14 +37,14 @@ class LocationSearch extends React.Component<ILocationSearchProps>{
 
 function mapStateToProps(state: AppState) {
     return {
-        isLoading: state.locationSearch.isLoading,
+        isLoading: state.locationSearch.geocodeIsLoading,
     }
 }
 
 
 function mapDispatchToProps(dispatch: any) { // TODO: Fix any type
     return {
-        searchLocations: (searchTerm: string) => dispatch(search(searchTerm)),
+        searchLocations: (searchTerm: string) => dispatch(geocode(searchTerm)),
     }
 }
 
