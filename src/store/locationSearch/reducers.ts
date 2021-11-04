@@ -15,7 +15,7 @@ export function locationSearchReducer(state = initialState, action: LocationActi
         case SELECT_LOCATION:
             return {
                 ...state,
-                selectedLocation: action.selectedLocation
+                selectedLocation: action.location,
             };
         case GEOCODE_START:
             return {

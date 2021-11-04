@@ -18,7 +18,7 @@ export const SELECT_LOCATION = 'SELECT_LOCATION';
 
 interface ISelectLocationAction {
     type: typeof SELECT_LOCATION,
-    selectedLocation: ILocation
+    location: ILocation
 }
 
 export const SELECT_USER_LOCATION = "SELECT_USER_LOCATION";
