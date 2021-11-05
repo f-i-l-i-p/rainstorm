@@ -1,19 +1,36 @@
 
 import { ILocation, IUserPositionListener } from "./types";
 
-
+/**
+ * Tries to find the users position and returns it to the listener.
+ */
 export function startGeolocate(listener: IUserPositionListener) {
     const successCallback: PositionCallback = (position) => geocodeCoordinates(position.coords, listener);
-    const errorCallback: PositionErrorCallback = (error) => listener.onAbort();
+
+    const errorCallback: PositionErrorCallback = (error) => {
+        const coords: GeolocationCoordinates = {
+            altitude: 10,
+            altitudeAccuracy: 0,
+            latitude: 59.33066,
+            longitude: 18.06855,
+            accuracy: 0,
+            heading: null,
+            speed: 0,
+        };
+        geocodeCoordinates(coords, listener);
+    };
 
     navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
 }
 
+/**
+ * Converts coordinates to a location
+ */
 async function geocodeCoordinates(coordinates: GeolocationCoordinates, listener: IUserPositionListener) {
     const response = await fetchReverseGeocode(coordinates.latitude, coordinates.longitude);
 
     if (!response.ok) {
-        listener.onAbort()
+        listener.onError();
         return;
     }
 

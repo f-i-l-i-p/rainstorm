@@ -14,5 +14,5 @@ export interface IGeocodeListener {
 
 export interface IUserPositionListener {
     onSuccess: (location: ILocation) => void;
-    onAbort: () => void;
+    onError: () => void;
 }

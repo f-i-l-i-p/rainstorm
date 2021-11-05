@@ -39,11 +39,11 @@ export const requestUserPosition = (callback?: (location: ILocation) => void) =>
         if (callback)
             callback(location);
     };
-    const onFailure = () => dispatch(geocodeFailure("")); // TODO: Error message
+    const onError = () => dispatch(geocodeFailure("")); // TODO: Error message
 
     const listener: ILocateUserListener = {
         onSuccess: onSuccess,
-        onAbort: onFailure,
+        onError: onError,
     }
 
     dispatch(locateUserStart());
