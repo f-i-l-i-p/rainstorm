@@ -34,7 +34,7 @@ export default class SMHI extends AbstractProvider {
         }
 
         const hours = date.getHours();
-        if (hours > 17 || hours < 8) {
+        if (hours > 15 || hours < 8) {
             switch (icon) {
                 case WeatherIcon.clear_sky_day:
                     return WeatherIcon.clear_sky_night;
