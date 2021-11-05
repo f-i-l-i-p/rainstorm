@@ -16,7 +16,7 @@
     opacity: 0;
     animation: animatetop 0.5s;
     animation-fill-mode: forwards;
-    animation-delay: 0.1s;
+    animation-delay: 0.5s;
 }
 
 .items>* {
@@ -24,7 +24,7 @@
     opacity: 0;
     animation: animatebottom 0.5s;
     animation-fill-mode: forwards;
-    animation-delay: 0.1s;
+    animation-delay: 0.5s;
 }
 
 @keyframes animatebottom {
