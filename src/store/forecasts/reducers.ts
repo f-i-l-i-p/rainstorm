@@ -66,7 +66,7 @@ function createInitialForecasts(): IWeatherStateForecast[] {
     providers.forEach(provider => {
         let forecast: IWeatherStateForecast = {
             weatherProvider: provider,
-            loading: false,
+            loading: true,
             forecast: {
                 weatherPoints: []
             }
