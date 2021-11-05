@@ -28,6 +28,8 @@ function searchFailure(provider: IWeatherProvider, errorMessage: string): Foreca
 }
 
 export const fetchForecasts = (location: ILocation) => async (dispatch: Dispatch) => {
+    console.log(1);
+    
     const onSuccess = (provider: IWeatherProvider, result: IForecast) => dispatch(searchSuccess(provider, result));
     const onFailure = (provider: IWeatherProvider, error: Error) => dispatch(searchFailure(provider, error.message));
 

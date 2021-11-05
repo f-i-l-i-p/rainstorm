@@ -61,7 +61,7 @@ export const LOCATE_USER_SUCCESS = 'LOCATE_USER_SUCCESS';
 
 interface ILocateUserSuccessAction {
     type: typeof LOCATE_USER_SUCCESS,
-    result: ILocation
+    location: ILocation
 }
 
 export const LOCATE_USER_FAILURE = 'LOCATE_USER_FAILURE';
