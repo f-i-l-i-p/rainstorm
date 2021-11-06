@@ -1,11 +1,11 @@
 import logo from '../../icons/provider logos/SMHI.jpg'
-import { IForecast, IWeather, WeatherIcon } from "../types";
+import { IWeatherForecast, IWeather, WeatherIcon } from "../types";
 import AbstractProvider from "./abstractProvider";
 
 
 export default class MET extends AbstractProvider {
     constructor() {
-        super("Yr", logo)
+        super("Yr")
     }
 
     // Icon list: https://api.met.no/weatherapi/weathericon/2.0/documentation
@@ -49,8 +49,8 @@ export default class MET extends AbstractProvider {
         return result;
     }
 
-    protected async formatResponse(response: Response): Promise<IForecast> {
-        let forecast: IForecast = {
+    protected async formatResponse(response: Response): Promise<IWeatherForecast> {
+        let forecast: IWeatherForecast = {
             weatherPoints: [],
         }
 
