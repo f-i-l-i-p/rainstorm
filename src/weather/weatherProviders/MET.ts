@@ -21,6 +21,12 @@ export default class MET extends AbstractProvider {
         "partlycloudy_night": WeatherIcon.half_clear_sky_day,
         "cloudy": WeatherIcon.cloudy_sky,
         "fog": WeatherIcon.fog,
+        "heavysnow": WeatherIcon.snow,
+        "heavysnowshowers": WeatherIcon.snow,
+        "lightsnow": WeatherIcon.snow,
+        "lightsnowshowers": WeatherIcon.snow,
+        "snow": WeatherIcon.snow,
+        "snowshowers": WeatherIcon.snow,
     }
 
     private toNight(icon: WeatherIcon, date: Date): WeatherIcon {

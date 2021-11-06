@@ -37,6 +37,7 @@ export enum WeatherIcon {
     light_rain = "light_rain",
     moderate_rain = "moderate_rain",
     heavy_rain = "heavy_rain",
+    snow = "snow",
     // Other
     thunder = "thunder",
     fog = "fog",
