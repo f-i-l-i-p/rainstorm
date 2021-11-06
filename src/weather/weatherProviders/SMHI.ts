@@ -24,6 +24,9 @@ export default class SMHI extends AbstractProvider {
         19: WeatherIcon.moderate_rain,       // Moderate rain
         20: WeatherIcon.heavy_rain,          // Heavy rain
         21: WeatherIcon.thunder,             // Thunder
+        22: WeatherIcon.light_sleet,         // Light sleet
+        23: WeatherIcon.moderate_sleet,      // Moderate sleet
+        24: WeatherIcon.heavy_sleet,         // Heavy sleet
         25: WeatherIcon.snow,                // Light snowfall
         26: WeatherIcon.snow,                // Moderate snowfall
         27: WeatherIcon.snow,                // Heavy snowfall
