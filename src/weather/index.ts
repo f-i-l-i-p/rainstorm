@@ -67,7 +67,7 @@ function createEmptyHours(): IWeatherPoint[] {
 }
 
 function createEmptyDays(start: Date): IWeatherDay[] {
-    return listDaysFromTomorrow(10).map((date: Date, index: number) => {
+    return listDaysFromTomorrow(8).map((date: Date, index: number) => {
         console.log(date);
         let spans: IWeatherSpan[] = []
         const year = date.getUTCFullYear();
@@ -98,12 +98,12 @@ function createEmptyDays(start: Date): IWeatherDay[] {
         else {
             spans = [
                 {
-                    startDate: new Date(year, month, day, 0),
-                    endDate: new Date(year, month, day, 12),
+                    startDate: new Date(Date.UTC(year, month, day, 0)),
+                    endDate: new Date(Date.UTC(year, month, day, 12)),
                     weather: weather,
                 }, {
-                    startDate: new Date(year, month, day, 12),
-                    endDate: new Date(year, month, day, 24),
+                    startDate: new Date(Date.UTC(year, month, day, 12)),
+                    endDate: new Date(Date.UTC(year, month, day, 24)),
                     weather: weather,
                 }
             ]

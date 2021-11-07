@@ -57,26 +57,22 @@ export default class MET extends AbstractProvider {
         // --- Fill hours ---
         let hoursIndex = 0;
         let timeSeriesIndex = 0;
-        while (hoursIndex < forecast.hours.length) {
+        while (hoursIndex < forecast.hours.length && timeSeriesIndex < timeSeries.length) {
             const timeSerie: any = timeSeries[timeSeriesIndex];
             const timeSerieDate: Date = new Date(timeSerie.time);
 
-            //console.log("serie", timeSerieDate)
-
-            // If this time serie is not old enough
+            // If this time serie is to old
             if (forecast.hours[hoursIndex].date < timeSerieDate) {
                 hoursIndex++;
                 continue;
             }
-            // If this time serie is to old
+            // If this time serie is not old enough
             if (forecast.hours[hoursIndex].date > timeSerieDate) {
                 timeSeriesIndex++;
                 continue;
             }
 
             let weather = forecast.hours[hoursIndex].weather[this.name];
-
-            //console.log(weather);
 
             let symbol_str: string;
             let precipitation: number;
@@ -108,6 +104,69 @@ export default class MET extends AbstractProvider {
 
             timeSeriesIndex++;
             hoursIndex++;
+        }
+
+        // --- Fill days ---
+        timeSeriesIndex = 0;
+        for (let i = 0; i < forecast.days.length; i++) {
+            const day = forecast.days[i];
+            for (let j = 0; j < day.spans.length; j++) {
+
+                if (timeSeriesIndex >= timeSeries.length) {
+                    console.log("break");
+                    break;
+                }
+
+                const span = day.spans[j];
+                const timeSerie: any = timeSeries[timeSeriesIndex];
+                const timeSerieDate: Date = new Date(timeSerie.time);
+
+                console.log("span", j, span);
+
+                // If this time serie is to old
+                if (span.startDate < timeSerieDate) {
+                    continue;
+                }
+                // If this time serie is not old enough
+                if (span.startDate > timeSerieDate) {
+                    timeSeriesIndex++;
+                    j--;
+                    continue;
+                }
+
+                let weather = span.weather[this.name];
+
+                // Get span length in hours
+                const spanLength = (span.endDate.getTime() - span.startDate.getTime()) / (1000 * 60 * 60);
+
+                let symbol_str: string;
+                let precipitation: number;
+                if (spanLength === 6) {
+                    symbol_str = timeSerie.data.next_6_hours.summary.symbol_code;
+                    precipitation = timeSerie.data.next_6_hours.details.precipitation_amount;
+                }
+                else if (spanLength === 12) {
+                    symbol_str = timeSerie.data.next_12_hours.summary.symbol_code;
+                    precipitation = timeSerie.data.next_12_hours.details.precipitation_amount;
+                }
+                else {
+                    console.warn("Unknown span length", spanLength)
+                    timeSeriesIndex++;
+                    continue;
+                }
+
+                const symbol = this.toNight(this.icons[symbol_str] || WeatherIcon.unknown, timeSerieDate);
+                if (symbol === WeatherIcon.unknown) {
+                    console.warn("Unknown symbol", symbol_str)
+                }
+
+                weather.temperature = timeSerie.data.instant.details.air_temperature;
+                weather.wind = timeSerie.data.instant.details.wind_speed;
+                weather.precipitation = precipitation;
+                weather.symbol = symbol;
+
+                timeSeriesIndex++;
+            }
         }
     }
 }
