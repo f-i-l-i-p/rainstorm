@@ -12,22 +12,13 @@ export function listHoursFromNow(count: number): Date[] {
 }
 
 /**
- * Returns a list of Date objects with one day difference, the first day will
- * be at the current hour and following days will be at the 12th hour.
+ * Returns a list of Date objects with one day difference, starting with the next day.
  * @param count The number of Date objects to return.
  */
-export function listDaysFromNow(count: number): Date[] {
-    let first = new Date();
-    first.setHours(first.getHours() + 1);
-    first.setMinutes(0);
-    first.setSeconds(0);
-    first.setMilliseconds(0);
-
-    let start = new Date(first.getTime());
-    start.setHours(12);
+export function listDaysFromTomorrow(count: number): Date[] {
+    let start = new Date();
     start.setDate(start.getDate() + 1);
-
-    return [start, ...listDates(start, 86400000, count - 1)];
+    return listDates(start, 86400000, count);
 }
 
 /**

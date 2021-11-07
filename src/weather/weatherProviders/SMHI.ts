@@ -1,11 +1,10 @@
-import logo from '../../icons/provider logos/SMHI.jpg'
-import { IForecast, IWeather, WeatherIcon } from "../types";
+import { IWeatherForecast, WeatherIcon } from "../types";
 import AbstractProvider from "./abstractProvider";
 
 
 export default class SMHI extends AbstractProvider {
     constructor() {
-        super("SMHI", logo)
+        super("SMHI")
     }
 
     private icons = {
@@ -60,8 +59,9 @@ export default class SMHI extends AbstractProvider {
         return result;
     }
 
-    protected async formatResponse(response: Response): Promise<IForecast> {
-        let forecast: IForecast = {
+    protected fillForecast(json: any, forecast: IWeatherForecast): void {
+        return;
+        /* let forecast: IForecast = {
             weatherPoints: [],
         }
 
@@ -118,5 +118,5 @@ export default class SMHI extends AbstractProvider {
         });
 
         return forecast;
-    }
+     */}
 }
