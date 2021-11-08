@@ -73,25 +73,24 @@ function createEmptyDays(start: Date): IWeatherDay[] {
         const year = date.getUTCFullYear();
         const month = date.getUTCMonth();
         const day = date.getUTCDate();
-        const weather = createEmptyCombinedWeather();
         if (index <= 3) {
             spans = [
                 {
                     startDate: new Date(Date.UTC(year, month, day, 0)),
                     endDate: new Date(Date.UTC(year, month, day, 6)),
-                    weather: weather,
+                    weather: createEmptyCombinedWeather(),
                 }, {
                     startDate: new Date(Date.UTC(year, month, day, 6)),
                     endDate: new Date(Date.UTC(year, month, day, 12)),
-                    weather: weather,
+                    weather: createEmptyCombinedWeather(),
                 }, {
                     startDate: new Date(Date.UTC(year, month, day, 12)),
                     endDate: new Date(Date.UTC(year, month, day, 18)),
-                    weather: weather,
+                    weather: createEmptyCombinedWeather(),
                 }, {
                     startDate: new Date(Date.UTC(year, month, day, 18)),
                     endDate: new Date(Date.UTC(year, month, day, 24)),
-                    weather: weather,
+                    weather: createEmptyCombinedWeather(),
                 }
             ]
         }
@@ -100,11 +99,11 @@ function createEmptyDays(start: Date): IWeatherDay[] {
                 {
                     startDate: new Date(Date.UTC(year, month, day, 0)),
                     endDate: new Date(Date.UTC(year, month, day, 12)),
-                    weather: weather,
+                    weather: createEmptyCombinedWeather(),
                 }, {
                     startDate: new Date(Date.UTC(year, month, day, 12)),
                     endDate: new Date(Date.UTC(year, month, day, 24)),
-                    weather: weather,
+                    weather: createEmptyCombinedWeather(),
                 }
             ]
         }
