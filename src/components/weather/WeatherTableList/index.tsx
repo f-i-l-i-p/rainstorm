@@ -6,6 +6,7 @@ import { AppState } from "../../../store";
 import { connect } from "react-redux";
 import { ILocation } from "../../../location/types";
 import { IWeatherForecast } from "../../../weather/types";
+import { requestUserPosition } from "../../../store/locationSearch/actions";
 
 const { Title } = Typography;
 
@@ -21,12 +22,10 @@ class WeatherTableList extends React.Component<IWeatherTableListProps> {
 
         if (!date) return result;
 
-        switch (index) {
-            case 0:
-                result += "Idag, ";
-                break;
-            case 1:
-                result += "Imorgon, "
+        if (index === 0) {
+            result = "Idag, ";
+        } else {
+            result = "";
         }
 
         switch (date.getDay()) {

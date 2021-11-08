@@ -88,7 +88,7 @@ function formatTime(column: IWeatherPoint | IWeatherSpan): string {
         return ('0' + any.date.getHours()).slice(-2);
     }
     else if (any.startDate && any.endDate) {
-        return ('0' + any.startDate.getHours()).slice(-2) + " — " + ('0' + any.endDate.getHours()).slice(-2);
+        return ('0' + any.startDate.getHours()).slice(-2) + "—" + ('0' + any.endDate.getHours()).slice(-2);
     }
 
     return "";

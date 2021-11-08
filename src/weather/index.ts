@@ -67,7 +67,7 @@ function createEmptyDays(start: Date): IWeatherDay[] {
         const year = date.getUTCFullYear();
         const month = date.getUTCMonth();
         const day = date.getUTCDate();
-        if (index <= 3) {
+        if (index <= 4) {
             spans = [
                 {
                     startDate: new Date(Date.UTC(year, month, day, 0)),
