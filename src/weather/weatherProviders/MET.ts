@@ -1,11 +1,10 @@
-import logo from '../../icons/provider logos/SMHI.jpg'
-import { IForecast, IWeather, WeatherIcon } from "../types";
+import { IWeatherForecast, WeatherIcon } from "../types";
 import AbstractProvider from "./abstractProvider";
 
 
 export default class MET extends AbstractProvider {
     constructor() {
-        super("Yr", logo)
+        super("Yr")
     }
 
     // Icon list: https://api.met.no/weatherapi/weathericon/2.0/documentation
@@ -60,61 +59,141 @@ export default class MET extends AbstractProvider {
         return result;
     }
 
-    protected async formatResponse(response: Response): Promise<IForecast> {
-        let forecast: IForecast = {
-            weatherPoints: [],
-        }
+    protected fillForecast(json: any, forecast: IWeatherForecast): void {
+        const timeSeries: any[] = json.properties.timeseries;
 
-        const json = await response.json();
+        console.log("forecast", forecast);
+        console.log("json", json);
 
-        const timeSeries: [] = json.properties.timeseries;
+        // --- Fill hours ---
+        let hoursIndex = 0;
+        let timeSeriesIndex = 0;
+        while (hoursIndex < forecast.hours.length && timeSeriesIndex < timeSeries.length) {
+            const timeSerie: any = timeSeries[timeSeriesIndex];
+            const timeSerieDate: Date = new Date(timeSerie.time);
 
-        const currentDateTime = new Date().getTime();
-
-        // Loop through all timeseries
-        for (let i = 0; i < timeSeries.length; i++) {
-            const timeobj: any = timeSeries[i];
-            const date: Date = new Date(timeobj.time);
-
-            // If this is old weather.
-            if (date.getTime() < currentDateTime) {
+            // If this time serie is to old
+            if (forecast.hours[hoursIndex].date < timeSerieDate) {
+                hoursIndex++;
+                continue;
+            }
+            // If this time serie is not old enough
+            if (forecast.hours[hoursIndex].date > timeSerieDate) {
+                timeSeriesIndex++;
                 continue;
             }
 
+            let weather = forecast.hours[hoursIndex].weather[this.name];
+
             let symbol_str: string;
             let precipitation: number;
-            if (timeobj.data.next_1_hours) {
-                symbol_str = timeobj.data.next_1_hours.summary.symbol_code;
-                precipitation = timeobj.data.next_1_hours.details.precipitation_amount;
+            if (timeSerie.data.next_1_hours) {
+                symbol_str = timeSerie.data.next_1_hours.summary.symbol_code;
+                precipitation = timeSerie.data.next_1_hours.details.precipitation_amount;
             }
-            else if (timeobj.data.next_6_hours) {
-                symbol_str = timeobj.data.next_6_hours.summary.symbol_code;
-                precipitation = timeobj.data.next_6_hours.details.precipitation_amount;
+            else if (timeSerie.data.next_6_hours) {
+                symbol_str = timeSerie.data.next_6_hours.summary.symbol_code;
+                precipitation = timeSerie.data.next_6_hours.details.precipitation_amount;
             }
-            else if (timeobj.data.next_12_hours) {
-                symbol_str = timeobj.data.next_12_hours.summary.symbol_code;
-                precipitation = timeobj.data.next_12_hours.details.precipitation_amount;
+            else if (timeSerie.data.next_12_hours) {
+                symbol_str = timeSerie.data.next_12_hours.summary.symbol_code;
+                precipitation = timeSerie.data.next_12_hours.details.precipitation_amount;
             }
             else {
                 continue;
             }
 
-            const symbol = this.toNight(this.icons[symbol_str] || WeatherIcon.unknown, date);
+            const symbol = this.toNight(this.icons[symbol_str] || WeatherIcon.unknown, timeSerieDate);
             if (symbol === WeatherIcon.unknown) {
                 console.warn("Unknown symbol", symbol_str)
             }
 
-            const weather: IWeather = {
-                temperature: timeobj.data.instant.details.air_temperature,
-                wind: timeobj.data.instant.details.wind_speed,
-                gust: NaN,
-                precipitation: precipitation,
-                symbol: symbol,
-            }
+            weather.temperature = timeSerie.data.instant.details.air_temperature;
+            weather.wind = timeSerie.data.instant.details.wind_speed;
+            weather.precipitation = precipitation;
+            weather.symbol = symbol;
 
-            forecast.weatherPoints.push({ time: date, weather: weather })
+            timeSeriesIndex++;
+            hoursIndex++;
         }
 
-        return forecast;
+        // --- Fill days ---
+        timeSeriesIndex = 0;
+        for (let i = 0; i < forecast.days.length; i++) {
+            const day = forecast.days[i];
+            for (let j = 0; j < day.spans.length; j++) {
+
+                if (timeSeriesIndex >= timeSeries.length) {
+                    console.log("break");
+                    break;
+                }
+
+                const span = day.spans[j];
+                const timeSerie = timeSeries[timeSeriesIndex];
+                const timeSerieDate: Date = new Date(timeSerie.time);
+
+                console.log("span", j, span);
+
+                // If this time serie is to old
+                if (span.startDate < timeSerieDate) {
+                    continue;
+                }
+                // If this time serie is not old enough
+                if (span.startDate > timeSerieDate) {
+                    timeSeriesIndex++;
+                    j--;
+                    continue;
+                }
+
+                let weather = span.weather[this.name];
+
+                // Get span length in hours
+                const spanLength = (span.endDate.getTime() - span.startDate.getTime()) / (1000 * 60 * 60);
+
+                let symbol_str: string;
+                let precipitation: number;
+                let minTemp: number;
+                let maxTemp: number;
+                if (spanLength === 6) {
+                    symbol_str = timeSerie.data.next_6_hours.summary.symbol_code;
+                    precipitation = timeSerie.data.next_6_hours.details.precipitation_amount;
+                    minTemp = timeSerie.data.next_6_hours.details.air_temperature_min;
+                    maxTemp = timeSerie.data.next_6_hours.details.air_temperature_max;
+                }
+                else if (spanLength === 12) {
+                    const nextTimeSerie = timeSeries[timeSeriesIndex + 1];
+
+                    symbol_str = timeSerie.data.next_12_hours.summary.symbol_code;
+
+                    const pThis = timeSerie.data.next_6_hours.details.precipitation_amount;
+                    const pNext = nextTimeSerie.data.next_6_hours.details.precipitation_amount;
+
+                    precipitation = Math.round(10 * ((pThis + pNext) / 12)) / 10;
+
+                    minTemp = Math.min(timeSerie.data.next_6_hours.details.air_temperature_min, nextTimeSerie.data.next_6_hours.details.air_temperature_min);
+                    maxTemp = Math.max(timeSerie.data.next_6_hours.details.air_temperature_max, nextTimeSerie.data.next_6_hours.details.air_temperature_max);
+                }
+                else {
+                    console.warn("Unknown span length", spanLength)
+                    timeSeriesIndex++;
+                    continue;
+                }
+
+                const symbol = this.toNight(this.icons[symbol_str] || WeatherIcon.unknown, timeSerieDate);
+                if (symbol === WeatherIcon.unknown) {
+                    console.warn("Unknown symbol", symbol_str)
+                }
+
+                weather.temperature = (maxTemp + minTemp) / 2;
+                weather.temperatureMax = maxTemp;
+                weather.temperatureMin = minTemp;
+                weather.wind = timeSerie.data.instant.details.wind_speed; // TODO: Find max wind speed
+                weather.gust = timeSerie.data.instant.details.wind_speed_of_gust; // TODO: Find max gust speed
+                weather.precipitation = precipitation;
+                weather.symbol = symbol;
+
+                timeSeriesIndex++;
+            }
+        }
     }
 }

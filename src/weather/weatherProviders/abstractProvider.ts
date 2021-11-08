@@ -1,24 +1,22 @@
 import { ILocation } from "../../location/types";
-import { IForecast, IWeatherProvider } from "../types";
+import { IWeatherForecast } from "../types";
 
-export default abstract class AbstractProvider implements IWeatherProvider {
+export default abstract class AbstractProvider {
     name: string;
-    logo: string;
 
-    constructor(name: string, logo: string) {
+    constructor(name: string) {
         this.name = name;
-        this.logo = logo;
     }
 
-    public async fetchForecast(location: ILocation, onSuccess: (result: IForecast) => any, onFailure: (error: Error) => any) {
-        let result: IForecast;
-
+    public async fetchForecast(forecast: IWeatherForecast, location: ILocation, onSuccess: () => any, onFailure: (error: Error) => any) {
         try {
             // Send a request
             let response = await this.requestData(location.lat.toString(), location.long.toString());
 
+            const json = await response.json();
+
             // Format the response 
-            result = await this.formatResponse(response);
+            await this.fillForecast(json, forecast);
 
         } catch (e: any) {
             console.error(e)
@@ -26,9 +24,9 @@ export default abstract class AbstractProvider implements IWeatherProvider {
             return;
         }
 
-        onSuccess(result)
+        onSuccess()
     }
 
     protected abstract requestData(lat: string, long: string): Promise<Response>;
-    protected abstract formatResponse(response: Response): Promise<IForecast>;
+    protected abstract fillForecast(json: any, forecast: IWeatherForecast): void;
 }

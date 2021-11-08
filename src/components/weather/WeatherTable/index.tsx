@@ -3,16 +3,16 @@ import Paper from "../../atoms/Paper";
 import WeatherCell from "../WeatherCell";
 import { Divider, Typography } from "antd";
 import TimeCell from "../TimeCell";
-import { IWeather } from "../../../weather/types";
+import { IWeatherPoint, IWeatherSpan } from "../../../weather/types";
 import './style.css';
-import { ITableData } from "./types";
 
 const { Title } = Typography;
 
 interface IWeatherTableListProps {
-    tableData: ITableData,
+    tableData: IWeatherSpan[] | IWeatherPoint[],
+    providers: string[],
     name: string,
-    justifyRight: boolean,
+    justifyRight: boolean, // This is not used and can be removed
 }
 
 class WeatherTable extends React.Component<IWeatherTableListProps> {
@@ -32,7 +32,7 @@ class WeatherTable extends React.Component<IWeatherTableListProps> {
                     {/* Weather row background. One for each provider. */}
                     <div className="all-columns">
                         <div className="time-row" />
-                        {this.props.tableData.providers.map((ignored, index) =>
+                        {this.props.providers.map((ignored, index) =>
                             <div key={index} className="weather-row">
                                 <Paper style={{ width: '100%', height: '100%' }} />
                             </div>
@@ -42,10 +42,10 @@ class WeatherTable extends React.Component<IWeatherTableListProps> {
                     {/* Provider Name */}
                     <div className="left-column">
                         <div className="time-row" />
-                        {this.props.tableData.providers.map((provider, index) =>
+                        {this.props.providers.map((provider, index) =>
                             <div key={index} className="weather-row">
                                 <Typography className="weather-provider-name">
-                                    {provider.name}
+                                    {provider}
                                 </Typography>
                             </div>
                         )}
@@ -54,7 +54,7 @@ class WeatherTable extends React.Component<IWeatherTableListProps> {
                     {/* Divider */}
                     <div className="divider-column">
                         <div className="time-row" />
-                        {this.props.tableData.providers.map((ignored, index) =>
+                        {this.props.providers.map((ignored, index) =>
                             <div key={index} className="weather-row">
                                 <Divider type="vertical" style={{ height: 'calc(100% - 5px)', margin: 0 }} />
                             </div>
@@ -64,14 +64,14 @@ class WeatherTable extends React.Component<IWeatherTableListProps> {
                     {/* Time cells and Weather cells */}
                     <div className="right-column" style={{ overflowX: 'auto' }}>
                         <div className="time-row" style={{ justifyContent: this.props.justifyRight ? "flex-end" : "space-around" }}>
-                            {this.props.tableData.columns.map((column, index) =>
-                                <TimeCell key={index} time={column.date} />
+                            {this.props.tableData.map((column: any, index) =>
+                                <TimeCell key={index} time={formatTime(column)} />
                             )}
                         </div>
-                        {this.props.tableData.providers.map((provider, index) =>
+                        {this.props.providers.map((provider, index) =>
                             <div key={index} className="weather-row" style={{ justifyContent: this.props.justifyRight ? "flex-end" : "space-around" }}>
-                                {this.props.tableData.columns.map((column, index) =>
-                                    <WeatherCell key={index} weather={column.weatherMap.get(provider) as IWeather} />
+                                {this.props.tableData.map((column, index) =>
+                                    <WeatherCell key={index} weather={column.weather[provider]} />
                                 )}
                             </div>
                         )}
@@ -80,6 +80,18 @@ class WeatherTable extends React.Component<IWeatherTableListProps> {
             </div>
         );
     }
+}
+
+function formatTime(column: IWeatherPoint | IWeatherSpan): string {
+    const any: any = column;
+    if (any.date) {
+        return ('0' + any.date.getHours()).slice(-2);
+    }
+    else if (any.startDate && any.endDate) {
+        return ('0' + any.startDate.getHours()).slice(-2) + "—" + ('0' + any.endDate.getHours()).slice(-2);
+    }
+
+    return "";
 }
 
 export default WeatherTable;

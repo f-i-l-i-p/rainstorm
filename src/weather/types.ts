@@ -1,26 +1,39 @@
 import { ILocation } from "../location/types";
 
-export interface IForecast {
-    weatherPoints: IWeatherTime[],
+export interface IWeatherForecast {
+    hours: IWeatherPoint[],
+    days: IWeatherDay[],
+    providers: string[],
+    location: ILocation,
 }
 
-export interface IWeatherTime {
-    time: Date,
-    weather: IWeather,
+export interface IWeatherPoint {
+    date: Date,
+    weather: ICombinedWeather,
+}
+
+export interface IWeatherDay {
+    spans: IWeatherSpan[],
+}
+
+export interface IWeatherSpan {
+    startDate: Date,
+    endDate: Date,
+    weather: ICombinedWeather
+}
+
+export interface ICombinedWeather {
+    [key: string]: IWeather,
 }
 
 export interface IWeather {
     temperature: number,
+    temperatureMin: number,
+    temperatureMax: number,
     wind: number,
     gust: number,
     precipitation: number,
     symbol: WeatherIcon,
-}
-
-export interface IWeatherProvider {
-    name: string;
-    logo: string;
-    fetchForecast(location: ILocation, onSuccess: (result: IForecast) => any, onFailure: (error: Error) => any): void;
 }
 
 export enum WeatherIcon {
