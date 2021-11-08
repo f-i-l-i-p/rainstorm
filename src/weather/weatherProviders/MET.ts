@@ -140,14 +140,11 @@ export default class MET extends AbstractProvider {
                 const spanLength = (span.endDate.getTime() - span.startDate.getTime()) / (1000 * 60 * 60);
 
                 let symbol_str: string;
-                let precipitation: number;
                 if (spanLength === 6) {
                     symbol_str = timeSerie.data.next_6_hours.summary.symbol_code;
-                    precipitation = timeSerie.data.next_6_hours.details.precipitation_amount;
                 }
                 else if (spanLength === 12) {
                     symbol_str = timeSerie.data.next_12_hours.summary.symbol_code;
-                    precipitation = timeSerie.data.next_12_hours.details.precipitation_amount;
                 }
                 else {
                     console.warn("Unknown span length", spanLength)
@@ -162,7 +159,7 @@ export default class MET extends AbstractProvider {
 
                 weather.temperature = timeSerie.data.instant.details.air_temperature;
                 weather.wind = timeSerie.data.instant.details.wind_speed;
-                weather.precipitation = precipitation;
+                weather.precipitation = timeSerie.data.next_6_hours.details.precipitation_amount;
                 weather.symbol = symbol;
 
                 timeSeriesIndex++;
