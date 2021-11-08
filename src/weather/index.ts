@@ -17,20 +17,14 @@ export function newForecast(location: ILocation, callback: forecastCallback): vo
 
     let remaining = weatherProviders.length;
 
-    weatherProviders[1].fetchForecast(forecast, location, () => callback.onSuccess(forecast), () => {});
-
-    //callback.onSuccess(forecast);
-
-    return;
-
     const onSuccess = () => {
         remaining--;
 
         console.log("success", forecast);
 
-        //if (remaining === 0) {
+        if (remaining === 0) {
             callback.onSuccess(forecast);
-        //}
+        }
     }
 
     const onError = (error: Error) => {
@@ -120,6 +114,8 @@ function createEmptyCombinedWeather(): ICombinedWeather {
     listProviderNames().forEach(name => {
         combined[name] = {
             temperature: NaN,
+            temperatureMax: NaN,
+            temperatureMin: NaN,
             wind: NaN,
             gust: NaN,
             precipitation: NaN,

@@ -28,6 +28,8 @@ export interface ICombinedWeather {
 
 export interface IWeather {
     temperature: number,
+    temperatureMin: number,
+    temperatureMax: number,
     wind: number,
     gust: number,
     precipitation: number,
