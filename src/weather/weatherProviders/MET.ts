@@ -49,7 +49,7 @@ export default class MET extends AbstractProvider {
     }
 
     protected fillForecast(json: any, forecast: IWeatherForecast): void {
-        const timeSeries: [] = json.properties.timeseries;
+        const timeSeries: any[] = json.properties.timeseries;
 
         console.log("forecast", forecast);
         console.log("json", json);
@@ -118,7 +118,7 @@ export default class MET extends AbstractProvider {
                 }
 
                 const span = day.spans[j];
-                const timeSerie: any = timeSeries[timeSeriesIndex];
+                const timeSerie = timeSeries[timeSeriesIndex];
                 const timeSerieDate: Date = new Date(timeSerie.time);
 
                 console.log("span", j, span);
@@ -140,11 +140,27 @@ export default class MET extends AbstractProvider {
                 const spanLength = (span.endDate.getTime() - span.startDate.getTime()) / (1000 * 60 * 60);
 
                 let symbol_str: string;
+                let precipitation: number;
+                let minTemp: number;
+                let maxTemp: number;
                 if (spanLength === 6) {
                     symbol_str = timeSerie.data.next_6_hours.summary.symbol_code;
+                    precipitation = timeSerie.data.next_6_hours.details.precipitation_amount;
+                    minTemp = timeSerie.data.next_6_hours.details.air_temperature_min;
+                    maxTemp = timeSerie.data.next_6_hours.details.air_temperature_max;
                 }
                 else if (spanLength === 12) {
+                    const nextTimeSerie = timeSeries[timeSeriesIndex + 1];
+
                     symbol_str = timeSerie.data.next_12_hours.summary.symbol_code;
+
+                    const pThis = timeSerie.data.next_6_hours.details.precipitation_amount;
+                    const pNext = nextTimeSerie.data.next_6_hours.details.precipitation_amount;
+
+                    precipitation = Math.round(10 * ((pThis + pNext) / 12)) / 10;
+
+                    minTemp = Math.min(timeSerie.data.next_6_hours.details.air_temperature_min, nextTimeSerie.data.next_6_hours.details.air_temperature_min);
+                    maxTemp = Math.max(timeSerie.data.next_6_hours.details.air_temperature_max, nextTimeSerie.data.next_6_hours.details.air_temperature_max);
                 }
                 else {
                     console.warn("Unknown span length", spanLength)
@@ -157,9 +173,12 @@ export default class MET extends AbstractProvider {
                     console.warn("Unknown symbol", symbol_str)
                 }
 
-                weather.temperature = timeSerie.data.instant.details.air_temperature;
-                weather.wind = timeSerie.data.instant.details.wind_speed;
-                weather.precipitation = timeSerie.data.next_6_hours.details.precipitation_amount;
+                weather.temperature = (maxTemp + minTemp) / 2;
+                weather.temperatureMax = maxTemp;
+                weather.temperatureMin = minTemp;
+                weather.wind = timeSerie.data.instant.details.wind_speed; // TODO: Find max wind speed
+                weather.gust = timeSerie.data.instant.details.wind_speed_of_gust; // TODO: Find max gust speed
+                weather.precipitation = precipitation;
                 weather.symbol = symbol;
 
                 timeSeriesIndex++;
