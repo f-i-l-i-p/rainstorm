@@ -62,7 +62,7 @@ class WeatherTableList extends React.Component<IWeatherTableListProps> {
                     <Spin className="spin" size="large" />
                     :
                     <React.Fragment>
-                        <Title className="title">{this.props.selectedLocation?.name}</Title>
+                        <Title className="title"  style={{fontWeight: 1, fontSize: 50}}>{this.props.selectedLocation?.name}</Title>
                         <div className="items">
                             <WeatherTable tableData={this.props.forecast.hours} providers={this.props.forecast.providers} justifyRight={false} name={this.getTableName(0, this.props.forecast.hours[0].date)} />
                             {this.props.forecast.days.map((weatherDay, index) =>

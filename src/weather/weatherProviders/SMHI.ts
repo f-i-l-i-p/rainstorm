@@ -16,8 +16,8 @@ export default class SMHI extends AbstractProvider {
         2: WeatherIcon.nearly_clear_sky_day, // Nearly clear sky
         3: WeatherIcon.half_clear_sky_day,   // Variable cloudiness
         4: WeatherIcon.half_clear_sky_day,   // Half clear sky
-        5: WeatherIcon.cloudy_sky,           // Cloudy sky
-        6: WeatherIcon.cloudy_sky,           // Overcast
+        5: WeatherIcon.cloudy,           // Cloudy sky
+        6: WeatherIcon.cloudy,           // Overcast
         7: WeatherIcon.fog,                  // Fo7
         8: WeatherIcon.light_rain,           // Light rain showers
         9: WeatherIcon.moderate_rain,        // Moderate rain showers

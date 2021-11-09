@@ -16,7 +16,7 @@ const WeatherCell = (props: Props) => (
             <React.Fragment>
                 <Text strong>{Math.round(props.weather.temperature)} °C</Text>
                 {props.weather.symbol &&
-                    <img className='weather_symbol' alt="" /* TODO: Add alt prop! */ src={require("../../../icons2/" + props.weather.symbol + ".png").default} />
+                    <img className='weather_symbol' alt="" /* TODO: Add alt prop! */ src={require("../../../icons3/" + props.weather.symbol + ".svg").default} />
                 }
                 <div>
                     <Text type="secondary">{Math.round(props.weather.wind) + " m/s"}</Text>

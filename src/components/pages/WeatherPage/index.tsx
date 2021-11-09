@@ -58,7 +58,7 @@ class WeatherPage extends React.Component<IWeatherPageProps, IWeatherPageState>{
                 <div id="background" />
 
                 <div className="weather-page" style={{ height: 0, overflow: this.state.showLocationSearch ? 'hidden' : 'unset' }}>
-                    <Button ghost style={{ right: 0 }} icon={<SearchOutlined />} shape="circle" size="large" onClick={() => this.openLocationSearch()} />
+                    <Button className="search-location-button" ghost icon={<SearchOutlined />} shape="circle" size="large" onClick={() => this.openLocationSearch()} />
                     <WeatherTableList />
                 </div>
 

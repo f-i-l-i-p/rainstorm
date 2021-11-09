@@ -46,7 +46,7 @@ export enum WeatherIcon {
     nearly_clear_sky_night = "nearly_clear_sky_night",
     half_clear_sky_day = "half_clear_sky_day",
     half_clear_sky_night = "half_clear_sky_night",
-    cloudy_sky = "cloudy_sky",
+    cloudy = "cloudy",
     // Rain
     light_rain = "light_rain",
     moderate_rain = "moderate_rain",

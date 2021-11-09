@@ -18,7 +18,7 @@ export default class MET extends AbstractProvider {
         "fair_night": WeatherIcon.nearly_clear_sky_day,
         "partlycloudy_day": WeatherIcon.half_clear_sky_day,
         "partlycloudy_night": WeatherIcon.half_clear_sky_day,
-        "cloudy": WeatherIcon.cloudy_sky,
+        "cloudy": WeatherIcon.cloudy,
         "fog": WeatherIcon.fog,
         "heavysnow": WeatherIcon.snow,
         "heavysnowshowers": WeatherIcon.snow,
