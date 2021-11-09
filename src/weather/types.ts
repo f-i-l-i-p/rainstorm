@@ -33,6 +33,7 @@ export interface IWeather {
     wind: number,
     gust: number,
     precipitation: number,
+    precipitationUnit: string,
     symbol: WeatherIcon,
 }
 

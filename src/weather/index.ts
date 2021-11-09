@@ -119,6 +119,7 @@ function createEmptyCombinedWeather(): ICombinedWeather {
             wind: NaN,
             gust: NaN,
             precipitation: NaN,
+            precipitationUnit: "",
             symbol: WeatherIcon.unknown,
         }
     });

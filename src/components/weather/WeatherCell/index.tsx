@@ -21,7 +21,7 @@ const WeatherCell = (props: Props) => (
                 <div>
                     <Text type="secondary">{Math.round(props.weather.wind) + " m/s"}</Text>
                     <br/>
-                    <Text type="secondary"> {props.weather.precipitation + " mm"}</Text>
+                    <Text type="secondary"> {props.weather.precipitation + " " + props.weather.precipitationUnit}</Text>
                 </div>
             </React.Fragment>
         }

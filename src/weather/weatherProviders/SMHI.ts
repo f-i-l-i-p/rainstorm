@@ -101,6 +101,7 @@ export default class SMHI extends AbstractProvider {
 
             weather.temperature = parameters.find(e => e.name === "t").values[0];
             weather.precipitation = parameters.find(e => e.name === "pmean").values[0];
+            weather.precipitationUnit = "mm";
             weather.wind = parameters.find(e => e.name === "ws").values[0];
             weather.gust = parameters.find(e => e.name === "gust").values[0];
             weather.symbol = this.getIcon(parameters.find(e => e.name === "Wsymb2").values[0] as never, timeSerieDate)
@@ -208,6 +209,7 @@ export default class SMHI extends AbstractProvider {
         const count = index - startIndex + 1;
 
         weather.precipitation = Math.round(10 * totalPrecipitation / count) / 10;
+        weather.precipitationUnit = "mm/h";
         weather.temperatureMax = maxTemp;
         weather.temperatureMax = minTemp;
         weather.temperature = (maxTemp + minTemp) / 2;
