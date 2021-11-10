@@ -1,5 +1,7 @@
 .weather-page {
     display: grid;
+    /* Fix grid children overflowing outside the grid */
+    grid-template-columns: minmax(0, 100%);
     margin: 5px;
 }
 
