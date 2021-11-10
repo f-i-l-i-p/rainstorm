@@ -5,12 +5,12 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-.ant-typography-secondary {
-    color: var(--secondaryTextColor) !important;
-}
-
 .ant-typography {
     color: var(--primaryTextColor) !important;
+}
+
+.ant-typography-secondary {
+    color: var(--secondaryTextColor) !important;
 }
 
 .ant-divider,
