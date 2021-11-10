@@ -6,7 +6,6 @@ import { AppState } from "../../../store";
 import { connect } from "react-redux";
 import { ILocation } from "../../../location/types";
 import { IWeatherForecast } from "../../../weather/types";
-import { requestUserPosition } from "../../../store/locationSearch/actions";
 
 const { Title } = Typography;
 

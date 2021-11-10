@@ -1,6 +1,6 @@
 import { listDaysFromTomorrow, listHoursFromNow } from "../helpers/date";
 import { ILocation } from "../location/types";
-import { ICombinedWeather, IWeather, IWeatherDay, IWeatherForecast, IWeatherPoint, IWeatherSpan, WeatherIcon } from "./types";
+import { ICombinedWeather, IWeatherDay, IWeatherForecast, IWeatherPoint, IWeatherSpan, WeatherIcon } from "./types";
 import AbstractProvider from "./weatherProviders/abstractProvider";
 import MET from "./weatherProviders/MET";
 import SMHI from "./weatherProviders/SMHI";
@@ -19,8 +19,6 @@ export function newForecast(location: ILocation, callback: forecastCallback): vo
 
     const onSuccess = () => {
         remaining--;
-
-        console.log("success", forecast);
 
         if (remaining === 0) {
             callback.onSuccess(forecast);
@@ -62,7 +60,6 @@ function createEmptyHours(): IWeatherPoint[] {
 
 function createEmptyDays(start: Date): IWeatherDay[] {
     return listDaysFromTomorrow(8).map((date: Date, index: number) => {
-        console.log(date);
         let spans: IWeatherSpan[] = []
         const year = date.getUTCFullYear();
         const month = date.getUTCMonth();

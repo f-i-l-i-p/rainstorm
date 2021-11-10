@@ -3,7 +3,6 @@ import { IGeocodeListener, ILocation, IUserPositionListener as ILocateUserListen
 import { startGeocode } from '../../location/geocoder';
 import { GEOCODE_FAILURE, GEOCODE_START, GEOCODE_SUCCESS, LOCATE_USER_FAILURE, LOCATE_USER_START, LOCATE_USER_SUCCESS, LocationActionTypes, SELECT_LOCATION, SELECT_USER_LOCATION } from './types';
 import { startGeolocate } from '../../location/geolocation';
-import { fetchForecasts } from '../forecasts/actions';
 
 
 export function selectLocation(location: ILocation) {

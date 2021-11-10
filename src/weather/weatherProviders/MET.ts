@@ -62,9 +62,6 @@ export default class MET extends AbstractProvider {
     protected fillForecast(json: any, forecast: IWeatherForecast): void {
         const timeSeries: any[] = json.properties.timeseries;
 
-        console.log("forecast", forecast);
-        console.log("json", json);
-
         // --- Fill hours ---
         let hoursIndex = 0;
         let timeSeriesIndex = 0;
@@ -125,15 +122,12 @@ export default class MET extends AbstractProvider {
             for (let j = 0; j < day.spans.length; j++) {
 
                 if (timeSeriesIndex >= timeSeries.length) {
-                    console.log("break");
                     break;
                 }
 
                 const span = day.spans[j];
                 const timeSerie = timeSeries[timeSeriesIndex];
                 const timeSerieDate: Date = new Date(timeSerie.time);
-
-                console.log("span", j, span);
 
                 // If this time serie is to old
                 if (span.startDate < timeSerieDate) {

@@ -1,4 +1,3 @@
-import { selectLocation } from "./actions";
 import { GEOCODE_FAILURE, GEOCODE_START, GEOCODE_SUCCESS, ILocationSearchState, LOCATE_USER_FAILURE, LOCATE_USER_START, LOCATE_USER_SUCCESS, LocationActionTypes, SELECT_LOCATION, SELECT_USER_LOCATION } from "./types";
 
 const initialState: ILocationSearchState = {
@@ -19,8 +18,6 @@ export function locationSearchReducer(state = initialState, action: LocationActi
                 selectedLocation: action.location,
             };
         case SELECT_USER_LOCATION:
-            console.log("ldakfjaldkfjalkdsfjaldskfj");
-            console.log(state);
             return {
                 ...state,
                 selectedLocation: state.userLocation,

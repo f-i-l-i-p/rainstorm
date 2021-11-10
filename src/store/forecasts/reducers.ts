@@ -10,16 +10,12 @@ const initialState: IForecastState = {
 export function forecastReducer(state = initialState, action: ForecastActionTypes): IForecastState {
     switch (action.type) {
         case FORECAST_FETCH_START:
-            console.log("Fetch start!!")
-
             return {
                 ...state,
                 isLoading: true,
             };
 
         case FORECAST_FETCH_SUCCESS:
-            console.log("Fetch success!!");
-
             return {
                 ...state,
                 forecast: action.forecast,
@@ -28,8 +24,6 @@ export function forecastReducer(state = initialState, action: ForecastActionType
             };
 
         case FORECAST_FETCH_FAILURE:
-            console.log("Fetch fail")
-
             return {
                 ...state,
                 isLoading: false,

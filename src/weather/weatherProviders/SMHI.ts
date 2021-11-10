@@ -1,5 +1,3 @@
-import { time } from "console";
-import { isReturnStatement } from "typescript";
 import { IWeather, IWeatherForecast, WeatherIcon } from "../types";
 import AbstractProvider from "./abstractProvider";
 
@@ -71,9 +69,6 @@ export default class SMHI extends AbstractProvider {
 
     protected fillForecast(json: any, forecast: IWeatherForecast): void {
         const timeSeries: [] = json['timeSeries'];
-
-        const currentDateTime = new Date().getTime();
-
 
         // --- Fill hours ---
         let hoursIndex = 0;
@@ -164,9 +159,6 @@ export default class SMHI extends AbstractProvider {
                 index--
                 break;
             }
-
-            let a = 0;
-            console.log(!a)
 
             const parameters: any[] = timeSerie.parameters;
 

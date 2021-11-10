@@ -5,7 +5,7 @@ import { Button } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import './style.css';
 import { connect } from "react-redux";
-import { requestUserPosition, selectLocation, selectUserLocation } from "../../../store/locationSearch/actions";
+import { requestUserPosition, selectUserLocation } from "../../../store/locationSearch/actions";
 import { AppState } from "../../../store";
 import { ILocation } from "../../../location/types";
 import { fetchForecasts } from "../../../store/forecasts/actions";
