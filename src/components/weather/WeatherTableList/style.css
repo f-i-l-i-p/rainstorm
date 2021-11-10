@@ -1,5 +1,5 @@
 .list {
-    margin-bottom: 20px;
+    padding-bottom: 30px;
 }
 
 .spin {
@@ -18,11 +18,27 @@
     animation-fill-mode: forwards;
 }
 
-.items>* {
+.items {
     position: relative;
     opacity: 0;
     animation: animatebottom 0.5s;
     animation-fill-mode: forwards;
+}
+
+.items>*:first-child {
+    margin: 5px;
+}
+
+.weather-table-pair {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.weather-table-pair>* {
+    min-width: max(300px, 50%);
+    flex-grow: 1;
+    padding: 5px;
 }
 
 @keyframes animatebottom {

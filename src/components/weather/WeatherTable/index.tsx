@@ -12,7 +12,6 @@ interface IWeatherTableListProps {
     tableData: IWeatherSpan[] | IWeatherPoint[],
     providers: string[],
     name: string,
-    justifyRight: boolean, // This is not used and can be removed
 }
 
 class WeatherTable extends React.Component<IWeatherTableListProps> {
@@ -63,13 +62,13 @@ class WeatherTable extends React.Component<IWeatherTableListProps> {
 
                     {/* Time cells and Weather cells */}
                     <div className="right-column" style={{ overflowX: 'auto' }}>
-                        <div className="time-row" style={{ justifyContent: this.props.justifyRight ? "flex-end" : "space-around" }}>
+                        <div className="time-row" style={{ justifyContent: "space-around" }}>
                             {this.props.tableData.map((column: any, index) =>
                                 <TimeCell key={index} time={formatTime(column)} />
                             )}
                         </div>
                         {this.props.providers.map((provider, index) =>
-                            <div key={index} className="weather-row" style={{ justifyContent: this.props.justifyRight ? "flex-end" : "space-around" }}>
+                            <div key={index} className="weather-row" style={{ justifyContent: "space-around" }}>
                                 {this.props.tableData.map((column, index) =>
                                     <WeatherCell key={index} weather={column.weather[provider]} />
                                 )}

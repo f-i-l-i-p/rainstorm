@@ -5,7 +5,7 @@ import { Spin, Typography } from "antd";
 import { AppState } from "../../../store";
 import { connect } from "react-redux";
 import { ILocation } from "../../../location/types";
-import { IWeatherForecast } from "../../../weather/types";
+import { IWeatherDay, IWeatherForecast } from "../../../weather/types";
 
 const { Title } = Typography;
 
@@ -55,17 +55,31 @@ class WeatherTableList extends React.Component<IWeatherTableListProps> {
     }
 
     public render() {
+        let pairs: IWeatherDay[][] = [];
+        for (let i = 0; i < this.props.forecast.days.length - 1; i += 2) {
+            pairs.push([this.props.forecast.days[i], this.props.forecast.days[i + 1]]);
+        }
+
         return (
             <div className="list">
                 {this.props.isLoading ?
                     <Spin className="spin" size="large" />
                     :
                     <React.Fragment>
-                        <Title className="title"  style={{fontWeight: 1, fontSize: 50}}>{this.props.selectedLocation?.name}</Title>
+                        <Title className="title" style={{ fontWeight: 1, fontSize: 50 }}>{this.props.selectedLocation?.name}</Title>
                         <div className="items">
-                            <WeatherTable tableData={this.props.forecast.hours} providers={this.props.forecast.providers} justifyRight={false} name={this.getTableName(0, this.props.forecast.hours[0].date)} />
-                            {this.props.forecast.days.map((weatherDay, index) =>
-                                <WeatherTable key={index} tableData={weatherDay.spans} providers={this.props.forecast.providers} justifyRight={false} name={this.getTableName(index + 1, weatherDay.spans[0].startDate)} />
+                            <WeatherTable tableData={this.props.forecast.hours} providers={this.props.forecast.providers} name={this.getTableName(0, this.props.forecast.hours[0].date)} />
+                            {pairs.map((weatherPair, index) =>
+                                <div className="weather-table-pair" key={index}>
+                                    {weatherPair.map((weatherDay, index2) =>
+                                        <WeatherTable
+                                            key = {index2}
+                                            tableData={weatherDay.spans}
+                                            providers={this.props.forecast.providers}
+                                            name={this.getTableName(index + index2 + 1, weatherDay.spans[0].startDate)}
+                                        />
+                                    )}
+                                </div>
                             )}
                         </div>
                     </React.Fragment>
