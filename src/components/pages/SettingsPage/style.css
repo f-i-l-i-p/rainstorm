@@ -1,0 +1,11 @@
+.settings-page {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: var(--backgroundColor2);
+}
+
+.settings-back-button {
+    border-color: transparent !important;
+    justify-self: start;
+}

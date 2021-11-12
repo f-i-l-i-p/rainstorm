@@ -12,9 +12,14 @@
     z-index: -1;
 }
 
+.button-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.settings-button,
 .search-location-button {
     margin: 10px;
-    justify-self: right;
     background: transparent !important;
     border-color: #8b8b8b !important;
     color: #8b8b8b !important;
