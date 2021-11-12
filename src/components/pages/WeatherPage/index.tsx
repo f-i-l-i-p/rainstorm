@@ -2,12 +2,13 @@ import React from "react";
 import WeatherTableList from "../../weather/WeatherTableList";
 import LocationSearch from "../../location/LocationSearch";
 import { Button } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
+import { SearchOutlined, SettingOutlined } from '@ant-design/icons';
 import './style.css';
 import { connect } from "react-redux";
 import { requestUserPosition, selectUserLocation } from "../../../store/locationSearch/actions";
 import { AppState } from "../../../store";
 import { ILocation } from "../../../location/types";
+import SettingsPage from "../SettingsPage";
 import { fetchForecasts } from "../../../store/forecasts/actions";
 
 
@@ -19,6 +20,7 @@ interface IWeatherPageProps {
 
 interface IWeatherPageState {
     showLocationSearch: boolean,
+    showSettingsPage: boolean,
 }
 
 class WeatherPage extends React.Component<IWeatherPageProps, IWeatherPageState>{
@@ -27,6 +29,7 @@ class WeatherPage extends React.Component<IWeatherPageProps, IWeatherPageState>{
 
         this.state = {
             showLocationSearch: false,
+            showSettingsPage: false,
         }
     }
 
@@ -51,19 +54,39 @@ class WeatherPage extends React.Component<IWeatherPageProps, IWeatherPageState>{
         });
     }
 
+    private openSettingsSearch() {
+        this.setState({
+            showSettingsPage: true,
+        })
+    }
+
+    private closeSettingsSearch() {
+        this.setState({
+            showSettingsPage: false,
+        });
+    }
+
+
     render() {
         return (
             <React.Fragment>
                 {/* Background */}
                 <div id="background" />
 
-                <div className="weather-page" style={{ height: 0, overflow: this.state.showLocationSearch ? 'hidden' : 'unset' }}>
-                    <Button className="search-location-button" ghost icon={<SearchOutlined />} shape="circle" size="large" onClick={() => this.openLocationSearch()} />
+                <div className="weather-page" style={{ height: 0, overflow: (this.state.showLocationSearch || this.state.showSettingsPage) ? 'hidden' : 'unset' }}>
+                    <div className="button-container">
+                        <Button className="settings-button" ghost icon={<SettingOutlined />} shape="circle" size="large" onClick={() => this.openSettingsSearch()} />
+                        <Button className="search-location-button" ghost icon={<SearchOutlined />} shape="circle" size="large" onClick={() => this.openLocationSearch()} />
+                    </div>
                     <WeatherTableList />
                 </div>
 
                 {this.state.showLocationSearch &&
                     <LocationSearch close={() => this.closeLocationSearch()} />
+                }
+
+                {this.state.showSettingsPage &&
+                    <SettingsPage close={() => this.closeSettingsSearch()}/>
                 }
 
             </React.Fragment>

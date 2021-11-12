@@ -1,0 +1,28 @@
+.header-container {
+    background-color: var(--backgroundColor1);
+}
+
+.header-grid {
+    display: grid;
+    grid-template-columns: 25% 50% 25%;
+}
+
+.header-back-button {
+    border-color: transparent !important;
+    padding-left: 5px;
+    color: var(--linkColor) !important;
+    background-color: var(--backgroundColor1) !important;
+}
+
+.header-back-button>span:nth-child(2) {
+    margin-left: 4px !important;
+}
+
+.header-title {
+    margin: 0 !important;
+    align-self: center;
+}
+
+.header-divider {
+    margin: 0;
+}

@@ -28,6 +28,7 @@ html {
     --backgroundColor2: #ffffff;
     --primaryTextColor: #161616;
     --secondaryTextColor: #636363;
+    --linkColor: #007aff;
     --dividerColor: #e7e7e7;
 }
 
@@ -38,6 +39,7 @@ html {
         --backgroundColor2: #383838;
         --primaryTextColor: #d6d6d6;
         --secondaryTextColor: #8b8b8b;
+        --linkColor: #2069b6;
         --dividerColor: rgb(78, 78, 78)
     }
 }
