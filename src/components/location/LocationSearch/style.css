@@ -17,3 +17,7 @@
 .location-search-spin {
     margin: 20px !important;
 }
+
+.search-cancel-button {
+    border: transparent;
+}
