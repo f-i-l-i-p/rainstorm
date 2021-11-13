@@ -22,7 +22,16 @@ class LocationSearch extends React.Component<ILocationSearchProps>{
         return (
             <div className="search">
                 <div className="search-bar">
-                    <Input className="search-input" size="large" bordered={false} placeholder="Sök" autoFocus allowClear prefix={<SearchOutlined />} onChange={value => this.onChange(value.target.value)} />
+                    <Input
+                        className="search-input"
+                        size="large"
+                        bordered={false}
+                        placeholder="Sök"
+                        autoFocus
+                        allowClear
+                        prefix={<SearchOutlined />}
+                        onChange={value => this.onChange(value.target.value)}
+                    />
                     <Button className="search-cancel-button" size="large" onClick={() => this.props.close()}>Avbryt</Button>
                 </div>
                 <Divider style={{ margin: 0 }} />
