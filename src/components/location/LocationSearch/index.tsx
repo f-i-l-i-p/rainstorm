@@ -32,7 +32,7 @@ class LocationSearch extends React.Component<ILocationSearchProps>{
                         prefix={<SearchOutlined />}
                         onChange={value => this.onChange(value.target.value)}
                     />
-                    <Button className="search-cancel-button" size="large" onClick={() => this.props.close()}>Avbryt</Button>
+                    <Button className="search-cancel-button" size="large" ghost onClick={() => this.props.close()}>Avbryt</Button>
                 </div>
                 <Divider style={{ margin: 0 }} />
                 {this.props.isLoading ?
