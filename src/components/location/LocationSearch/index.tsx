@@ -25,7 +25,7 @@ class LocationSearch extends React.Component<ILocationSearchProps>{
                     <Input className="search-input" size="large" bordered={false} placeholder="Sök" autoFocus allowClear prefix={<SearchOutlined />} onChange={value => this.onChange(value.target.value)} />
                     <Button className="search-cancel-button" size="large" onClick={() => this.props.close()}>Avbryt</Button>
                 </div>
-                <Divider style={{margin: 0, height: 0}} />
+                <Divider style={{ margin: 0 }} />
                 {this.props.isLoading ?
                     <Spin className="location-search-spin" />
                     :
