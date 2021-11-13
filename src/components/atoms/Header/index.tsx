@@ -22,6 +22,7 @@ export default class Header extends React.Component<IHeaderProps>{
                             icon={<LeftOutlined/>}
                             onClick={() => this.props.backButton ? this.props.backButton() : {}}
                             size="large"
+                            ghost
                         >
                             {this.props.backButtonName}
                         </Button>

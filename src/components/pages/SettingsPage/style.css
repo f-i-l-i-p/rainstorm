@@ -5,7 +5,17 @@
     background-color: var(--backgroundColor2);
 }
 
-.settings-back-button {
-    border-color: transparent !important;
-    justify-self: start;
+.settings-content {
+    text-align: start;
+}
+
+.settings-options-title {
+    margin: 5px !important;
+    margin-top: 10px !important;
+}
+
+.settings-options {
+    background-color: var(--backgroundColor1);
+    width: 100%;
+    padding: 10px;
 }

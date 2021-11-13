@@ -13,11 +13,11 @@ body {
     color: var(--secondaryTextColor) !important;
 }
 
+.ant-radio-wrapper,
 .ant-divider,
 .ant-btn,
 .ant-input,
 .ant-input-affix-wrapper {
-    background-color: var(--backgroundColor1) !important;
     border-color: var(--dividerColor) !important;
     color: var(--primaryTextColor) !important;
 }
