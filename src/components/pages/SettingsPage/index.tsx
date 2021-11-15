@@ -4,14 +4,14 @@ import { connect } from "react-redux";
 import { AppState } from "../../../store";
 import Header from "../../atoms/Header";
 import { Radio, Space, Typography } from "antd";
-import { ThemeTypes } from "../../../store/settings/types";
-import { updateTheme } from "../../../store/settings/actions";
+import { ThemeModeTypes } from "../../../store/settings/types";
+import { updateThemeMode } from "../../../store/settings/actions";
 
 const { Title } = Typography;
 
 interface ISettingsPageProps {
-    theme: ThemeTypes,
-    updateTheme: (theme: ThemeTypes) => void,
+    theme: ThemeModeTypes,
+    updateThemeMode: (theme: ThemeModeTypes) => void,
     close: () => void,
 }
 
@@ -29,13 +29,13 @@ class SettingsPage extends React.Component<ISettingsPageProps, A>{
     private onThemeChange(value: number) {
         switch (value) {
             case 1:
-                this.props.updateTheme("light");
+                this.props.updateThemeMode("light");
                 break;
             case 2:
-                this.props.updateTheme("dark");
+                this.props.updateThemeMode("dark");
                 break;
             case 3:
-                this.props.updateTheme("system");
+                this.props.updateThemeMode("system");
                 break;
         }
     }
@@ -75,13 +75,13 @@ class SettingsPage extends React.Component<ISettingsPageProps, A>{
 
 function mapStateToProps(state: AppState) {
     return {
-        theme: state.settings.theme,
+        theme: state.settings.themeMode,
     }
 }
 
 function mapDispatchToProps(dispatch: any) { // TODO: Fix any type
     return {
-        updateTheme: (theme: ThemeTypes) => dispatch(updateTheme(theme)),
+        updateThemeMode: (theme: ThemeModeTypes) => dispatch(updateThemeMode(theme)),
     }
 }
 

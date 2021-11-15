@@ -10,12 +10,15 @@ import { AppState } from "../../../store";
 import { ILocation } from "../../../location/types";
 import SettingsPage from "../SettingsPage";
 import { fetchForecasts } from "../../../store/forecasts/actions";
+import { updateSystemTheme } from "../../../store/settings/actions";
+import { ThemeTypes } from "../../../store/settings/types";
 
 
 interface IWeatherPageProps {
     findUserPosition: (onSuccess?: (location: ILocation) => void) => void,
     selectUserLocation: () => void,
     fetchForecasts: (location: ILocation) => void,
+    updateSystemTheme: (systemTheme: ThemeTypes) => void,
 }
 
 interface IWeatherPageState {
@@ -40,6 +43,12 @@ class WeatherPage extends React.Component<IWeatherPageProps, IWeatherPageState>{
             this.props.fetchForecasts(location);
         };
         this.props.findUserPosition(onSuccess);
+
+        // React on system theme change
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            const theme = e.matches ? "dark" : "light";
+            this.props.updateSystemTheme(theme);
+        });
     }
 
     private openLocationSearch() {
@@ -86,7 +95,7 @@ class WeatherPage extends React.Component<IWeatherPageProps, IWeatherPageState>{
                 }
 
                 {this.state.showSettingsPage &&
-                    <SettingsPage close={() => this.closeSettingsSearch()}/>
+                    <SettingsPage close={() => this.closeSettingsSearch()} />
                 }
 
             </React.Fragment>
@@ -99,12 +108,12 @@ function mapStateToProps(state: AppState) {
     }
 }
 
-
 function mapDispatchToProps(dispatch: any) { // TODO: Fix any type
     return {
         findUserPosition: (onSuccess: any) => dispatch(requestUserPosition(onSuccess)),
         selectUserLocation: () => dispatch(selectUserLocation()),
         fetchForecasts: (location: ILocation) => dispatch(fetchForecasts(location)),
+        updateSystemTheme: (systemTheme: ThemeTypes) => dispatch(updateSystemTheme(systemTheme)),
     }
 }
 

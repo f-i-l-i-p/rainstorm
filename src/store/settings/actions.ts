@@ -1,9 +1,16 @@
-import { ThemeTypes, UPDATE_THEME } from './types';
+import { ThemeModeTypes, ThemeTypes, UPDATE_SYSTEM_THEME, UPDATE_THEME_MODE } from './types';
 
 
-export function updateTheme(theme: ThemeTypes) {
+export function updateThemeMode(themeMode: ThemeModeTypes) {
     return {
-        type: UPDATE_THEME,
-        theme: theme,
+        type: UPDATE_THEME_MODE,
+        themeMode: themeMode,
+    }
+}
+
+export function updateSystemTheme(systemTheme: ThemeTypes) {
+    return {
+        type: UPDATE_SYSTEM_THEME,
+        systemTheme: systemTheme,
     }
 }

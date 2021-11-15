@@ -32,14 +32,12 @@ html {
     --dividerColor: #e7e7e7;
 }
 
-@media (prefers-color-scheme: dark) {
-    html {
-        --backgroundGradient: linear-gradient(-20deg, #311314, #0f2132);
-        --backgroundColor1: #3f3f3f;
-        --backgroundColor2: #383838;
-        --primaryTextColor: #d6d6d6;
-        --secondaryTextColor: #8b8b8b;
-        --linkColor: #2069b6;
-        --dividerColor: rgb(78, 78, 78)
-    }
+html.dark {
+    --backgroundGradient: linear-gradient(-20deg, #311314, #0f2132);
+    --backgroundColor1: #3f3f3f;
+    --backgroundColor2: #383838;
+    --primaryTextColor: #d6d6d6;
+    --secondaryTextColor: #8b8b8b;
+    --linkColor: #2069b6;
+    --dividerColor: #4e4e4e;
 }
