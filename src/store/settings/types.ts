@@ -1,13 +1,15 @@
 
 export interface ISettingsState {
-    theme: "light" | "dark" | "system",
+    theme: ThemeTypes,
 }
 
-export const UPDATE_SETTINGS = "UPDATE_SETTINGS";
+export type ThemeTypes = "light" | "dark" | "system";
 
-interface IUpdateSettingsAction {
-    type: typeof UPDATE_SETTINGS,
-    settings: ISettingsState,
+export const UPDATE_THEME = "UPDATE_THEME";
+
+interface IThemeAction {
+    type: typeof UPDATE_THEME,
+    theme: ThemeTypes,
 }
 
-export type SettingsActionTypes = IUpdateSettingsAction;
+export type SettingsActionTypes = IThemeAction;

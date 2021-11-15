@@ -1,9 +1,9 @@
-import { ISettingsState, UPDATE_SETTINGS } from './types';
+import { ThemeTypes, UPDATE_THEME } from './types';
 
 
-export function updateSettings(settings: ISettingsState) {
+export function updateSettings(theme: ThemeTypes) {
     return {
-        type: UPDATE_SETTINGS,
-        settings: settings,
+        type: UPDATE_THEME,
+        theme: theme,
     }
 }

@@ -1,4 +1,4 @@
-import { ISettingsState, SettingsActionTypes, UPDATE_SETTINGS } from "./types";
+import { ISettingsState, SettingsActionTypes, UPDATE_THEME } from "./types";
 
 const initialState: ISettingsState = {
     theme: "system",
@@ -6,9 +6,10 @@ const initialState: ISettingsState = {
 
 export function settingsReducer(state = initialState, action: SettingsActionTypes): ISettingsState {
     switch (action.type) {
-        case UPDATE_SETTINGS:
+        case UPDATE_THEME:
             return {
-                ...action.settings,
+                ...state,
+                theme: action.theme,
             };
         default:
             return state;
