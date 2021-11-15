@@ -1,11 +1,13 @@
 import { createStore, compose, combineReducers, applyMiddleware } from "redux";
-import { locationSearchReducer } from "./locationSearch/reducers";
 import thunk from 'redux-thunk';
+import { locationSearchReducer } from "./locationSearch/reducers";
 import { forecastReducer } from "./forecasts/reducers";
+import { settingsReducer } from "./settings/reducers";
 
 const rootReducer = combineReducers({
     locationSearch: locationSearchReducer,
-    forecasts: forecastReducer
+    forecasts: forecastReducer,
+    settings: settingsReducer,
 });
 
 declare global {
