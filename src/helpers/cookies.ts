@@ -25,7 +25,7 @@ export function getCookie(name: string): string | null {
     const cookies = document.cookie.split(';');
 
     for (let i = 0; i < cookies.length; i++) {
-        const [cookieName, cookieValue] = cookies[i].split('=');
+        const [cookieName, cookieValue] = cookies[i].trim().split('=');
 
         if (cookieName === name) {
             return cookieValue;

@@ -25,8 +25,8 @@ const WeatherCell = (props: Props) => (
                     {props.showGust && props.weather.gust ?
                         <React.Fragment>
                             <Text strong type="secondary">{Math.round(props.weather.wind)}</Text>
-                            <Text type="secondary">{" (" + Math.round(props.weather.gust) + ")"}</Text>
-                            <Text strong type="secondary">{" m/s"}</Text>
+                            <Text type="secondary" style={{marginLeft: "1px", marginRight: "1px"}}>{"(" + Math.round(props.weather.gust) + ")"}</Text>
+                            <Text strong type="secondary">{"m/s"}</Text>
                         </React.Fragment>
                         :
                         <Text type="secondary">{Math.round(props.weather.wind) + " m/s"}</Text>

@@ -27,7 +27,7 @@ export function settingsReducer(state = initialState, action: SettingsActionType
             }
 
             applyTheme(theme);
-            setCookie(THEME_MODE_COOKIE, action.themeMode, 365)
+            setCookie(THEME_MODE_COOKIE, action.themeMode, 365 * 24 * 60 * 60)
 
             return {
                 ...state,
@@ -47,7 +47,7 @@ export function settingsReducer(state = initialState, action: SettingsActionType
 
         case UPDATE_SETTING:
             if (action.setting.showGust !== undefined) {
-                setCookie("show-gust", action.setting.showGust.toString(), 365)
+                setCookie("show-gust", action.setting.showGust.toString(), 365 * 24 * 60 * 60)
             }
 
             return {
