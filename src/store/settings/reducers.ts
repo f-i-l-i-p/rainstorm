@@ -26,7 +26,7 @@ export function settingsReducer(state = initialState, action: SettingsActionType
             }
 
             applyTheme(theme);
-            setCookie(THEME_MODE_COOKIE, theme, 365)
+            setCookie(THEME_MODE_COOKIE, action.themeMode, 365)
 
             return {
                 ...state,
