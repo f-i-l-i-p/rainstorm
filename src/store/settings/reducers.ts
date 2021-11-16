@@ -1,7 +1,10 @@
-import { ISettingsState, SettingsActionTypes, ThemeTypes, UPDATE_SYSTEM_THEME, UPDATE_THEME_MODE } from "./types";
+import { getCookie, setCookie } from "../../helpers/cookies";
+import { ISettingsState, SettingsActionTypes, ThemeModeTypes, ThemeTypes, UPDATE_SYSTEM_THEME, UPDATE_THEME_MODE } from "./types";
+
+const THEME_MODE_COOKIE = "theme-mode";
 
 const initialState: ISettingsState = {
-    themeMode: "system",
+    themeMode: getCookie(THEME_MODE_COOKIE) as ThemeModeTypes || "system",
     theme: "light",
     systemTheme: getInitialSystemTheme(),
 }
@@ -23,6 +26,7 @@ export function settingsReducer(state = initialState, action: SettingsActionType
             }
 
             applyTheme(theme);
+            setCookie(THEME_MODE_COOKIE, theme, 365)
 
             return {
                 ...state,
@@ -62,3 +66,21 @@ function getInitialSystemTheme(): ThemeTypes {
         return "light";
     }
 }
+
+function setInitialTheme() {
+    let theme: ThemeTypes;
+    switch (initialState.themeMode) {
+        case "light":
+            theme = "light";
+            break;
+        case "dark":
+            theme = "dark";
+            break;
+        case "system":
+            theme = initialState.systemTheme;
+    }
+
+    applyTheme(theme);
+}
+
+setInitialTheme();
