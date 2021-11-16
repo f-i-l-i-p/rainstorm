@@ -203,7 +203,7 @@ export default class SMHI extends AbstractProvider {
         weather.precipitation = Math.round(10 * totalPrecipitation / count) / 10;
         weather.precipitationUnit = "mm/h";
         weather.temperatureMax = maxTemp;
-        weather.temperatureMax = minTemp;
+        weather.temperatureMin = minTemp;
         weather.temperature = (maxTemp + minTemp) / 2;
         weather.wind = maxWind;
         weather.gust = maxGust;

@@ -14,3 +14,19 @@
     height: 40px;
     margin-top: -3px;
 }
+
+.minimum {
+    color: #3c55a5 !important;
+}
+
+.dark .minimum {
+    color: #92acff !important;
+}
+
+.maximum {
+    color: #a53c3c !important;
+}
+
+.dark .maximum {
+    color: #ff8383 !important;
+}

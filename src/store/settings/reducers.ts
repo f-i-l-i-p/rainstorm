@@ -8,6 +8,7 @@ const initialState: ISettingsState = {
     systemTheme: getInitialSystemTheme(),
     theme: "light",
     showGust: getCookie("show-gust") === "true",
+    showMinMaxTemp: getCookie("show-min-max-temp") === "true",
 }
 
 export function settingsReducer(state = initialState, action: SettingsActionTypes): ISettingsState {
@@ -48,6 +49,9 @@ export function settingsReducer(state = initialState, action: SettingsActionType
         case UPDATE_SETTING:
             if (action.setting.showGust !== undefined) {
                 setCookie("show-gust", action.setting.showGust.toString(), 365 * 24 * 60 * 60)
+            }
+            if (action.setting.showMinMaxTemp !== undefined) {
+                setCookie("show-min-max-temp", action.setting.showMinMaxTemp.toString(), 365 * 24 * 60 * 60)
             }
 
             return {

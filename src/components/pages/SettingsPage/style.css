@@ -16,11 +16,15 @@
 }
 
 .settings-options {
-    display: flex;
-    justify-content: space-between;
     background-color: var(--backgroundColor1);
     width: 100%;
     padding: 10px;
+}
+
+.settings-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
 }
 
 .settings-options .ant-space .ant-radio-wrapper,

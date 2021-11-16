@@ -4,6 +4,7 @@ export interface ISettingsState {
     systemTheme: ThemeTypes,
     theme: ThemeTypes,
     showGust: boolean,
+    showMinMaxTemp: boolean,
 }
 
 export type SettingTypes = {

@@ -12,6 +12,7 @@ const { Title, Text } = Typography;
 interface ISettingsPageProps {
     theme: ThemeModeTypes,
     showGust: boolean,
+    showMinMaxTemp: boolean,
     updateThemeMode: (theme: ThemeModeTypes) => void,
     updateSettings: (setting: SettingTypes) => void,
     close: () => void,
@@ -64,13 +65,22 @@ class SettingsPage extends React.Component<ISettingsPageProps>{
                         </Space>
                     </Radio.Group>
                     <Divider />
-                    
+
                     <Text className="settings-options-title" type="secondary" strong>Väder</Text>
                     <Divider />
-                        <div className="settings-options">
-                            <Text>Visa byvind</Text>
-                            <Switch checked={this.props.showGust} onChange={(status) => this.props.updateSettings({showGust: status})}/>
-                        </div>
+                    <div className="settings-options">
+                        <Space direction="vertical">
+                            <div className="settings-row">
+                                <Text>Visa min/max temperatur</Text>
+                                <Switch checked={this.props.showMinMaxTemp} onChange={(status) => this.props.updateSettings({ showMinMaxTemp: status })} />
+                            </div>
+                            <Divider />
+                            <div className="settings-row">
+                                <Text>Visa byvind</Text>
+                                <Switch checked={this.props.showGust} onChange={(status) => this.props.updateSettings({ showGust: status })} />
+                            </div>
+                        </Space>
+                    </div>
                     <Divider />
                 </div>
             </div>
@@ -82,6 +92,7 @@ function mapStateToProps(state: AppState) {
     return {
         theme: state.settings.themeMode,
         showGust: state.settings.showGust,
+        showMinMaxTemp: state.settings.showMinMaxTemp,
     }
 }
 
