@@ -8,17 +8,18 @@
 }
 
 .header-back-button {
+    grid-column: 3;
     border-color: transparent !important;
-    padding-left: 5px;
-    color: var(--linkColor) !important;
-    justify-self: start;
+    justify-self: end;
 }
 
-.header-back-button>span:nth-child(2) {
-    margin-left: 4px !important;
+.header-back-button,
+.header-back-button>span {
+    color: var(--primaryTextColor) !important;
 }
 
 .header-title {
+    grid-column: 2;
     margin: 0 !important;
     align-self: center;
 }

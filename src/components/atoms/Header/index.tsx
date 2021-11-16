@@ -16,10 +16,12 @@ export default class Header extends React.Component<IHeaderProps>{
         return (
             <div className="header-container">
                 <div className="header-grid">
+                    <Title className="header-title" level={5}>
+                        {this.props.title}
+                    </Title>
                     {this.props.backButton &&
                         <Button
                             className="header-back-button"
-                            icon={<LeftOutlined/>}
                             onClick={() => this.props.backButton ? this.props.backButton() : {}}
                             size="large"
                             ghost
@@ -27,9 +29,6 @@ export default class Header extends React.Component<IHeaderProps>{
                             {this.props.backButtonName}
                         </Button>
                     }
-                    <Title className="header-title" level={5}>
-                        {this.props.title}
-                    </Title>
                 </div>
                 <Divider className="header-divider" />
             </div>

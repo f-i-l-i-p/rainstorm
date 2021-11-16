@@ -3,11 +3,11 @@ import './style.css';
 import { connect } from "react-redux";
 import { AppState } from "../../../store";
 import Header from "../../atoms/Header";
-import { Radio, Space, Typography } from "antd";
+import { Divider, Radio, Space, Typography } from "antd";
 import { ThemeModeTypes } from "../../../store/settings/types";
 import { updateThemeMode } from "../../../store/settings/actions";
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 
 interface ISettingsPageProps {
     theme: ThemeModeTypes,
@@ -15,17 +15,8 @@ interface ISettingsPageProps {
     close: () => void,
 }
 
-interface A { }
 
-class SettingsPage extends React.Component<ISettingsPageProps, A>{
-    constructor(props: Readonly<ISettingsPageProps>) {
-        super(props)
-
-        this.state = {
-        }
-    }
-
-
+class SettingsPage extends React.Component<ISettingsPageProps>{
     private onThemeChange(value: number) {
         switch (value) {
             case 1:
@@ -56,17 +47,21 @@ class SettingsPage extends React.Component<ISettingsPageProps, A>{
 
         return (
             <div className="settings-page">
-                <Header title="Inställningar" backButton={() => this.props.close()} backButtonName="Tillbaka" />
+                <Header title="Inställningar" backButton={() => this.props.close()} backButtonName="Klar" />
 
                 <div className="settings-content">
-                    <Title className="settings-options-title" type="secondary" level={4}>Utseende</Title>
+                    <Text className="settings-options-title" type="secondary" strong>Utseende</Text>
+                    <Divider />
                     <Radio.Group className="settings-options" value={themeValue} onChange={(e) => this.onThemeChange(e.target.value)}>
                         <Space direction="vertical">
                             <Radio value={1}>Ljust</Radio>
+                            <Divider />
                             <Radio value={2}>Mörkt</Radio>
+                            <Divider />
                             <Radio value={3}>Följ System</Radio>
                         </Space>
                     </Radio.Group>
+                    <Divider />
                 </div>
             </div>
         );

@@ -7,6 +7,7 @@
 
 .settings-content {
     text-align: start;
+    margin-top: 20px;
 }
 
 .settings-options-title {
@@ -18,4 +19,9 @@
     background-color: var(--backgroundColor1);
     width: 100%;
     padding: 10px;
+}
+
+.settings-options .ant-space .ant-radio-wrapper,
+.settings-options .ant-space {
+    width: 100%;
 }
