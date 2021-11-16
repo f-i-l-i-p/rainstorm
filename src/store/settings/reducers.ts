@@ -1,12 +1,13 @@
 import { getCookie, setCookie } from "../../helpers/cookies";
-import { ISettingsState, SettingsActionTypes, ThemeModeTypes, ThemeTypes, UPDATE_SYSTEM_THEME, UPDATE_THEME_MODE } from "./types";
+import { ISettingsState, SettingsActionTypes, ThemeModeTypes, ThemeTypes, UPDATE_SETTING, UPDATE_SYSTEM_THEME, UPDATE_THEME_MODE } from "./types";
 
 const THEME_MODE_COOKIE = "theme-mode";
 
 const initialState: ISettingsState = {
     themeMode: getCookie(THEME_MODE_COOKIE) as ThemeModeTypes || "system",
-    theme: "light",
     systemTheme: getInitialSystemTheme(),
+    theme: "light",
+    showGust: getCookie("show-gust") === "true",
 }
 
 export function settingsReducer(state = initialState, action: SettingsActionTypes): ISettingsState {
@@ -42,6 +43,16 @@ export function settingsReducer(state = initialState, action: SettingsActionType
             return {
                 ...state,
                 systemTheme: action.systemTheme,
+            }
+
+        case UPDATE_SETTING:
+            if (action.setting.showGust !== undefined) {
+                setCookie("show-gust", action.setting.showGust.toString(), 365)
+            }
+
+            return {
+                ...state,
+                ...action.setting,
             }
 
         default:

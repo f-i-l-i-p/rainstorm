@@ -3,11 +3,14 @@ import { Typography } from "antd";
 
 import './style.css';
 import { IWeather } from "../../../weather/types";
+import { AppState } from "../../../store";
+import { connect } from "react-redux";
 
 const { Text } = Typography;
 
 interface Props {
-    weather: IWeather
+    weather: IWeather,
+    showGust: boolean,
 }
 
 const WeatherCell = (props: Props) => (
@@ -19,8 +22,16 @@ const WeatherCell = (props: Props) => (
                     <img className='weather_symbol' alt="" /* TODO: Add alt prop! */ src={require("../../../icons3/" + props.weather.symbol + ".svg").default} />
                 }
                 <div>
-                    <Text type="secondary">{Math.round(props.weather.wind) + " m/s"}</Text>
-                    <br/>
+                    {props.showGust && props.weather.gust ?
+                        <React.Fragment>
+                            <Text strong type="secondary">{Math.round(props.weather.wind)}</Text>
+                            <Text type="secondary">{" (" + Math.round(props.weather.gust) + ")"}</Text>
+                            <Text strong type="secondary">{" m/s"}</Text>
+                        </React.Fragment>
+                        :
+                        <Text type="secondary">{Math.round(props.weather.wind) + " m/s"}</Text>
+                    }
+                    <br />
                     <Text type="secondary"> {props.weather.precipitation + " " + props.weather.precipitationUnit}</Text>
                 </div>
             </React.Fragment>
@@ -28,5 +39,10 @@ const WeatherCell = (props: Props) => (
     </div>
 );
 
+function mapStateToProps(state: AppState) {
+    return {
+        showGust: state.settings.showGust,
+    }
+}
 
-export default WeatherCell;
+export default connect(mapStateToProps)(WeatherCell);

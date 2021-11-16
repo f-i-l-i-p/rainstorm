@@ -107,6 +107,7 @@ export default class MET extends AbstractProvider {
 
             weather.temperature = timeSerie.data.instant.details.air_temperature;
             weather.wind = timeSerie.data.instant.details.wind_speed;
+            weather.gust = timeSerie.data.instant.details.wind_speed_of_gust;
             weather.precipitation = precipitation;
             weather.precipitationUnit = "mm";
             weather.symbol = symbol;

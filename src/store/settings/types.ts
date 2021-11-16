@@ -1,10 +1,14 @@
 
 export interface ISettingsState {
     themeMode: ThemeModeTypes,
-    theme: ThemeTypes,
     systemTheme: ThemeTypes,
+    theme: ThemeTypes,
+    showGust: boolean,
 }
 
+export type SettingTypes = {
+    [key in keyof ISettingsState]?: ISettingsState[key];
+};
 
 // Theme mode
 
@@ -31,4 +35,14 @@ interface IUpdateSystemThemeAction {
 }
 
 
-export type SettingsActionTypes = IThemeModeAction | IUpdateSystemThemeAction;
+
+// Settings
+export const UPDATE_SETTING = "UPDATE_SETTING";
+
+interface IUpdateSetting {
+    type: typeof UPDATE_SETTING,
+    setting: SettingTypes,
+}
+
+
+export type SettingsActionTypes = IThemeModeAction | IUpdateSystemThemeAction | IUpdateSetting;

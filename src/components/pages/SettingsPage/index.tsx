@@ -3,15 +3,17 @@ import './style.css';
 import { connect } from "react-redux";
 import { AppState } from "../../../store";
 import Header from "../../atoms/Header";
-import { Divider, Radio, Space, Typography } from "antd";
-import { ThemeModeTypes } from "../../../store/settings/types";
-import { updateThemeMode } from "../../../store/settings/actions";
+import { Divider, Radio, Space, Switch, Typography } from "antd";
+import { SettingTypes, ThemeModeTypes } from "../../../store/settings/types";
+import { updateSetting as updateSettings, updateThemeMode } from "../../../store/settings/actions";
 
 const { Title, Text } = Typography;
 
 interface ISettingsPageProps {
     theme: ThemeModeTypes,
+    showGust: boolean,
     updateThemeMode: (theme: ThemeModeTypes) => void,
+    updateSettings: (setting: SettingTypes) => void,
     close: () => void,
 }
 
@@ -62,6 +64,14 @@ class SettingsPage extends React.Component<ISettingsPageProps>{
                         </Space>
                     </Radio.Group>
                     <Divider />
+                    
+                    <Text className="settings-options-title" type="secondary" strong>Väder</Text>
+                    <Divider />
+                        <div className="settings-options">
+                            <Text>Visa byvind</Text>
+                            <Switch checked={this.props.showGust} onChange={(status) => this.props.updateSettings({showGust: status})}/>
+                        </div>
+                    <Divider />
                 </div>
             </div>
         );
@@ -71,12 +81,14 @@ class SettingsPage extends React.Component<ISettingsPageProps>{
 function mapStateToProps(state: AppState) {
     return {
         theme: state.settings.themeMode,
+        showGust: state.settings.showGust,
     }
 }
 
 function mapDispatchToProps(dispatch: any) { // TODO: Fix any type
     return {
         updateThemeMode: (theme: ThemeModeTypes) => dispatch(updateThemeMode(theme)),
+        updateSettings: (setting: SettingTypes) => dispatch(updateSettings(setting)),
     }
 }
 
