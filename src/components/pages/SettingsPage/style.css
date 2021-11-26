@@ -7,6 +7,10 @@
 
 .settings-content {
     text-align: start;
+    min-height: calc(100% - 40px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .settings-options-title {
@@ -30,4 +34,10 @@
 .settings-options .ant-space .ant-radio-wrapper,
 .settings-options .ant-space {
     width: 100%;
+}
+
+#privacy-policy {
+    align-self: center;
+    margin: 10px;
+    color: var(--secondaryTextColor) !important;
 }
