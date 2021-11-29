@@ -13,9 +13,30 @@ interface ILocationSearchProps {
     close: () => void,
 }
 
-class LocationSearch extends React.Component<ILocationSearchProps>{
+interface ILocationSearchState {
+    showUserPosition: boolean,
+}
+
+class LocationSearch extends React.Component<ILocationSearchProps, ILocationSearchState>{
+    constructor(props: Readonly<ILocationSearchProps>) {
+        super(props)
+
+        this.state = {
+            showUserPosition: true,
+        }
+    }
+
     private onChange(text: string) {
         this.props.searchLocations(text);
+
+        const show = text.length == 0;
+
+        if (show !== this.state.showUserPosition) {
+            this.setState({
+                ...this.state,
+                showUserPosition: show,
+            });
+        }
     }
 
     render() {
@@ -38,7 +59,7 @@ class LocationSearch extends React.Component<ILocationSearchProps>{
                 {this.props.isLoading ?
                     <Spin className="location-search-spin" />
                     :
-                    <LocationSearchList onSelect={() => this.props.close()} />
+                    <LocationSearchList onSelect={() => this.props.close()} showUserLocation={this.state.showUserPosition} />
                 }
             </div>
         );

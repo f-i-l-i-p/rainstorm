@@ -1,7 +1,7 @@
 import { ILocation } from "../../location/types";
 
 export interface ILocationSearchState {
-    selectedLocation?: ILocation,
+    selectedLocation: ILocation,
 
     geocodeResults: ILocation[],
     geocodeIsLoading: boolean,

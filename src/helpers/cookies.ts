@@ -13,7 +13,7 @@ export function setCookie(name: string, value: string, maxAge?: number): void {
         expires = "";
     }
 
-    document.cookie = name + "=" + value + expires + "; path=/";
+    document.cookie = name + "=" + encodeURI(value) + expires + "; path=/";
 }
 
 /**
@@ -28,7 +28,7 @@ export function getCookie(name: string): string | null {
         const [cookieName, cookieValue] = cookies[i].trim().split('=');
 
         if (cookieName === name) {
-            return cookieValue;
+            return decodeURI(cookieValue);
         }
     }
 

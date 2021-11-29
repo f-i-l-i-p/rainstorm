@@ -4,6 +4,11 @@
     grid-template-columns: minmax(0, 100%);
 }
 
+.title {
+    margin-top: 50px;
+    margin-bottom: 100px !important;
+}
+
 #background {
     position: fixed;
     height: 100vh;

@@ -9,6 +9,8 @@ import "./style.css";
 import { ILocation } from "../../../location/types";
 
 interface ILocationSearchListProps {
+    showUserLocation: boolean,
+    userLocation?: ILocation,
     selectLocation: (location: ILocation) => void,
     fetchForecasts: (location: ILocation) => void,
     onSelect: () => void,
@@ -30,6 +32,12 @@ class LocationSearchList extends React.Component<ILocationSearchListProps>{
     render() {
         return (
             <div className="location-list">
+                {this.props.showUserLocation && this.props.userLocation &&
+                    <React.Fragment>
+                        <LocationSearchItem location={this.props.userLocation} onSelect={location => this.onLocationSelect(location)} />
+                        <Divider style={{ margin: 0 }} />
+                    </React.Fragment>
+                }
                 {this.props.locationResults.map((location, index) =>
                     <React.Fragment key={index}>
                         <LocationSearchItem location={location} onSelect={location => this.onLocationSelect(location)} />
@@ -43,6 +51,7 @@ class LocationSearchList extends React.Component<ILocationSearchListProps>{
 
 function mapStateToProps(state: AppState) {
     return {
+        userLocation: state.locationSearch.userLocation,
         locationResults: state.locationSearch.geocodeResults,
         selectedLocation: state.locationSearch.selectedLocation,
     }

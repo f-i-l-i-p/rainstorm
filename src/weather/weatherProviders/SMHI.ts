@@ -14,13 +14,19 @@ export default class SMHI extends AbstractProvider {
         2: WeatherIcon.nearly_clear_sky_day, // Nearly clear sky
         3: WeatherIcon.half_clear_sky_day,   // Variable cloudiness
         4: WeatherIcon.half_clear_sky_day,   // Half clear sky
-        5: WeatherIcon.cloudy,           // Cloudy sky
-        6: WeatherIcon.cloudy,           // Overcast
-        7: WeatherIcon.fog,                  // Fo7
+        5: WeatherIcon.cloudy,               // Cloudy sky
+        6: WeatherIcon.cloudy,               // Overcast
+        7: WeatherIcon.fog,                  // Fog
         8: WeatherIcon.light_rain,           // Light rain showers
         9: WeatherIcon.moderate_rain,        // Moderate rain showers
         10: WeatherIcon.heavy_rain,          // Heavy rain showers
         11: WeatherIcon.thunder,             // Thunderstorm
+        12: WeatherIcon.light_sleet,         // Light sleet showers
+        13: WeatherIcon.moderate_sleet,      // Moderate sleet showers
+        14: WeatherIcon.heavy_sleet,         // Heavy sleet showers
+        15: WeatherIcon.snow,                // Light snow showers
+        16: WeatherIcon.snow,                // Moderate snow showers
+        17: WeatherIcon.snow,                // Heavy snow showers
         18: WeatherIcon.light_rain,          // Light rain
         19: WeatherIcon.moderate_rain,       // Moderate rain
         20: WeatherIcon.heavy_rain,          // Heavy rain

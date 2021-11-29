@@ -8,16 +8,7 @@ export function startGeolocate(listener: IUserPositionListener) {
     const successCallback: PositionCallback = (position) => geocodeCoordinates(position.coords, listener);
 
     const errorCallback: PositionErrorCallback = (error) => {
-        const coords: GeolocationCoordinates = {
-            altitude: 10,
-            altitudeAccuracy: 0,
-            latitude: 59.33066,
-            longitude: 18.06855,
-            accuracy: 0,
-            heading: null,
-            speed: 0,
-        };
-        geocodeCoordinates(coords, listener);
+        // TODO
     };
 
     navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
@@ -58,7 +49,7 @@ async function fetchReverseGeocode(latitude: number, longitude: number): Promise
  */
 function formatData(json: any): ILocation {
     return {
-        country: json.display_name,
+        country: "Från din position",
         name: json.address.city || json.address.municipality || json.address.county || json.address.country,
         lat: json.lat,
         long: json.lon,

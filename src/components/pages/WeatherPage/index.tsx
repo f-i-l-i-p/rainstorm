@@ -1,7 +1,7 @@
 import React from "react";
 import WeatherTableList from "../../weather/WeatherTableList";
 import LocationSearch from "../../location/LocationSearch";
-import { Button } from 'antd';
+import { Button, Typography } from 'antd';
 import { SearchOutlined, SettingOutlined } from '@ant-design/icons';
 import './style.css';
 import { connect } from "react-redux";
@@ -13,8 +13,10 @@ import { fetchForecasts } from "../../../store/forecasts/actions";
 import { updateSystemTheme } from "../../../store/settings/actions";
 import { ThemeTypes } from "../../../store/settings/types";
 
+const { Title } = Typography;
 
 interface IWeatherPageProps {
+    selectedLocation: ILocation,
     findUserPosition: (onSuccess?: (location: ILocation) => void) => void,
     selectUserLocation: () => void,
     fetchForecasts: (location: ILocation) => void,
@@ -38,11 +40,14 @@ class WeatherPage extends React.Component<IWeatherPageProps, IWeatherPageState>{
 
     componentDidMount() {
         // Find user position, select it as location, and fetch the forecast
-        const onSuccess = (location: ILocation) => {
-            this.props.selectUserLocation();
-            this.props.fetchForecasts(location);
-        };
-        this.props.findUserPosition(onSuccess);
+        this.props.fetchForecasts(this.props.selectedLocation);
+
+        this.props.findUserPosition(location => {
+            if (location.name !== this.props.selectedLocation.name) {
+                this.props.fetchForecasts(location);
+                this.props.selectUserLocation();
+            }
+        });
 
         // React on system theme change
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
@@ -87,6 +92,7 @@ class WeatherPage extends React.Component<IWeatherPageProps, IWeatherPageState>{
                         <Button className="settings-button" ghost icon={<SettingOutlined />} shape="circle" size="large" onClick={() => this.openSettingsSearch()} />
                         <Button className="search-location-button" ghost icon={<SearchOutlined />} shape="circle" size="large" onClick={() => this.openLocationSearch()} />
                     </div>
+                    <Title className="title" style={{ fontWeight: 1, fontSize: 50 }}>{this.props.selectedLocation?.name}</Title>
                     <WeatherTableList />
                 </div>
 
@@ -105,6 +111,7 @@ class WeatherPage extends React.Component<IWeatherPageProps, IWeatherPageState>{
 
 function mapStateToProps(state: AppState) {
     return {
+        selectedLocation: state.locationSearch.selectedLocation,
     }
 }
 

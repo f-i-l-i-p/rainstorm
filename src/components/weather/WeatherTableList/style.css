@@ -9,15 +9,6 @@
     transform: translate(-50%, -50%);
 }
 
-.title {
-    margin-top: 50px;
-    margin-bottom: 100px !important;
-    position: relative;
-    opacity: 0;
-    animation: animatetop 0.5s;
-    animation-fill-mode: forwards;
-}
-
 .items {
     position: relative;
     opacity: 0;
@@ -48,17 +39,6 @@
     }
     to {
         bottom: 0;
-        opacity: 1
-    }
-}
-
-@keyframes animatetop {
-    from {
-        top: -30px;
-        opacity: 0
-    }
-    to {
-        top: 0;
         opacity: 1
     }
 }

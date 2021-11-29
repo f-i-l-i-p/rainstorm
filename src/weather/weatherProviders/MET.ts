@@ -31,6 +31,23 @@ export default class MET extends AbstractProvider {
         "lightsleetshowers": WeatherIcon.light_sleet,
         "sleet": WeatherIcon.moderate_sleet,
         "sleetshowers": WeatherIcon.moderate_sleet,
+        "heavyrainandthunder": WeatherIcon.thunder,
+        "heavyrainshowersandthunder": WeatherIcon.thunder,
+        "heavysleetshowersandthunder": WeatherIcon.thunder,
+        "heavysnowandthunder": WeatherIcon.thunder,
+        "heavysnowshowersandthunder": WeatherIcon.thunder,
+        "lightrainandthunder": WeatherIcon.thunder,
+        "lightrainshowersandthunder": WeatherIcon.thunder,
+        "lightsleetandthunder": WeatherIcon.thunder,
+        "lightsnowandthunder": WeatherIcon.thunder,
+        "lightssleetshowersandthunder": WeatherIcon.thunder,
+        "lightssnowshowersandthunder": WeatherIcon.thunder,
+        "rainandthunder": WeatherIcon.thunder,
+        "rainshowersandthunder": WeatherIcon.thunder,
+        "sleetandthunder": WeatherIcon.thunder,
+        "sleetshowersandthunder": WeatherIcon.thunder,
+        "snowandthunder": WeatherIcon.thunder,
+        "snowshowersandthunder": WeatherIcon.thunder,
     }
 
     private toNight(icon: WeatherIcon, date: Date): WeatherIcon {

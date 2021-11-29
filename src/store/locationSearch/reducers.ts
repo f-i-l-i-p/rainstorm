@@ -1,7 +1,9 @@
+import { getCookie, setCookie } from "../../helpers/cookies";
+import { ILocation } from "../../location/types";
 import { GEOCODE_FAILURE, GEOCODE_START, GEOCODE_SUCCESS, ILocationSearchState, LOCATE_USER_FAILURE, LOCATE_USER_START, LOCATE_USER_SUCCESS, LocationActionTypes, SELECT_LOCATION, SELECT_USER_LOCATION } from "./types";
 
 const initialState: ILocationSearchState = {
-    selectedLocation: undefined,
+    selectedLocation: getInitialLocation(),
     geocodeResults: [],
     geocodeIsLoading: false,
     geocodeErrorMessage: '',
@@ -13,11 +15,18 @@ const initialState: ILocationSearchState = {
 export function locationSearchReducer(state = initialState, action: LocationActionTypes): ILocationSearchState {
     switch (action.type) {
         case SELECT_LOCATION:
+            saveLocation(action.location);
             return {
                 ...state,
                 selectedLocation: action.location,
             };
         case SELECT_USER_LOCATION:
+            if (!state.userLocation) {
+                return { ...state };
+            }
+
+            saveLocation(state.userLocation);
+
             return {
                 ...state,
                 selectedLocation: state.userLocation,
@@ -63,3 +72,32 @@ export function locationSearchReducer(state = initialState, action: LocationActi
             return state;
     }
 }
+
+function saveLocation(location: ILocation): void {
+    const str = JSON.stringify(location);
+    setCookie("weather-location", str, 60 * 60 * 24 * 365);
+}
+
+function getDefaultLocation(): ILocation {
+    return {
+        name: "Stockholm",
+        country: "Sverige",
+        lat: 59.33066,
+        long: 18.06855,
+        alt: 10,
+    }
+}
+
+function getInitialLocation(): ILocation {
+    const json = getCookie("weather-location");
+
+    if (json !== null) {
+        try {
+            let location: ILocation = JSON.parse(json);
+            return location;
+        } catch {}
+    }
+
+    return getDefaultLocation();
+}
+
