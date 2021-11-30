@@ -1,5 +1,7 @@
 .list {
     padding-bottom: 30px;
+    width: fit-content;
+    justify-self: center;
 }
 
 .spin {
