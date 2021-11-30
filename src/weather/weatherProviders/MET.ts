@@ -9,44 +9,46 @@ export default class MET extends AbstractProvider {
 
     // Icon list: https://api.met.no/weatherapi/weathericon/2.0/documentation
     private icons: any = {
-        "heavyrain": WeatherIcon.heavy_rain,
-        "lightrain": WeatherIcon.light_rain,
-        "rain": WeatherIcon.moderate_rain,
-        "clearsky_day": WeatherIcon.clear_sky_day,
-        "clearsky_night": WeatherIcon.clear_sky_day,
-        "fair_day": WeatherIcon.nearly_clear_sky_day,
-        "fair_night": WeatherIcon.nearly_clear_sky_day,
-        "partlycloudy_day": WeatherIcon.half_clear_sky_day,
-        "partlycloudy_night": WeatherIcon.half_clear_sky_day,
+        "clearsky": WeatherIcon.clear_sky_day,
         "cloudy": WeatherIcon.cloudy,
+        "fair": WeatherIcon.nearly_clear_sky_day,
         "fog": WeatherIcon.fog,
-        "heavysnow": WeatherIcon.snow,
-        "heavysnowshowers": WeatherIcon.snow,
-        "lightsnow": WeatherIcon.snow,
-        "lightsnowshowers": WeatherIcon.snow,
-        "snow": WeatherIcon.snow,
-        "heavysleet": WeatherIcon.heavy_sleet,
-        "heavysleetshowers": WeatherIcon.heavy_sleet,
-        "lightsleet": WeatherIcon.light_sleet,
-        "lightsleetshowers": WeatherIcon.light_sleet,
-        "sleet": WeatherIcon.moderate_sleet,
-        "sleetshowers": WeatherIcon.moderate_sleet,
+        "heavyrain": WeatherIcon.heavy_rain,
         "heavyrainandthunder": WeatherIcon.thunder,
+        "heavyrainshowers": WeatherIcon.heavy_rain,
         "heavyrainshowersandthunder": WeatherIcon.thunder,
+        "heavysleet": WeatherIcon.heavy_sleet,
+        "heavysleetandthunder": WeatherIcon.thunder,
+        "heavysleetshowers": WeatherIcon.heavy_sleet,
         "heavysleetshowersandthunder": WeatherIcon.thunder,
+        "heavysnow": WeatherIcon.snow,
         "heavysnowandthunder": WeatherIcon.thunder,
+        "heavysnowshowers": WeatherIcon.snow,
         "heavysnowshowersandthunder": WeatherIcon.thunder,
+        "lightrain": WeatherIcon.light_rain,
         "lightrainandthunder": WeatherIcon.thunder,
+        "lightrainshowers": WeatherIcon.light_rain,
         "lightrainshowersandthunder": WeatherIcon.thunder,
+        "lightsleet": WeatherIcon.light_sleet,
         "lightsleetandthunder": WeatherIcon.thunder,
+        "lightsleetshowers": WeatherIcon.light_sleet,
+        "lightsnow": WeatherIcon.snow,
         "lightsnowandthunder": WeatherIcon.thunder,
+        "lightsnowshowers": WeatherIcon.snow,
         "lightssleetshowersandthunder": WeatherIcon.thunder,
         "lightssnowshowersandthunder": WeatherIcon.thunder,
+        "partlycloudy": WeatherIcon.half_clear_sky_day,
+        "rain": WeatherIcon.moderate_rain,
         "rainandthunder": WeatherIcon.thunder,
+        "rainshowers": WeatherIcon.moderate_rain,
         "rainshowersandthunder": WeatherIcon.thunder,
+        "sleet": WeatherIcon.moderate_sleet,
         "sleetandthunder": WeatherIcon.thunder,
+        "sleetshowers": WeatherIcon.moderate_sleet,
         "sleetshowersandthunder": WeatherIcon.thunder,
+        "snow": WeatherIcon.snow,
         "snowandthunder": WeatherIcon.thunder,
+        "snowshowers": WeatherIcon.snow,
         "snowshowersandthunder": WeatherIcon.thunder,
     }
 
@@ -116,6 +118,9 @@ export default class MET extends AbstractProvider {
             else {
                 continue;
             }
+
+            // Remove _day or _night
+            symbol_str = symbol_str.split("_")[0];
 
             const symbol = this.toNight(this.icons[symbol_str] || WeatherIcon.unknown, timeSerieDate);
             if (symbol === WeatherIcon.unknown) {
@@ -191,6 +196,9 @@ export default class MET extends AbstractProvider {
                     timeSeriesIndex++;
                     continue;
                 }
+
+                // Remove _day or _night
+                symbol_str = symbol_str.split("_")[0];
 
                 const symbol = this.toNight(this.icons[symbol_str] || WeatherIcon.unknown, timeSerieDate);
                 if (symbol === WeatherIcon.unknown) {
