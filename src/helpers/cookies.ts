@@ -13,7 +13,7 @@ export function setCookie(name: string, value: string, maxAge?: number): void {
         expires = "";
     }
 
-    document.cookie = name + "=" + encodeURI(value) + expires + "; path=/";
+    document.cookie = name + "=" + encodeURI(value) + expires + "; SameSite=Strict; path=/";
 }
 
 /**
