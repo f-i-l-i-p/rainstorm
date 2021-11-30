@@ -9,14 +9,6 @@
     margin-bottom: 100px !important;
 }
 
-#background {
-    position: fixed;
-    height: 100vh;
-    width: 100vw;
-    background-image: var(--backgroundGradient);
-    z-index: -1;
-}
-
 .button-container {
     display: flex;
     justify-content: space-between;

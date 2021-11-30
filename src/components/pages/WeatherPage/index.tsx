@@ -84,8 +84,6 @@ class WeatherPage extends React.Component<IWeatherPageProps, IWeatherPageState>{
     render() {
         return (
             <React.Fragment>
-                {/* Background */}
-                <div id="background" />
 
                 <div className="weather-page" style={{ height: 0, overflow: (this.state.showLocationSearch || this.state.showSettingsPage) ? 'hidden' : 'unset' }}>
                     <div className="button-container">
