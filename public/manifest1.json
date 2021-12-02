@@ -2,12 +2,12 @@
     "short_name": "Regnkollen",
     "name": "Regnkollen",
     "icons": [{
-            "src": "logo192.png",
+            "src": "logo2-192.png",
             "type": "image/png",
             "sizes": "192x192"
         },
         {
-            "src": "logo512.png",
+            "src": "logo2-512.png",
             "type": "image/png",
             "sizes": "512x512"
         }
