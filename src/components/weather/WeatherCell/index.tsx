@@ -21,7 +21,7 @@ const WeatherCell = (props: Props) => (
                 {isNaN(props.weather.temperature) ?
                     <Text>{" "}</Text>
                     :
-                    props.showMinMaxTemp ?
+                    (props.showMinMaxTemp && !isNaN(props.weather.temperatureMin) && !isNaN(props.weather.temperatureMax)) ?
                         <div>
                             <Text strong className="minimum">{Math.round(props.weather.temperatureMin)}</Text>
                             <Text type="secondary" style={{ marginLeft: "1px", marginRight: "1px" }}>/</Text>
