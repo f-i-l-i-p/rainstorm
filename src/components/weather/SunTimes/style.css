@@ -1,0 +1,16 @@
+.sun-times-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    justify-self: center;
+    width: 100px;
+}
+
+.sun-times-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.sun-times-icon {
+    width: 40px;
+}

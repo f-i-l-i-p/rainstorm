@@ -1,6 +1,8 @@
 import { ILocation } from "../location/types";
+import { SunTimes } from "./sunrise";
 
 export interface IWeatherForecast {
+    sunTimes: SunTimes,
     hours: IWeatherPoint[],
     days: IWeatherDay[],
     providers: string[],

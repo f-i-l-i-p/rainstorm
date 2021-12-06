@@ -6,8 +6,9 @@ import { AppState } from "../../../store";
 import { connect } from "react-redux";
 import { ILocation } from "../../../location/types";
 import { IWeatherDay, IWeatherForecast } from "../../../weather/types";
+import SunTimesText from "../SunTimes";
 
-const { Title } = Typography;
+const { Text } = Typography;
 
 interface IWeatherTableListProps {
     forecast: IWeatherForecast,

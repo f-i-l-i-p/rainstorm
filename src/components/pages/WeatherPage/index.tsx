@@ -12,6 +12,7 @@ import SettingsPage from "../SettingsPage";
 import { fetchForecasts } from "../../../store/forecasts/actions";
 import { updateSystemTheme } from "../../../store/settings/actions";
 import { ThemeTypes } from "../../../store/settings/types";
+import SunTimes from "../../weather/SunTimes";
 
 const { Title } = Typography;
 
@@ -91,6 +92,7 @@ class WeatherPage extends React.Component<IWeatherPageProps, IWeatherPageState>{
                         <Button className="search-location-button" ghost icon={<SearchOutlined />} shape="circle" size="large" onClick={() => this.openLocationSearch()} />
                     </div>
                     <Title className="title" style={{ fontWeight: 1, fontSize: 50 }}>{this.props.selectedLocation?.name}</Title>
+                    <SunTimes />
                     <WeatherTableList />
                 </div>
 

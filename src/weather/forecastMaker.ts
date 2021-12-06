@@ -60,6 +60,8 @@ export async function newForecast(location: ILocation, callback: forecastCallbac
         sunTimes = sunTimesResponse;
         sunTimesDone = true;
 
+        forecast.sunTimes = sunTimesResponse;
+
         waitingProviders.forEach(provider => {
             onProviderResponse(provider);
         });

@@ -1,16 +1,25 @@
 import { listDaysFromTomorrow, listHoursFromNow } from "../helpers/date";
 import { ILocation } from "../location/types";
 import { getProviderNames } from "./forecastMaker";
+import { SunTimes } from "./sunrise";
 import { ICombinedWeather, IWeatherDay, IWeatherForecast, IWeatherPoint, IWeatherSpan, WeatherIcon } from "./types";
 
 export function createEmptyForecast(location?: ILocation): IWeatherForecast {
     const now = new Date();
 
     return {
+        sunTimes: createEmptySunTimes(),
         hours: createEmptyHours(),
         days: createEmptyDays(now),
         providers: getProviderNames(),
         location: location ? location : { country: "", name: "", lat: NaN, long: NaN, alt: NaN },
+    };
+}
+
+function createEmptySunTimes(): SunTimes {
+    return {
+        sunrise: new Date(),
+        sunset: new Date(),
     };
 }
 
