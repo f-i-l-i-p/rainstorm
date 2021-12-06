@@ -54,7 +54,7 @@ export default class MET extends AbstractProvider {
 
     private toNight(icon: WeatherIcon, date: Date): WeatherIcon {
         const hours = date.getHours();
-        if (hours > 15 || hours < 8) {
+        if (hours >= 15 || hours <= 8) {
             switch (icon) {
                 case WeatherIcon.clear_sky_day:
                     return WeatherIcon.clear_sky_night;
