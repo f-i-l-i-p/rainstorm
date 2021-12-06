@@ -1,38 +1,7 @@
 import { listDaysFromTomorrow, listHoursFromNow } from "../helpers/date";
 import { ILocation } from "../location/types";
+import { getProviderNames } from "./forecastMaker";
 import { ICombinedWeather, IWeatherDay, IWeatherForecast, IWeatherPoint, IWeatherSpan, WeatherIcon } from "./types";
-import AbstractProvider from "./weatherProviders/abstractProvider";
-import MET from "./weatherProviders/MET";
-import SMHI from "./weatherProviders/SMHI";
-
-const weatherProviders: AbstractProvider[] = [new SMHI(), new MET()]
-
-export interface forecastCallback {
-    onSuccess: (forecast: IWeatherForecast) => void,
-    onError: (error: string) => void,
-}
-
-export function newForecast(location: ILocation, callback: forecastCallback): void {
-    const forecast = createEmptyForecast(location);
-
-    let remaining = weatherProviders.length;
-
-    const onSuccess = () => {
-        remaining--;
-
-        if (remaining === 0) {
-            callback.onSuccess(forecast);
-        }
-    }
-
-    const onError = (error: Error) => {
-        callback.onError(error.message);
-    }
-
-    weatherProviders.forEach(provider => {
-        provider.fetchForecast(forecast, location, onSuccess, onError);
-    });
-}
 
 export function createEmptyForecast(location?: ILocation): IWeatherForecast {
     const now = new Date();
@@ -40,13 +9,9 @@ export function createEmptyForecast(location?: ILocation): IWeatherForecast {
     return {
         hours: createEmptyHours(),
         days: createEmptyDays(now),
-        providers: listProviderNames(),
+        providers: getProviderNames(),
         location: location ? location : { country: "", name: "", lat: NaN, long: NaN, alt: NaN },
     };
-}
-
-function listProviderNames() {
-    return weatherProviders.map((provider) => { return provider.name });
 }
 
 function createEmptyHours(): IWeatherPoint[] {
@@ -108,7 +73,7 @@ function createEmptyDays(start: Date): IWeatherDay[] {
 function createEmptyCombinedWeather(): ICombinedWeather {
     let combined: ICombinedWeather = {};
 
-    listProviderNames().forEach(name => {
+    getProviderNames().forEach(name => {
         combined[name] = {
             temperature: NaN,
             temperatureMax: NaN,

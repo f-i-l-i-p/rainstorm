@@ -73,8 +73,8 @@ export default class SMHI extends AbstractProvider {
         return result;
     }
 
-    protected fillForecast(json: any, forecast: IWeatherForecast): void {
-        const timeSeries: [] = json['timeSeries'];
+    public fillForecast(forecast: IWeatherForecast): void {
+        const timeSeries: [] = this.responseJson['timeSeries'];
 
         // --- Fill hours ---
         let hoursIndex = 0;

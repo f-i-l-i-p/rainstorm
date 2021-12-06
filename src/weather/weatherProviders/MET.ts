@@ -78,8 +78,8 @@ export default class MET extends AbstractProvider {
         return result;
     }
 
-    protected fillForecast(json: any, forecast: IWeatherForecast): void {
-        const timeSeries: any[] = json.properties.timeseries;
+    public fillForecast(forecast: IWeatherForecast): void {
+        const timeSeries: any[] = this.responseJson.properties.timeseries;
 
         // --- Fill hours ---
         let hoursIndex = 0;
