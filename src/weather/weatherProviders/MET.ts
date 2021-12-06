@@ -211,7 +211,7 @@ export default class MET extends AbstractProvider {
                 weather.wind = timeSerie.data.instant.details.wind_speed; // TODO: Find max wind speed
                 weather.gust = timeSerie.data.instant.details.wind_speed_of_gust; // TODO: Find max gust speed
                 weather.precipitation = precipitation;
-                weather.precipitationUnit = "mm/h";
+                weather.precipitationUnit = "mm";
                 weather.symbol = symbol;
 
                 timeSeriesIndex++;

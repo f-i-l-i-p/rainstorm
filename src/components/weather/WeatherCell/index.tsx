@@ -29,31 +29,32 @@ const WeatherCell = (props: Props) => (
                             <Text strong> °C</Text>
                         </div>
                         :
-                        < Text strong> {Math.round(props.weather.temperature)} °C</Text>
+                        < Text strong>{Math.round(props.weather.temperature)} °C</Text>
                 }
                 {props.weather.symbol &&
                     <img className='weather_symbol' alt="" src={require("../../../icons3/" + props.weather.symbol + ".svg").default} />
                 }
                 <div>
-                    {isNaN(props.weather.wind) || isNaN(props.weather.gust) ?
-                        <div>
+                    <div>
+                        {isNaN(props.weather.wind) ?
                             <Text>{" "}</Text>
-                        </div>
-                        :
-                        <div>
-                            <Text type="secondary">{Math.round(props.weather.wind)}</Text>
-                            {props.showGust && props.weather.gust &&
-                                <Text className="maximum" type="secondary" style={{ marginLeft: "1px", marginRight: "1px" }}>{"(" + Math.round(props.weather.gust) + ")"}</Text>
-                            }
-                            <Text type="secondary">{"m/s"}</Text>
-                        </div>
-                    }
+                            :
+                            (props.showGust && !isNaN(props.weather.gust)) ?
+                                <React.Fragment>
+                                    <Text type="secondary">{Math.round(props.weather.wind)}</Text>
+                                    <Text className="maximum" type="secondary" style={{ marginLeft: "1px", marginRight: "1px" }}>{"(" + Math.round(props.weather.gust) + ")"}</Text>
+                                    <Text type="secondary">{"m/s"}</Text>
+                                </React.Fragment>
+                                :
+                                <Text type="secondary">{Math.round(props.weather.wind)} m/s</Text>
+                        }
+                    </div>
                     {isNaN(props.weather.precipitation) ?
                         <div>
                             <Text>{" "}</Text>
                         </div>
                         :
-                        <Text type="secondary"> {props.weather.precipitation + " " + props.weather.precipitationUnit}</Text>
+                        <Text type="secondary">{props.weather.precipitation + " " + props.weather.precipitationUnit}</Text>
                     }
                 </div>
             </React.Fragment>
