@@ -4,6 +4,8 @@
     justify-content: space-between;
     justify-self: center;
     width: 100px;
+    margin-top: 0px;
+    margin-bottom: 80px;
 }
 
 .sun-times-column {
@@ -11,6 +13,10 @@
     flex-direction: column;
 }
 
-.sun-times-icon {
+.sun-time-icon>svg {
     width: 40px;
+    height: 40px;
+    color: var(--secondaryTextColor);
+    opacity: 0.5;
+    margin-bottom: -5px;
 }

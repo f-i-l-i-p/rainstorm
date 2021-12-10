@@ -1,4 +1,7 @@
 import { Typography } from "antd";
+import Icon from "@ant-design/icons";
+import {ReactComponent as SunRise} from "../../../icons3/sunrise.svg";
+import {ReactComponent as SunSet} from "../../../icons3/sunset.svg";
 import './style.css';
 import { SunTimes } from "../../../weather/sunrise";
 import { AppState } from "../../../store";
@@ -13,11 +16,11 @@ interface Props {
 const SunTimesText = (props: Props) => (
     <div className="sun-times-container">
         <div className="sun-times-column">
-            <img className="sun-times-icon" alt="Sunrise" src={require("../../../icons3/" + "clear_sky_day" + ".svg").default} />
+            <Icon className="sun-time-icon" component={SunRise}/>
             <Text type="secondary">{formatTime(props.sunTimes.sunrise)}</Text>
         </div>
         <div className="sun-times-column">
-            <img className="sun-times-icon" alt="Sunrise" src={require("../../../icons3/" + "clear_sky_day" + ".svg").default} />
+            <Icon className="sun-time-icon" component={SunSet}/>
             <Text type="secondary">{formatTime(props.sunTimes.sunset)}</Text>
         </div>
     </div >
