@@ -6,6 +6,8 @@
     width: 100px;
     margin-top: 0px;
     margin-bottom: 80px;
+    animation: animatebottom 0.5s;
+    animation-fill-mode: forwards;
 }
 
 .sun-times-column {
@@ -19,4 +21,13 @@
     color: var(--secondaryTextColor);
     opacity: 0.5;
     margin-bottom: -5px;
+}
+
+@keyframes animatefade {
+    from {
+        opacity: 0
+    }
+    to {
+        opacity: 1
+    }
 }

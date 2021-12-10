@@ -1,12 +1,11 @@
 import React from "react";
 import './style.css';
 import WeatherTable from "../WeatherTable";
-import { Spin, Typography } from "antd";
+import { Typography } from "antd";
 import { AppState } from "../../../store";
 import { connect } from "react-redux";
 import { ILocation } from "../../../location/types";
 import { IWeatherDay, IWeatherForecast } from "../../../weather/types";
-import SunTimesText from "../SunTimes";
 
 const { Text } = Typography;
 
@@ -63,25 +62,19 @@ class WeatherTableList extends React.Component<IWeatherTableListProps> {
 
         return (
             <div className="list">
-                {this.props.isLoading ?
-                    <Spin className="spin" size="large" />
-                    :
-                    <div className="items">
-                        <WeatherTable tableData={this.props.forecast.hours} providers={this.props.forecast.providers} name={this.getTableName(0, this.props.forecast.hours[0].date)} />
-                        {pairs.map((weatherPair, index) =>
-                            <div className="weather-table-pair" key={index}>
-                                {weatherPair.map((weatherDay, index2) =>
-                                    <WeatherTable
-                                        key={index2}
-                                        tableData={weatherDay.spans}
-                                        providers={this.props.forecast.providers}
-                                        name={this.getTableName(index + index2 + 1, weatherDay.spans[0].startDate)}
-                                    />
-                                )}
-                            </div>
+                <WeatherTable tableData={this.props.forecast.hours} providers={this.props.forecast.providers} name={this.getTableName(0, this.props.forecast.hours[0].date)} />
+                {pairs.map((weatherPair, index) =>
+                    <div className="weather-table-pair" key={index}>
+                        {weatherPair.map((weatherDay, index2) =>
+                            <WeatherTable
+                                key={index2}
+                                tableData={weatherDay.spans}
+                                providers={this.props.forecast.providers}
+                                name={this.getTableName(index + index2 + 1, weatherDay.spans[0].startDate)}
+                            />
                         )}
                     </div>
-                }
+                )}
             </div>
         );
     }
