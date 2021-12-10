@@ -1,7 +1,7 @@
 import React from "react";
 import WeatherTableList from "../../weather/WeatherTableList";
 import LocationSearch from "../../location/LocationSearch";
-import { Button, Typography } from 'antd';
+import { Button, Spin, Typography } from 'antd';
 import { SearchOutlined, SettingOutlined } from '@ant-design/icons';
 import './style.css';
 import { connect } from "react-redux";
@@ -12,11 +12,13 @@ import SettingsPage from "../SettingsPage";
 import { fetchForecasts } from "../../../store/forecasts/actions";
 import { updateSystemTheme } from "../../../store/settings/actions";
 import { ThemeTypes } from "../../../store/settings/types";
+import SunTimes from "../../weather/SunTimes";
 
 const { Title } = Typography;
 
 interface IWeatherPageProps {
     selectedLocation: ILocation,
+    weatherIsLoading: boolean,
     findUserPosition: (onSuccess?: (location: ILocation) => void) => void,
     selectUserLocation: () => void,
     fetchForecasts: (location: ILocation) => void,
@@ -91,7 +93,15 @@ class WeatherPage extends React.Component<IWeatherPageProps, IWeatherPageState>{
                         <Button className="search-location-button" ghost icon={<SearchOutlined />} shape="circle" size="large" onClick={() => this.openLocationSearch()} />
                     </div>
                     <Title className="title" style={{ fontWeight: 1, fontSize: 50 }}>{this.props.selectedLocation?.name}</Title>
-                    <WeatherTableList />
+
+                    {this.props.weatherIsLoading ?
+                        <Spin className="spin" size="large" />
+                        :
+                        <React.Fragment>
+                            <SunTimes />
+                            <WeatherTableList />
+                        </React.Fragment>
+                    }
                 </div>
 
                 {this.state.showLocationSearch &&
@@ -110,6 +120,7 @@ class WeatherPage extends React.Component<IWeatherPageProps, IWeatherPageState>{
 function mapStateToProps(state: AppState) {
     return {
         selectedLocation: state.locationSearch.selectedLocation,
+        weatherIsLoading: state.forecasts.isLoading,
     }
 }
 

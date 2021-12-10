@@ -1,0 +1,33 @@
+.sun-times-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    justify-self: center;
+    width: 120px;
+    margin-top: 0px;
+    margin-bottom: 80px;
+    animation: animatebottom 0.5s;
+    animation-fill-mode: forwards;
+}
+
+.sun-times-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.sun-time-icon>svg {
+    width: 40px;
+    height: 40px;
+    color: var(--secondaryTextColor);
+    opacity: 0.5;
+    margin-bottom: -5px;
+}
+
+@keyframes animatefade {
+    from {
+        opacity: 0
+    }
+    to {
+        opacity: 1
+    }
+}

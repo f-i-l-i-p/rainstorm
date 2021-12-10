@@ -1,24 +1,30 @@
 import { ILocation } from "../../location/types";
+import { SunTimes } from "../sunrise";
 import { IWeatherForecast } from "../types";
 
 export default abstract class AbstractProvider {
-    name: string;
+    public name: string;
+
+    protected responseJson: any;
 
     constructor(name: string) {
         this.name = name;
     }
 
-    public async fetchForecast(forecast: IWeatherForecast, location: ILocation, onSuccess: () => any, onFailure: (error: Error) => any) {
+    public canFillForecast(): boolean {
+        return this.responseJson !== undefined;
+    }
+
+    public async fetchForecast(location: ILocation, onSuccess: () => any, onFailure: (error: Error) => any) {
         try {
             // Send a request
             let response = await this.requestData(location.lat.toString(), location.long.toString());
 
-            const json = await response.json();
-
-            // Format the response 
-            await this.fillForecast(json, forecast);
+            this.responseJson = await response.json();
 
         } catch (e: any) {
+            this.responseJson = undefined;
+            
             console.error(e)
             onFailure(e);
             return;
@@ -27,6 +33,7 @@ export default abstract class AbstractProvider {
         onSuccess()
     }
 
+    public abstract fillForecast(forecast: IWeatherForecast, sunTimes: SunTimes): void;
+
     protected abstract requestData(lat: string, long: string): Promise<Response>;
-    protected abstract fillForecast(json: any, forecast: IWeatherForecast): void;
 }

@@ -2,23 +2,15 @@
     padding-bottom: 30px;
     width: fit-content;
     justify-self: center;
-}
-
-.spin {
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.items {
+    display: flex;
+    flex-direction: column;
     position: relative;
     opacity: 0;
     animation: animatebottom 0.5s;
     animation-fill-mode: forwards;
 }
 
-.items>*:first-child {
+.list>*:first-child {
     margin: 5px;
 }
 

@@ -1,5 +1,5 @@
 import { IWeatherState as IForecastState, ForecastActionTypes, FORECAST_FETCH_START, FORECAST_FETCH_SUCCESS, FORECAST_FETCH_FAILURE } from "./types";
-import { createEmptyForecast } from "../../weather";
+import { createEmptyForecast } from "../../weather/emptyForecast";
 
 const initialState: IForecastState = {
     forecast: createEmptyForecast(undefined),
