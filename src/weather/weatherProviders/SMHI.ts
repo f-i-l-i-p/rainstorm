@@ -1,3 +1,5 @@
+import { isNight, isSpanNight, toNight } from "../iconMaker";
+import { SunTimes } from "../sunrise";
 import { IWeather, IWeatherForecast, WeatherIcon } from "../types";
 import AbstractProvider from "./abstractProvider";
 
@@ -39,25 +41,12 @@ export default class SMHI extends AbstractProvider {
         27: WeatherIcon.snow,                // Heavy snowfall
     }
 
-    private getIcon(value: never, date: Date): WeatherIcon {
+    private getIcon(value: never): WeatherIcon {
         let icon = this.icons[value];
         if (!icon) {
             console.warn("Unknown symbol value", value)
             return WeatherIcon.unknown;
         }
-
-        const hours = date.getHours();
-        if (hours >= 15 || hours <= 8) {
-            switch (icon) {
-                case WeatherIcon.clear_sky_day:
-                    return WeatherIcon.clear_sky_night;
-                case WeatherIcon.half_clear_sky_day:
-                    return WeatherIcon.half_clear_sky_night;
-                case WeatherIcon.nearly_clear_sky_day:
-                    return WeatherIcon.nearly_clear_sky_night;
-            }
-        }
-
         return icon;
     }
 
@@ -105,7 +94,11 @@ export default class SMHI extends AbstractProvider {
             weather.precipitationUnit = "mm";
             weather.wind = parameters.find(e => e.name === "ws").values[0];
             weather.gust = parameters.find(e => e.name === "gust").values[0];
-            weather.symbol = this.getIcon(parameters.find(e => e.name === "Wsymb2").values[0] as never, timeSerieDate)
+            weather.symbol = this.getIcon(parameters.find(e => e.name === "Wsymb2").values[0] as never)
+
+            if (isNight(timeSerieDate, forecast.sunTimes)) {
+                weather.symbol = toNight(weather.symbol);
+            }
 
             hoursIndex++;
             timeSeriesIndex++;
@@ -136,7 +129,7 @@ export default class SMHI extends AbstractProvider {
 
                 const iconDate = new Date((span.startDate.getTime() + span.endDate.getTime()) / 2);
 
-                timeSeriesIndex = this.sumWeather(timeSeries, timeSeriesIndex, span.endDate, iconDate, weather);
+                timeSeriesIndex = this.sumWeather(timeSeries, timeSeriesIndex, span.endDate, iconDate, weather, forecast.sunTimes);
             }
         }
     }
@@ -147,7 +140,7 @@ export default class SMHI extends AbstractProvider {
      * The index of the end date will be returned.
      * @returns Index of the end date.
      */
-    private sumWeather(timeSeries: any[], startIndex: number, endDate: Date, symbolDate: Date, weather: IWeather): number {
+    private sumWeather(timeSeries: any[], startIndex: number, endDate: Date, symbolDate: Date, weather: IWeather, sunTimes: SunTimes): number {
         let index = startIndex;
 
         let totalPrecipitation = 0;
@@ -224,7 +217,11 @@ export default class SMHI extends AbstractProvider {
             }
         }
 
-        weather.symbol = this.getIcon(maxSymbol as never, symbolDate);
+        weather.symbol = this.getIcon(maxSymbol as never);
+
+        if (isSpanNight(new Date(timeSeries[startIndex].validTime), endDate, sunTimes)) {
+            weather.symbol = toNight(weather.symbol);
+        }
 
         return index;
     }

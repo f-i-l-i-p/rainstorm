@@ -1,3 +1,5 @@
+import { isNight, isSpanNight, toNight } from "../iconMaker";
+import { SunTimes } from "../sunrise";
 import { IWeatherForecast, WeatherIcon } from "../types";
 import AbstractProvider from "./abstractProvider";
 
@@ -50,21 +52,6 @@ export default class MET extends AbstractProvider {
         "snowandthunder": WeatherIcon.thunder,
         "snowshowers": WeatherIcon.snow,
         "snowshowersandthunder": WeatherIcon.thunder,
-    }
-
-    private toNight(icon: WeatherIcon, date: Date): WeatherIcon {
-        const hours = date.getHours();
-        if (hours >= 15 || hours <= 8) {
-            switch (icon) {
-                case WeatherIcon.clear_sky_day:
-                    return WeatherIcon.clear_sky_night;
-                case WeatherIcon.half_clear_sky_day:
-                    return WeatherIcon.half_clear_sky_night;
-                case WeatherIcon.nearly_clear_sky_day:
-                    return WeatherIcon.nearly_clear_sky_night;
-            }
-        }
-        return icon;
     }
 
     protected async requestData(lat: string, long: string): Promise<Response> {
@@ -122,7 +109,11 @@ export default class MET extends AbstractProvider {
             // Remove _day or _night
             symbol_str = symbol_str.split("_")[0];
 
-            const symbol = this.toNight(this.icons[symbol_str] || WeatherIcon.unknown, timeSerieDate);
+            let symbol = this.icons[symbol_str] || WeatherIcon.unknown;
+            if (isNight(timeSerieDate, forecast.sunTimes)) {
+                symbol = toNight(symbol);
+            }
+
             if (symbol === WeatherIcon.unknown) {
                 console.warn("Unknown symbol", symbol_str)
             }
@@ -200,7 +191,11 @@ export default class MET extends AbstractProvider {
                 // Remove _day or _night
                 symbol_str = symbol_str.split("_")[0];
 
-                const symbol = this.toNight(this.icons[symbol_str] || WeatherIcon.unknown, timeSerieDate);
+                let symbol = this.icons[symbol_str] || WeatherIcon.unknown;
+                if (isSpanNight(span.startDate, span.endDate, forecast.sunTimes)) {
+                    symbol = toNight(symbol);
+                }
+
                 if (symbol === WeatherIcon.unknown) {
                     console.warn("Unknown symbol", symbol_str)
                 }
