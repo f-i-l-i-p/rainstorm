@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { register, unregister } from './serviceWorker';
+import { register } from './serviceWorker';
 import store from "./store";
 import { Provider } from 'react-redux';
 

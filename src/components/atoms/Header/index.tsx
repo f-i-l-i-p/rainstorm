@@ -1,6 +1,5 @@
 import React from "react";
 import './style.css';
-import { LeftOutlined } from '@ant-design/icons';
 import { Button, Divider, Typography } from "antd";
 
 const { Title } = Typography;

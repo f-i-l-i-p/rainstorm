@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="27.043mm" height="19.318mm" version="1.1" viewBox="0 0 27.043 19.318" xmlns="http://www.w3.org/2000/svg" xmlnsCc="http://creativecommons.org/ns#" xmlnsDc="http://purl.org/dc/elements/1.1/" xmlnsRdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<metadata>
-<rdfRDF>
-<ccWork rdfAbout="">
-<dcformat>image/svg+xml</dcformat>
-<dctype rdfResource="http://purl.org/dc/dcmitype/StillImage"/>
-</ccWork>
-</rdfRDF>
-</metadata>
-<g transform="translate(267.35 -206.24)" fill="currentColor">
-<path transform="matrix(.5 0 0 1 -395.11 104.26)" d="m298.45 117.08h6.35" stroke="currentColor" stroke-linecap="round" stroke-width="1.6202" style="paint-order:markers fill stroke"/>
-<path transform="matrix(.5 0 0 1 -414.16 104.26)" d="m298.45 117.08h6.35" stroke="currentColor" stroke-linecap="round" stroke-width="1.6202" style="paint-order:markers fill stroke"/>
-<path transform="matrix(.35355 .35355 -.70711 .70711 -284.41 25.175)" d="m298.45 117.08h6.35" stroke="currentColor" stroke-linecap="round" stroke-width="1.6202" style="paint-order:markers fill stroke"/>
-<path transform="matrix(-.35355 .35355 -.70711 -.70711 -57.66 190.76)" d="m298.45 117.08h6.35" stroke="currentColor" stroke-linecap="round" stroke-width="1.6202" style="paint-order:markers fill stroke"/>
-<path d="m-266.53 224.75h25.4" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6203" style="paint-order:normal"/>
-<path d="m-253.83 215.52a5.8207 5.8208 0 0 0-5.8208 5.8208 5.8207 5.8208 0 0 0 0.22167 1.587h11.194a5.8207 5.8208 0 0 0 0.22582-1.587 5.8207 5.8208 0 0 0-5.8203-5.8208z" stroke="currentColor" stroke-linecap="round" stroke-width=".79375" style="paint-order:markers fill stroke"/>
-<path d="m-253.84 206.24a0.81024 0.81024 0 0 0-0.56277 0.2367l-1.0583 1.0583a0.81024 0.81024 0 0 0-0.0692 0.076l-1.1958 1.1958a0.8102 0.4051 45 1 0 1.1452 1.1451l0.94207-0.94205v2.2774a0.81024 0.81024 0 0 0 0 0.0806v2.0366a0.8102 0.4051 0 1 0 1.619 0v-3.176a0.8102 0.4051 0 0 0 0-0.0201v-1.201l0.94414 0.94414a0.4051 0.8102 45 1 0 1.1452-1.1451l-1.2077-1.2077a0.81024 0.81024 0 0 0-0.0594-0.0636l-1.0583-1.0583a0.81024 0.81024 0 0 0-0.58394-0.23669z" color="currentColor" color-rendering="auto" dominant-baseline="auto" image-rendering="auto" shape-rendering="auto" solid-color="currentColor" style="font-feature-settings:normal;font-variant-alternates:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;font-variant-position:normal;isolation:auto;mix-blend-mode:normal;paint-order:markers fill stroke;shape-padding:0;text-decoration-color:currentColor;text-decoration-line:none;text-decoration-style:solid;text-indent:0;text-orientation:mixed;text-transform:none;white-space:normal"/>
-</g>
+<svg width="27.043mm" height="19.318mm" version="1.1" viewBox="0 0 27.043 19.318" xmlns="http://www.w3.org/2000/svg">
+    <metadata>
+        <rdfRDF>
+            <ccWork>
+                <dcformat>image/svg+xml</dcformat>
+            </ccWork>
+        </rdfRDF>
+    </metadata>
+    <g transform="translate(267.35 -206.24)" fill="currentColor">
+        <path transform="matrix(.5 0 0 1 -395.11 104.26)" d="m298.45 117.08h6.35" stroke="currentColor" stroke-linecap="round" stroke-width="1.6202" style="paint-order:markers fill stroke" />
+        <path transform="matrix(.5 0 0 1 -414.16 104.26)" d="m298.45 117.08h6.35" stroke="currentColor" stroke-linecap="round" stroke-width="1.6202" style="paint-order:markers fill stroke" />
+        <path transform="matrix(.35355 .35355 -.70711 .70711 -284.41 25.175)" d="m298.45 117.08h6.35" stroke="currentColor" stroke-linecap="round" stroke-width="1.6202" style="paint-order:markers fill stroke" />
+        <path transform="matrix(-.35355 .35355 -.70711 -.70711 -57.66 190.76)" d="m298.45 117.08h6.35" stroke="currentColor" stroke-linecap="round" stroke-width="1.6202" style="paint-order:markers fill stroke" />
+        <path d="m-266.53 224.75h25.4" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6203" style="paint-order:normal" />
+        <path d="m-253.83 215.52a5.8207 5.8208 0 0 0-5.8208 5.8208 5.8207 5.8208 0 0 0 0.22167 1.587h11.194a5.8207 5.8208 0 0 0 0.22582-1.587 5.8207 5.8208 0 0 0-5.8203-5.8208z" stroke="currentColor" stroke-linecap="round" stroke-width=".79375" style="paint-order:markers fill stroke" />
+        <path d="m-253.84 206.24a0.81024 0.81024 0 0 0-0.56277 0.2367l-1.0583 1.0583a0.81024 0.81024 0 0 0-0.0692 0.076l-1.1958 1.1958a0.8102 0.4051 45 1 0 1.1452 1.1451l0.94207-0.94205v2.2774a0.81024 0.81024 0 0 0 0 0.0806v2.0366a0.8102 0.4051 0 1 0 1.619 0v-3.176a0.8102 0.4051 0 0 0 0-0.0201v-1.201l0.94414 0.94414a0.4051 0.8102 45 1 0 1.1452-1.1451l-1.2077-1.2077a0.81024 0.81024 0 0 0-0.0594-0.0636l-1.0583-1.0583a0.81024 0.81024 0 0 0-0.58394-0.23669z" color="currentColor" color-rendering="auto" dominant-baseline="auto" image-rendering="auto" shape-rendering="auto" solid-color="currentColor" style="font-feature-settings:normal;font-variant-alternates:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;font-variant-position:normal;isolation:auto;mix-blend-mode:normal;paint-order:markers fill stroke;shape-padding:0;text-decoration-color:currentColor;text-decoration-line:none;text-decoration-style:solid;text-indent:0;text-orientation:mixed;text-transform:none;white-space:normal" />
+    </g>
 </svg>

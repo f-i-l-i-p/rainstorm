@@ -85,7 +85,7 @@ class SettingsPage extends React.Component<ISettingsPageProps>{
                         <Divider />
                     </div>
 
-                    <a id="privacy-policy" href="https://regnkollen.se/privacy-policy.html" target="_blank">privacy policy</a >
+                    <a id="privacy-policy" href="https://regnkollen.se/privacy-policy.html" target="_blank" rel="noreferrer">privacy policy</a >
                 </div>
             </div>
         );

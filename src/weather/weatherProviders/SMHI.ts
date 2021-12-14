@@ -197,8 +197,6 @@ export default class SMHI extends AbstractProvider {
             index++;
         }
 
-        const count = index - startIndex + 1;
-
         weather.precipitation = Math.round(10 * totalPrecipitation) / 10;
         weather.precipitationUnit = "mm";
         weather.temperatureMax = maxTemp;

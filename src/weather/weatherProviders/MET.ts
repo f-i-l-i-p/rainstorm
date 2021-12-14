@@ -1,5 +1,4 @@
 import { isNight, isSpanNight, toNight } from "../iconMaker";
-import { SunTimes } from "../sunrise";
 import { IWeatherForecast, WeatherIcon } from "../types";
 import AbstractProvider from "./abstractProvider";
 

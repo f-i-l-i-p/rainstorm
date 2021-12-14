@@ -29,7 +29,7 @@ class LocationSearch extends React.Component<ILocationSearchProps, ILocationSear
     private onChange(text: string) {
         this.props.searchLocations(text);
 
-        const show = text.length == 0;
+        const show = text.length === 0;
 
         if (show !== this.state.showUserPosition) {
             this.setState({

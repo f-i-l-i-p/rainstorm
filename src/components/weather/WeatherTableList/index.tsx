@@ -1,13 +1,10 @@
 import React from "react";
 import './style.css';
 import WeatherTable from "../WeatherTable";
-import { Typography } from "antd";
 import { AppState } from "../../../store";
 import { connect } from "react-redux";
 import { ILocation } from "../../../location/types";
 import { IWeatherDay, IWeatherForecast } from "../../../weather/types";
-
-const { Text } = Typography;
 
 interface IWeatherTableListProps {
     forecast: IWeatherForecast,
