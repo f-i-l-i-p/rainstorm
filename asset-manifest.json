@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/static/css/main.3f3d5845.chunk.css",
-    "main.js": "/static/js/main.2c4d334b.chunk.js",
-    "main.js.map": "/static/js/main.2c4d334b.chunk.js.map",
+    "main.js": "/static/js/main.37fb69d2.chunk.js",
+    "main.js.map": "/static/js/main.37fb69d2.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.7a83d4a4.js",
     "runtime-main.js.map": "/static/js/runtime-main.7a83d4a4.js.map",
     "static/css/2.2b8316e7.chunk.css": "/static/css/2.2b8316e7.chunk.css",
-    "static/js/2.4b11945d.chunk.js": "/static/js/2.4b11945d.chunk.js",
-    "static/js/2.4b11945d.chunk.js.map": "/static/js/2.4b11945d.chunk.js.map",
+    "static/js/2.5e6f8d70.chunk.js": "/static/js/2.5e6f8d70.chunk.js",
+    "static/js/2.5e6f8d70.chunk.js.map": "/static/js/2.5e6f8d70.chunk.js.map",
     "index.html": "/index.html",
     "static/css/2.2b8316e7.chunk.css.map": "/static/css/2.2b8316e7.chunk.css.map",
     "static/css/main.3f3d5845.chunk.css.map": "/static/css/main.3f3d5845.chunk.css.map",
-    "static/js/2.4b11945d.chunk.js.LICENSE.txt": "/static/js/2.4b11945d.chunk.js.LICENSE.txt",
+    "static/js/2.5e6f8d70.chunk.js.LICENSE.txt": "/static/js/2.5e6f8d70.chunk.js.LICENSE.txt",
     "static/media/clear_sky_day.svg": "/static/media/clear_sky_day.08d2252c.svg",
     "static/media/clear_sky_night.svg": "/static/media/clear_sky_night.529a641f.svg",
     "static/media/cloudy.svg": "/static/media/cloudy.b1731609.svg",
@@ -28,16 +28,16 @@
     "static/media/nearly_clear_sky_night.svg": "/static/media/nearly_clear_sky_night.e9c1247d.svg",
     "static/media/overcast.svg": "/static/media/overcast.a2822c8c.svg",
     "static/media/snow.svg": "/static/media/snow.9758315a.svg",
-    "static/media/sunrise.svg": "/static/media/sunrise.d0648585.svg",
-    "static/media/sunset.svg": "/static/media/sunset.0a78d069.svg",
+    "static/media/sunrise.svg": "/static/media/sunrise.0598d674.svg",
+    "static/media/sunset.svg": "/static/media/sunset.dacbfc7d.svg",
     "static/media/thunder.svg": "/static/media/thunder.31fc6f06.svg",
     "static/media/unknown.svg": "/static/media/unknown.791c8f32.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.7a83d4a4.js",
     "static/css/2.2b8316e7.chunk.css",
-    "static/js/2.4b11945d.chunk.js",
+    "static/js/2.5e6f8d70.chunk.js",
     "static/css/main.3f3d5845.chunk.css",
-    "static/js/main.2c4d334b.chunk.js"
+    "static/js/main.37fb69d2.chunk.js"
   ]
 }
