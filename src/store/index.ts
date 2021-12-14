@@ -3,6 +3,7 @@ import thunk from 'redux-thunk';
 import { locationSearchReducer } from "./locationSearch/reducers";
 import { forecastReducer } from "./forecasts/reducers";
 import { settingsReducer } from "./settings/reducers";
+import { isDev } from "../helpers/devDetect";
 
 const rootReducer = combineReducers({
     locationSearch: locationSearchReducer,
@@ -16,9 +17,9 @@ declare global {
     }
 }
 
-const initialState = {}
+const composeEnhancers = (isDev() && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const initialState = {}
 
 export default createStore(
     rootReducer,
