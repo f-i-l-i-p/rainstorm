@@ -1,36 +1,32 @@
-import { getCookie, setCookie } from "../../helpers/cookies";
+import { deleteCookie, getCookie, setCookie } from "../../helpers/cookies";
+import { geocodeCoordinates } from "../../location/geolocation";
 import { ILocation } from "../../location/types";
-import { GEOCODE_FAILURE, GEOCODE_START, GEOCODE_SUCCESS, ILocationSearchState, LOCATE_USER_FAILURE, LOCATE_USER_START, LOCATE_USER_SUCCESS, LocationActionTypes, SELECT_LOCATION, SELECT_USER_LOCATION } from "./types";
+import { GEOCODE_FAILURE, GEOCODE_START, GEOCODE_SUCCESS, ILocationSearchState, LocationActionTypes, SELECT_LOCATION } from "./types";
 
-const initialState: ILocationSearchState = {
-    selectedLocation: getInitialLocation(),
-    geocodeResults: [],
-    geocodeIsLoading: false,
-    geocodeErrorMessage: '',
-    userLocation: undefined,
-    userLocationIsLoading: false,
-    userLocationErrorMessage: '',
-}
+const initialState = createInitialState();
+const MAX_HISTORY_LENGTH = 5;
 
 export function locationSearchReducer(state = initialState, action: LocationActionTypes): ILocationSearchState {
     switch (action.type) {
         case SELECT_LOCATION:
-            saveLocation(action.location);
+            let history = [...state.locationHistory];
+
+            const index = history.findIndex(e => e.name === action.location.name);
+            if (index !== -1) {
+                history.splice(index, 1);
+            }
+            if (history.length >= MAX_HISTORY_LENGTH) {
+                history.splice(MAX_HISTORY_LENGTH - 2, history.length - 1);
+            }
+            history.unshift(action.location);
+
+            saveHistory(history);
+
             return {
                 ...state,
                 selectedLocation: action.location,
+                locationHistory: history,
             };
-        case SELECT_USER_LOCATION:
-            if (!state.userLocation) {
-                return { ...state };
-            }
-
-            saveLocation(state.userLocation);
-
-            return {
-                ...state,
-                selectedLocation: state.userLocation,
-            }
         case GEOCODE_START:
             return {
                 ...state,
@@ -50,32 +46,71 @@ export function locationSearchReducer(state = initialState, action: LocationActi
                 geocodeResults: [],
                 geocodeErrorMessage: action.errorMessage
             };
-        case LOCATE_USER_START:
-            return {
-                ...state,
-                userLocationIsLoading: true,
-            }
-        case LOCATE_USER_SUCCESS:
-            return {
-                ...state,
-                userLocationIsLoading: false,
-                userLocation: action.location,
-            }
-        case LOCATE_USER_FAILURE:
-            return {
-                ...state,
-                userLocationIsLoading: false,
-                userLocationErrorMessage: action.errorMessage,
-            }
-
         default:
             return state;
     }
 }
 
-function saveLocation(location: ILocation): void {
-    const str = JSON.stringify(location);
-    setCookie("weather-location", str, 60 * 60 * 24 * 365);
+function saveHistory(history: ILocation[]): void {
+    const str = JSON.stringify(history);
+    setCookie("weather-locations", str, 60 * 60 * 24 * 365);
+}
+
+function loadHistory(): ILocation[] {
+    const json = getCookie("weather-locations");
+
+    if (json !== null) {
+        try {
+            let history: ILocation[] = JSON.parse(json);
+            return history;
+        } catch { }
+    }
+
+    // TODO: This if statement is temporary. Delete in future.
+    // If no weather locations found. Check the old cookie.
+    if (json === null) {
+        return convertOldCookie();
+    }
+
+    return [];
+}
+
+// TODO: convertOldCookie is temporary. Delete in future.
+/**
+ * Checks if the old cookie is remaining. If so, delete it
+ * and save in the new format. Also return saved weather as
+ * history.
+ */
+function convertOldCookie(): ILocation[] {
+    const json = getCookie("weather-location");
+
+    if (json !== null) {
+        try {
+            let location: ILocation = JSON.parse(json);
+
+            const coords: GeolocationCoordinates = {
+                accuracy: 1,
+                altitude: location.alt,
+                altitudeAccuracy: 1,
+                heading: 1,
+                latitude: location.lat,
+                longitude: location.long,
+                speed: 1,
+            }
+
+            geocodeCoordinates(coords, {
+                onSuccess: (location: ILocation) => {
+                    saveHistory([location]);
+                    deleteCookie("weather-location");
+                }, onError: () => { }
+            })
+
+            return [location];
+
+        } catch { }
+    }
+
+    return [];
 }
 
 function getDefaultLocation(): ILocation {
@@ -88,16 +123,21 @@ function getDefaultLocation(): ILocation {
     }
 }
 
-function getInitialLocation(): ILocation {
-    const json = getCookie("weather-location");
+function createInitialState(): ILocationSearchState {
+    const history = loadHistory();
 
-    if (json !== null) {
-        try {
-            let location: ILocation = JSON.parse(json);
-            return location;
-        } catch {}
+    let selectedLocation: ILocation;
+    if (history.length > 0) {
+        selectedLocation = history[0];
+    } else {
+        selectedLocation = getDefaultLocation();
     }
 
-    return getDefaultLocation();
+    return {
+        selectedLocation: selectedLocation,
+        locationHistory: history,
+        geocodeResults: [],
+        geocodeIsLoading: false,
+        geocodeErrorMessage: '',
+    }
 }
-

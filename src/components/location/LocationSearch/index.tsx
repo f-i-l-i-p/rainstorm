@@ -14,7 +14,7 @@ interface ILocationSearchProps {
 }
 
 interface ILocationSearchState {
-    showUserPosition: boolean,
+    showHistory: boolean,
 }
 
 class LocationSearch extends React.Component<ILocationSearchProps, ILocationSearchState>{
@@ -22,7 +22,7 @@ class LocationSearch extends React.Component<ILocationSearchProps, ILocationSear
         super(props)
 
         this.state = {
-            showUserPosition: true,
+            showHistory: true,
         }
     }
 
@@ -31,10 +31,10 @@ class LocationSearch extends React.Component<ILocationSearchProps, ILocationSear
 
         const show = text.length === 0;
 
-        if (show !== this.state.showUserPosition) {
+        if (show !== this.state.showHistory) {
             this.setState({
                 ...this.state,
-                showUserPosition: show,
+                showHistory: show,
             });
         }
     }
@@ -59,7 +59,7 @@ class LocationSearch extends React.Component<ILocationSearchProps, ILocationSear
                 {this.props.isLoading ?
                     <Spin className="location-search-spin" />
                     :
-                    <LocationSearchList onSelect={() => this.props.close()} showUserLocation={this.state.showUserPosition} />
+                    <LocationSearchList onSelect={() => this.props.close()} showHistory={this.state.showHistory} />
                 }
             </div>
         );

@@ -9,12 +9,12 @@ import "./style.css";
 import { ILocation } from "../../../location/types";
 
 interface ILocationSearchListProps {
-    showUserLocation: boolean,
-    userLocation?: ILocation,
     selectLocation: (location: ILocation) => void,
     fetchForecasts: (location: ILocation) => void,
     onSelect: () => void,
+    showHistory: boolean,
     locationResults: ILocation[],
+    locationHistory: ILocation[],
     selectedLocation?: ILocation,
 }
 
@@ -30,15 +30,11 @@ class LocationSearchList extends React.Component<ILocationSearchListProps>{
     }
 
     render() {
+        const locations: ILocation[] = this.props.showHistory ? this.props.locationHistory : this.props.locationResults;
+
         return (
             <div className="location-list">
-                {this.props.showUserLocation && this.props.userLocation &&
-                    <React.Fragment>
-                        <LocationSearchItem location={this.props.userLocation} onSelect={location => this.onLocationSelect(location)} />
-                        <Divider style={{ margin: 0 }} />
-                    </React.Fragment>
-                }
-                {this.props.locationResults.map((location, index) =>
+                {locations.map((location, index) =>
                     <React.Fragment key={index}>
                         <LocationSearchItem location={location} onSelect={location => this.onLocationSelect(location)} />
                         <Divider style={{ margin: 0 }} />
@@ -51,8 +47,8 @@ class LocationSearchList extends React.Component<ILocationSearchListProps>{
 
 function mapStateToProps(state: AppState) {
     return {
-        userLocation: state.locationSearch.userLocation,
         locationResults: state.locationSearch.geocodeResults,
+        locationHistory: state.locationSearch.locationHistory,
         selectedLocation: state.locationSearch.selectedLocation,
     }
 }

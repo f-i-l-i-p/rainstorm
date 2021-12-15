@@ -5,7 +5,6 @@ import { Button, Spin, Typography } from 'antd';
 import { SearchOutlined, SettingOutlined } from '@ant-design/icons';
 import './style.css';
 import { connect } from "react-redux";
-import { requestUserPosition, selectUserLocation } from "../../../store/locationSearch/actions";
 import { AppState } from "../../../store";
 import { ILocation } from "../../../location/types";
 import SettingsPage from "../SettingsPage";
@@ -19,8 +18,6 @@ const { Title } = Typography;
 interface IWeatherPageProps {
     selectedLocation: ILocation,
     weatherIsLoading: boolean,
-    findUserPosition: (onSuccess?: (location: ILocation) => void) => void,
-    selectUserLocation: () => void,
     fetchForecasts: (location: ILocation) => void,
     updateSystemTheme: (systemTheme: ThemeTypes) => void,
 }
@@ -43,13 +40,6 @@ class WeatherPage extends React.Component<IWeatherPageProps, IWeatherPageState>{
     componentDidMount() {
         // Find user position, select it as location, and fetch the forecast
         this.props.fetchForecasts(this.props.selectedLocation);
-
-        this.props.findUserPosition(location => {
-            if (location.name !== this.props.selectedLocation.name) {
-                this.props.fetchForecasts(location);
-                this.props.selectUserLocation();
-            }
-        });
 
         // React on system theme change
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
@@ -126,8 +116,6 @@ function mapStateToProps(state: AppState) {
 
 function mapDispatchToProps(dispatch: any) { // TODO: Fix any type
     return {
-        findUserPosition: (onSuccess: any) => dispatch(requestUserPosition(onSuccess)),
-        selectUserLocation: () => dispatch(selectUserLocation()),
         fetchForecasts: (location: ILocation) => dispatch(fetchForecasts(location)),
         updateSystemTheme: (systemTheme: ThemeTypes) => dispatch(updateSystemTheme(systemTheme)),
     }

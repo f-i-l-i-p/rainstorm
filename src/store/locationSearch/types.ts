@@ -2,14 +2,11 @@ import { ILocation } from "../../location/types";
 
 export interface ILocationSearchState {
     selectedLocation: ILocation,
+    locationHistory: ILocation[],
 
     geocodeResults: ILocation[],
     geocodeIsLoading: boolean,
     geocodeErrorMessage: string,
-
-    userLocation?: ILocation,
-    userLocationIsLoading: boolean,
-    userLocationErrorMessage: string,
 }
 
 // Select location
@@ -49,28 +46,5 @@ interface IGeocodeFailureAction {
     errorMessage: string
 }
 
-// Locate user
-
-export const LOCATE_USER_START = 'LOCATE_USER_START';
-
-interface ILocateUserStartAction {
-    type: typeof LOCATE_USER_START,
-}
-
-export const LOCATE_USER_SUCCESS = 'LOCATE_USER_SUCCESS';
-
-interface ILocateUserSuccessAction {
-    type: typeof LOCATE_USER_SUCCESS,
-    location: ILocation
-}
-
-export const LOCATE_USER_FAILURE = 'LOCATE_USER_FAILURE';
-
-interface ILocateUserFailureAction {
-    type: typeof LOCATE_USER_FAILURE,
-    errorMessage: string
-}
-
 // Types
-
-export type LocationActionTypes = ISelectLocationAction | ISelectUserLocation | IGeocodeStartAction | IGeocodeSuccessAction | IGeocodeFailureAction | ILocateUserStartAction | ILocateUserSuccessAction | ILocateUserFailureAction;
+export type LocationActionTypes = ISelectLocationAction | ISelectUserLocation | IGeocodeStartAction | IGeocodeSuccessAction | IGeocodeFailureAction;
