@@ -1,10 +1,11 @@
 import { deleteCookie, getCookie, setCookie } from "../../helpers/cookies";
-import { geocodeCoordinates } from "../../location/geolocation";
 import { ILocation } from "../../location/types";
 import { GEOCODE_FAILURE, GEOCODE_START, GEOCODE_SUCCESS, ILocationSearchState, LocationActionTypes, SELECT_LOCATION } from "./types";
 
 const initialState = createInitialState();
 const MAX_HISTORY_LENGTH = 5;
+
+var deleteOldCookie = false; // TODO: Remove
 
 export function locationSearchReducer(state = initialState, action: LocationActionTypes): ILocationSearchState {
     switch (action.type) {
@@ -54,6 +55,7 @@ export function locationSearchReducer(state = initialState, action: LocationActi
 function saveHistory(history: ILocation[]): void {
     const str = JSON.stringify(history);
     setCookie("weather-locations", str, 60 * 60 * 24 * 365);
+    deleteCookie("weather-location");
 }
 
 function loadHistory(): ILocation[] {
@@ -66,51 +68,26 @@ function loadHistory(): ILocation[] {
         } catch { }
     }
 
-    // TODO: This if statement is temporary. Delete in future.
-    // If no weather locations found. Check the old cookie.
-    if (json === null) {
-        return convertOldCookie();
-    }
-
     return [];
 }
 
-// TODO: convertOldCookie is temporary. Delete in future.
+// TODO: This is temporary. Delete in future.
 /**
- * Checks if the old cookie is remaining. If so, delete it
- * and save in the new format. Also return saved weather as
- * history.
+ * Checks if the old cookie is remaining. If so, return the weather.
  */
-function convertOldCookie(): ILocation[] {
+function getOldCookie(): ILocation | null {
     const json = getCookie("weather-location");
 
     if (json !== null) {
+        deleteOldCookie = true;
         try {
-            let location: ILocation = JSON.parse(json);
-
-            const coords: GeolocationCoordinates = {
-                accuracy: 1,
-                altitude: location.alt,
-                altitudeAccuracy: 1,
-                heading: 1,
-                latitude: location.lat,
-                longitude: location.long,
-                speed: 1,
-            }
-
-            geocodeCoordinates(coords, {
-                onSuccess: (location: ILocation) => {
-                    saveHistory([location]);
-                    deleteCookie("weather-location");
-                }, onError: () => { }
-            })
-
-            return [location];
+            let old_location: ILocation = JSON.parse(json);
+            return old_location;
 
         } catch { }
     }
 
-    return [];
+    return null;
 }
 
 function getDefaultLocation(): ILocation {
@@ -130,7 +107,10 @@ function createInitialState(): ILocationSearchState {
     if (history.length > 0) {
         selectedLocation = history[0];
     } else {
-        selectedLocation = getDefaultLocation();
+        // TODO: This is temporary. Delete in future.
+        // Use old cookie if no history
+        const old = getOldCookie();
+        selectedLocation = old !== null ? old : getDefaultLocation();
     }
 
     return {

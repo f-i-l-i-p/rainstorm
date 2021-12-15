@@ -17,7 +17,7 @@ export function startGeolocate(listener: IUserPositionListener) {
 /**
  * Converts coordinates to a location
  */
-export async function geocodeCoordinates(coordinates: GeolocationCoordinates, listener: IUserPositionListener) {
+async function geocodeCoordinates(coordinates: GeolocationCoordinates, listener: IUserPositionListener) {
     const response = await fetchReverseGeocode(coordinates.latitude, coordinates.longitude);
 
     if (!response.ok) {
