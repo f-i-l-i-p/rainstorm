@@ -49,8 +49,8 @@ async function fetchReverseGeocode(latitude: number, longitude: number): Promise
  */
 function formatData(json: any): ILocation {
     return {
-        country: "Från din position",
-        name: json.address.city || json.address.municipality || json.address.county || json.address.country,
+        country: json.display_name,
+        name: "~" + (json.address.city || json.address.municipality || json.address.county || json.address.country),
         lat: json.lat,
         long: json.lon,
         alt: NaN,
