@@ -2,7 +2,7 @@ import React from "react";
 import WeatherTableList from "../../weather/WeatherTableList";
 import LocationSearch from "../../location/LocationSearch";
 import { Button, Spin, Typography } from 'antd';
-import { SearchOutlined, SettingOutlined, EnvironmentOutlined } from '@ant-design/icons';
+import { SearchOutlined, StopOutlined, SettingOutlined, EnvironmentOutlined, LoadingOutlined } from '@ant-design/icons';
 import './style.css';
 import { connect } from "react-redux";
 import { AppState } from "../../../store";
@@ -28,6 +28,8 @@ interface IWeatherPageProps {
 interface IWeatherPageState {
     showLocationSearch: boolean,
     showSettingsPage: boolean,
+    userLocationLoading: boolean,
+    userLocationError: boolean,
 }
 
 class WeatherPage extends React.Component<IWeatherPageProps, IWeatherPageState>{
@@ -37,6 +39,8 @@ class WeatherPage extends React.Component<IWeatherPageProps, IWeatherPageState>{
         this.state = {
             showLocationSearch: false,
             showSettingsPage: false,
+            userLocationLoading: false,
+            userLocationError: false,
         }
     }
 
@@ -76,14 +80,39 @@ class WeatherPage extends React.Component<IWeatherPageProps, IWeatherPageState>{
     }
 
     private geolocate() {
+        this.setState({
+            ...this.state,
+            userLocationLoading: true,
+        })
+
+        const updateState = (isError: boolean) => {
+            this.setState({
+                ...this.state,
+                userLocationLoading: false,
+                userLocationError: isError,
+            })
+        }
         startGeolocate({
             onSuccess: (location: ILocation) => {
                 this.props.selectLocation(location);
                 this.props.fetchForecasts(location);
+                updateState(false)
             },
             onError: () => {
+                updateState(true)
             }
         })
+    }
+
+    private getGeolocateIcon() {
+        if (this.state.userLocationLoading) {
+            return (<LoadingOutlined />)
+        }
+        else if (this.state.userLocationError) {
+            return (<StopOutlined />)
+        } else {
+            return (<EnvironmentOutlined />)
+        }
     }
 
 
@@ -95,7 +124,7 @@ class WeatherPage extends React.Component<IWeatherPageProps, IWeatherPageState>{
                     <div className="button-container">
                         <Button className="settings-button" ghost icon={<SettingOutlined />} shape="circle" size="large" onClick={() => this.openSettingsSearch()} />
                         <div>
-                            <Button className="user-location-button" ghost icon={<EnvironmentOutlined />} shape="circle" size="large" onClick={() => this.geolocate()} />
+                            <Button className="user-location-button" ghost icon={this.getGeolocateIcon()} shape="circle" size="large" onClick={() => this.geolocate()} />
                             <Button className="search-location-button" ghost icon={<SearchOutlined />} shape="circle" size="large" onClick={() => this.openLocationSearch()} />
                         </div>
                     </div>

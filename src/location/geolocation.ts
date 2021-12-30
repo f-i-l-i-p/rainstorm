@@ -8,7 +8,7 @@ export function startGeolocate(listener: IUserPositionListener) {
     const successCallback: PositionCallback = (position) => geocodeCoordinates(position.coords, listener);
 
     const errorCallback: PositionErrorCallback = (error) => {
-        // TODO
+        listener.onError()
     };
 
     navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
