@@ -32,7 +32,7 @@ const WeatherCell = (props: Props) => (
                         < Text strong>{Math.round(props.weather.temperature)} °C</Text>
                 }
                 {props.weather.symbol &&
-                    <img className='weather_symbol' alt="" src={require("../../../icons3/" + props.weather.symbol + ".svg").default} />
+                    <img className='weather_symbol' alt="" src={require("../../../icons3/" + props.weather.symbol + ".svg")} />
                 }
                 <div>
                     <div>
