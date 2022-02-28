@@ -21,6 +21,7 @@
 }
 
 .settings-button,
+.user-location-button,
 .search-location-button {
     margin: 10px;
     background: transparent !important;
@@ -28,4 +29,8 @@
     color: #8b8b8b !important;
     border-color: var(--secondaryTextColor) !important;
     color: var(--secondaryTextColor) !important;
+}
+
+.search-location-button {
+    margin-left: 0;
 }
