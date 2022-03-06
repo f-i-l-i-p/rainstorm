@@ -1,4 +1,5 @@
 import { deleteCookie, getCookie, setCookie } from "../../helpers/cookies";
+import { getUrlLocation, setUrlLocation } from "../../helpers/urlEncode";
 import { ILocation } from "../../location/types";
 import { GEOCODE_FAILURE, GEOCODE_START, GEOCODE_SUCCESS, ILocationSearchState, LocationActionTypes, SELECT_LOCATION } from "./types";
 
@@ -22,6 +23,7 @@ export function locationSearchReducer(state = initialState, action: LocationActi
             history.unshift(action.location);
 
             saveHistory(history);
+            setUrlLocation(action.location)
 
             return {
                 ...state,
@@ -90,7 +92,7 @@ function getOldCookie(): ILocation | null {
     return null;
 }
 
-function getDefaultLocation(): ILocation {
+export function getDefaultLocation(): ILocation {
     return {
         name: "Stockholm",
         country: "Sverige",
@@ -102,11 +104,23 @@ function getDefaultLocation(): ILocation {
 
 function createInitialState(): ILocationSearchState {
     const history = loadHistory();
+    const urlLocation = getUrlLocation()
 
     let selectedLocation: ILocation;
-    if (history.length > 0) {
+
+    if (urlLocation) {
+        selectedLocation = {
+            name: urlLocation.name,
+            country: "",
+            lat: urlLocation.lat,
+            long: urlLocation.lon,
+            alt: 0,
+        }
+    }
+    else if (history.length > 0) {
         selectedLocation = history[0];
-    } else {
+    }
+    else {
         // TODO: This is temporary. Delete in future.
         // Use old cookie if no history
         const old = getOldCookie();
