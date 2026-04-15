@@ -52,7 +52,8 @@ export default class SMHI extends AbstractProvider {
 
     protected async requestData(lat: string, long: string): Promise<Response> {
         const max = 9; // the maximum precision allowed by the api (including decimal point)
-        const result = await fetch('https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/'
+
+        const result = await fetch('https://opendata-download-metfcst.smhi.se/api/category/snow1g/version/1/geotype/point/lon/'
             + long.substr(0, max) + '/lat/' + lat.substr(0, max) + '/data.json');
 
         if (!result.ok) {
@@ -83,18 +84,18 @@ export default class SMHI extends AbstractProvider {
                 continue;
             }
 
-            const parameters: any[] = timeSerie.parameters;
+            const parameters = timeSerie.data;
 
             let weather = forecast.hours[hoursIndex].weather[this.name];
 
             //fillSingleWeather(parameters, weather);
 
-            weather.temperature = parameters.find(e => e.name === "t").values[0];
-            weather.precipitation = parameters.find(e => e.name === "pmean").values[0];
+            weather.temperature = parameters.air_temperature;
+            weather.precipitation = parameters.precipitation_amount_mean;
             weather.precipitationUnit = "mm";
-            weather.wind = parameters.find(e => e.name === "ws").values[0];
-            weather.gust = parameters.find(e => e.name === "gust").values[0];
-            weather.symbol = this.getIcon(parameters.find(e => e.name === "Wsymb2").values[0] as never)
+            weather.wind = parameters.wind_speed;
+            weather.gust = parameters.wind_speed_of_gust;
+            weather.symbol = this.getIcon(parameters.symbol_code as never)
 
             if (isNight(timeSerieDate, forecast.sunTimes)) {
                 weather.symbol = toNight(weather.symbol);
@@ -152,20 +153,20 @@ export default class SMHI extends AbstractProvider {
 
         while (index < timeSeries.length) {
             const timeSerie = timeSeries[index];
-            const timeSerieDate: Date = new Date(timeSerie.validTime);
+            const timeSerieDate: Date = new Date(timeSerie.time);
 
             if (timeSerieDate > endDate) {
                 index--
                 break;
             }
 
-            const parameters: any[] = timeSerie.parameters;
+            const parameters = timeSerie.data;
 
             // Precipitation
-            totalPrecipitation += parameters.find(e => e.name === "pmean").values[0];
+            totalPrecipitation += parameters.precipitation_amount_mean;
 
             // Temperature
-            const temp = parameters.find(e => e.name === "t").values[0];
+            const temp = parameters.air_temperature;
             if (isNaN(minTemp) || temp < minTemp) {
                 minTemp = temp;
             }
@@ -173,12 +174,12 @@ export default class SMHI extends AbstractProvider {
                 maxTemp = temp;
             }
             // Wind
-            const wind = parameters.find(e => e.name === "ws").values[0];
+            const wind = parameters.wind_speed;
             if (wind > maxWind) {
                 maxWind = wind;
             }
             // Gust
-            const gust = parameters.find(e => e.name === "gust").values[0];
+            const gust = parameters.wind_speed_of_gust;
             if (gust > maxGust) {
                 maxGust = gust;
             }
@@ -187,7 +188,7 @@ export default class SMHI extends AbstractProvider {
             //= parameters.find(e => e.name === "gust").values[0];
             //= this.getIcon(parameters.find(e => e.name === "Wsymb2").values[0] as never, timeSerieDate)
 
-            const symbol: number = parameters.find(e => e.name === "Wsymb2").values[0];
+            const symbol: number = parameters.symbol_code;
             if (symbol in symbols) {
                 symbols[symbol] += 1;
             } else {
