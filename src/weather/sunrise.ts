@@ -11,10 +11,10 @@ export interface SunTimes {
 }
 
 export async function getSunTimes(location: ILocation, callback: SunTimeCallback) {
-    const url = "https://api.met.no/weatherapi/sunrise/2.0/.json";
+    const url = "https://api.met.no/weatherapi/sunrise/3.0/sun";
     const dateString: string = (new Date()).toISOString().split('T')[0];
 
-    const request = url + "?lat=" + location.lat + "&lon=" + location.long + "&date=" + dateString + "&offset=00:00";
+    const request = url + "?lat=" + location.lat + "&lon=" + location.long + "&date=" + dateString + "&offset=+00:00";
 
     const result = await fetch(request);
 
@@ -28,8 +28,8 @@ export async function getSunTimes(location: ILocation, callback: SunTimeCallback
 function formatResponse(json: any, callback: SunTimeCallback): void {
     try {
         const result: SunTimes = {
-            sunrise: new Date(json.location.time[0].sunrise.time),
-            sunset: new Date(json.location.time[0].sunset.time),
+            sunrise: new Date(json.properties.sunrise.time),
+            sunset: new Date(json.properties.sunset.time),
         }
         callback.onSuccess(result);
     } catch (e: unknown) {
