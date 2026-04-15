@@ -47,7 +47,12 @@ async function fetchGeocodeData(searchTerm: string): Promise<Response> {
     const key = process.env.REACT_APP_LOCATIONIQ;
     const address = "https://api.locationiq.com/v1/autocomplete.php";
 
-    return fetch(`${address}?key=${key}&q=${searchTerm}&viewbox=3,44,32,71&limit=20&dedupe=1&accept-language=sv`);//&accept-language=native');
+    const countrycodes = "SE,DK,NO,AX,FI";
+    // Tag format: [class:type]
+    const tags = "place:*,natural:*,amenity:university";
+
+    // API reference: https://docs.locationiq.com/reference/autocomplete-2
+    return fetch(`${address}?key=${key}&q=${searchTerm}&countrycodes=${countrycodes}&tag=${tags}&limit=20&dedupe=1&accept-language=sv`);//&accept-language=native');
 }
 
 
